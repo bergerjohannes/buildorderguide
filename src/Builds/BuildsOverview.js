@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import DatabaseService from './DatabaseService'
+import BuildPreviewCard from './BuildPreviewCard'
+import DatabaseService from '../DatabaseService'
 
 const BuildsOverview = (props) => {
     const [builds, setBuilds] = useState([])
@@ -13,13 +14,11 @@ const BuildsOverview = (props) => {
 
     return (
         <div>
-            <h1 class='text-2xl'>All published builds</h1>
             <ul>
                 {builds !== undefined && builds.map(build => (
-                    <li>{build.title}</li>
+                    <BuildPreviewCard build={build} />
                 ))}
             </ul>
-
         </div>
     )
 }

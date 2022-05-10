@@ -1,4 +1,4 @@
-import BuildsOverview from "./BuildsOverview"
+import BuildsOverview from "./Builds/BuildsOverview"
 
 function App() {
   return (
