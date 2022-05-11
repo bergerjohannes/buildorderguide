@@ -9,7 +9,6 @@ const BuildsOverview = (props) => {
         DatabaseService.loadAllPublishedBuilds().then(b => {
             setBuilds(b)
         })
-
     }, [])
 
     return (

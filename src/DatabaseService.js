@@ -15,7 +15,7 @@ class DatabaseService {
     }
 
     static async loadPublishedBuildWithId(id) {
-        const docRef = doc(store, 'published-builds–', id)
+        const docRef = doc(store, 'published-builds', id)
         const docSnap = await getDoc(docRef)
 
         if (docSnap.exists()) {
