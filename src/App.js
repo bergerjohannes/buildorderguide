@@ -1,11 +1,16 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom"
 import BuildsOverview from "./Builds/BuildsOverview"
+import BuildView from "./Builds/BuildView"
+
 
 function App() {
   return (
-    <div>
-     <h1 class='text-4xl mb-10'>Build Order Guide</h1>
-     <BuildsOverview />
-    </div>
+    <BrowserRouter basename='/'>
+      <Routes>
+        <Route exact path='/' element={<BuildsOverview />} />
+        <Route path='/build/:buildId' element={<BuildView />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
