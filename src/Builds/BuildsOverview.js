@@ -13,11 +13,12 @@ const BuildsOverview = (props) => {
 
     return (
         <div>
-            <ul>
+            <h1 class='text-4xl text-center bold text-gray-600'>All published builds</h1>
+            <div class='flex flex-wrap justify-center'>
                 {builds !== undefined && builds.map(build => (
                     <BuildPreviewCard build={build} />
                 ))}
-            </ul>
+            </div>
         </div>
     )
 }
