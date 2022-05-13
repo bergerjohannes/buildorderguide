@@ -4,9 +4,17 @@ import DifficultyIndicator from './DifficultyIndicator'
 import PopIndicator from './PopIndicator'
 
 const BuildPreviewCard = (props) => {
+
+    const isOfficialBuild = (publisher) => publisher === 'nOuk4lquYrXt4H2xafiZpPUFvN82' // Everything that is published by this Id is a verified build currently
+
     return (
         <Link to={{ pathname: `/build/${props.build.id}` }}>
             <div class='overflow-hidden transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-105 relative w-10/12 md:w-9/12 mt-10 mx-auto sm:w-1/2 max-w-sm bg-white shadow-xl cursor-pointer rounded-2xl'>
+
+                {isOfficialBuild(props.build.publisher) === false && <div class='absolute transform rotate-45 bg-gray-400 text-center text-white font-semibold py-1 right-[-34px] top-[32px] w-[170px]'>
+                    Community
+                </div>}
+
                 <h1 class='m-5 text-xl font-bold'>{props.build.title}</h1>
                 <h3 class='ml-5 pb-5 -mt-5 text-md font-bold text-gray-400'>{props.build.author}</h3>
 
