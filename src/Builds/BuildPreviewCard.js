@@ -2,10 +2,12 @@ import { Link } from 'react-router-dom'
 import AttributesView from './AttributesView'
 import DifficultyIndicator from './DifficultyIndicator'
 import PopIndicator from './PopIndicator'
+import BuildData from './BuildData'
 
 const BuildPreviewCard = (props) => {
 
     const isOfficialBuild = (publisher) => publisher === 'nOuk4lquYrXt4H2xafiZpPUFvN82' // Everything that is published by this Id is a verified build currently
+    const buildTitle = BuildData.getTitleForBuild(props.build)
 
     return (
         <Link to={{ pathname: `/build/${props.build.id}` }}>
@@ -15,7 +17,7 @@ const BuildPreviewCard = (props) => {
                     Community
                 </div>}
 
-                <h1 class='m-5 text-xl font-bold overflow-clip h-7'>{props.build.title}</h1>
+                <h1 class='m-5 text-xl font-bold overflow-clip h-7'>{buildTitle}</h1>
                 <h3 class='ml-5 pb-5 -mt-5 text-md font-bold text-gray-400'>{props.build.author}</h3>
 
                 <div class='grid overflow-hidden grid-cols-4 grid-rows-4 gap-0'>
