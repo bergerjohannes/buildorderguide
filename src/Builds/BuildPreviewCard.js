@@ -3,10 +3,11 @@ import AttributesView from './AttributesView'
 import DifficultyIndicator from './DifficultyIndicator'
 import PopIndicator from './PopIndicator'
 import BuildData from './BuildData'
+import * as Constants from '../Constants'
 
 const BuildPreviewCard = (props) => {
 
-    const isOfficialBuild = (publisher) => publisher === 'nOuk4lquYrXt4H2xafiZpPUFvN82' // Everything that is published by this Id is a verified build currently
+    const isOfficialBuild = (publisher) => publisher === Constants.OfficialPublisherId
     const buildTitle = BuildData.getTitleForBuild(props.build)
 
     return (

@@ -1,3 +1,5 @@
+export const OfficialPublisherId = 'nOuk4lquYrXt4H2xafiZpPUFvN82' // Everything that is published by this Id is a verified build currently
+
 export const StepType = {
 	NewAge: 'newAge',
 	NewVillagers: 'newVillagers',
