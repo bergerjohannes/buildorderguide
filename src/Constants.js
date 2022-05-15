@@ -1,10 +1,13 @@
 export const OfficialPublisherId = 'nOuk4lquYrXt4H2xafiZpPUFvN82' // Everything that is published by this Id is a verified build currently
 
+export const ReleaseDateLordsOfTheWest = 1611680400 // Lords of the West add-on release on 01/26/2021 17:00 UTC
+export const ReleaseDateDawnOfTheDukes = 1628611200 // Dawn of the Dukes add-on release on 08/10/2021 17:00 UTC
+
 export const StepType = {
-	NewAge: 'newAge',
-	NewVillagers: 'newVillagers',
-	MoveVillagers: 'moveVillagers',
-	CollectGold: 'collectGold',
+    NewAge: 'newAge',
+    NewVillagers: 'newVillagers',
+    MoveVillagers: 'moveVillagers',
+    CollectGold: 'collectGold',
     Decision: 'decision',
     AgeUp: 'ageUp',
     Lure: 'lure',
@@ -51,4 +54,13 @@ export const Age = {
     FeudalAge: 'feudalAge',
     CastleAge: 'castleAge',
     ImperialAge: 'imperialAge'
+}
+
+export const Civ = {
+    Chinese: 'Chinese',
+    Goths: 'Goths',
+    Malay: 'Malay',
+    Mayans: 'Mayans',
+    Persians: 'Persians',
+    Portuguese: 'Portuguese'
 }
