@@ -64,3 +64,14 @@ export const Civ = {
     Persians: 'Persians',
     Portuguese: 'Portuguese'
 }
+
+export const AuthType = {
+	LogIn: 0,
+	SignUp: 1
+}
+
+export const AuthStatus = {
+	Undefined: 0,
+	CallingAPI: 1,
+	LoggedIn: 2
+}
