@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import DatabaseService from '../DatabaseService'
 import { useUserAuth } from './Auth'
+import Sidebar from '../UI/Sidebar'
 
 const ProfileView = (props) => {
     const { user, logOut } = useUserAuth()
@@ -31,6 +32,7 @@ const ProfileView = (props) => {
 
     return (
         <div>
+            <Sidebar />
             <div class='flex flex-col justify-center flex-wrap w-full'>
                 <h1 class='text-gray-600 text-center text-3xl mt-20'>Profile</h1>
                 <p class='w-full text-center mt-8'>Welcome, {user.email}</p>
