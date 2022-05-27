@@ -1,6 +1,3 @@
-import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import DatabaseService from '../DatabaseService'
 import AttributesView from './AttributesView'
 import BuildOrderStepsView from './BuildOrderStepsView'
 import DifficultyIndicator from './DifficultyIndicator'
@@ -8,18 +5,11 @@ import PopIndicator from './PopIndicator'
 import UptimeIndicator from './UptimeIndicator'
 import BuildData from './BuildData'
 import * as Constants from '../Constants'
+import LoadingIndicator from '../LoadingIndicator'
 
 const BuildView = (props) => {
-    let { buildId } = useParams()
-    const [build, setBuild] = useState(undefined)
-
-    useEffect(() => {
-        DatabaseService.loadPublishedBuildWithId(buildId).then(b => {
-            setBuild(b)
-        })
-    }, [])
-
-    if (build === undefined) return (<></>)
+    const build = props.build
+    if (build === undefined) return (<LoadingIndicator />)
 
     const buildTitle = BuildData.getTitleForBuild(build)
     const isOfficialBuild = build.publisher === Constants.OfficialPublisherId

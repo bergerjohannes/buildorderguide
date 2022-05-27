@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import BuildsOverview from './Builds/BuildsOverview'
-import BuildView from './Builds/BuildView'
+import BuildDetailView from './Builds/BuildDetailView'
 import UptimeCalculatorView from './Uptime/UptimeCalculatorView'
 import ProtectedRoute from './Auth/ProtectedRoute'
 import AuthenticationView from './Auth/AuthenticationView'
@@ -14,7 +14,7 @@ function App() {
       <BrowserRouter basename='/'>
         <Routes>
           <Route exact path='/' element={<BuildsOverview />} />
-          <Route path='/build/:buildId' element={<BuildView />} />
+          <Route path='/build/:buildId' element={<BuildDetailView />} />
           <Route path='/uptime' element={<UptimeCalculatorView />} />
           <Route path='/sign-up' element={<AuthenticationView auth={Constants.AuthType.SignUp} />} />
           <Route path='/log-in' element={<AuthenticationView auth={Constants.AuthType.LogIn} />} />
