@@ -7,6 +7,7 @@ import AuthenticationView from './Auth/AuthenticationView'
 import * as Constants from './Constants'
 import { UserAuthContextProvider } from './Auth/Auth.js'
 import ProfileView from './Auth/ProfileView'
+import StatsOverview from './Stats/StatsOverview'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path='/sign-up' element={<AuthenticationView auth={Constants.AuthType.SignUp} />} />
           <Route path='/log-in' element={<AuthenticationView auth={Constants.AuthType.LogIn} />} />
           <Route path='/profile' element={<ProtectedRoute><ProfileView /></ProtectedRoute>} />
+          <Route path='/stats' element={<ProtectedRoute><StatsOverview /></ProtectedRoute>} />
         </Routes>
       </BrowserRouter>
     </UserAuthContextProvider>
