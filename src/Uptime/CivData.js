@@ -6,6 +6,11 @@ const CivData = {
           uniqueTechs: ['Atlatl', 'GarlandWars']
       },
       {
+          name: 'Bengalis',
+          uniqueUnits: ['Ratha'],
+          uniqueTechs: ['Paiks', 'Mahayana']
+      },
+      {
           name: 'Berbers',
           uniqueUnits: ['CamelArcher', 'Genitour'],
           uniqueTechs: ['Kasbah', 'MaghrebiCamels']
@@ -56,6 +61,11 @@ const CivData = {
           uniqueTechs: ['SteppeHusbandry', 'CumanMercenaries']
       },
       {
+          name: 'Dravidians',
+          uniqueUnits: ['UrumiSwordsman', 'Thirisadai'],
+          uniqueTechs: ['MedicalCorps', 'WootzSteel']
+      },
+      {
           name: 'Ethiopians',
           uniqueUnits: ['ShotelWarrior'],
           uniqueTechs: ['RoyalHeirs', 'TorsionEngines']
@@ -71,6 +81,16 @@ const CivData = {
           uniqueTechs: ['Anarchy', 'Perfusion']
       },
       {
+          name: 'Gurjaras',
+          uniqueUnits: ['ChakramThrower', 'ShrivamshaRider', 'CamelScout'],
+          uniqueTechs: ['Kshatriyas', 'FrontierGuards']
+      },
+      {
+          name: 'Hindustanis',
+          uniqueUnits: ['Ghulam', 'ImperialCamelRider'],
+          uniqueTechs: ['GrandTrunkRoad', 'Shatagni']
+      },
+      {
           name: 'Huns',
           uniqueUnits: ['Tarkan'],
           uniqueTechs: ['Marauders', 'Atheism']
@@ -79,11 +99,6 @@ const CivData = {
           name: 'Incas',
           uniqueUnits: ['Kamayuk', 'Slinger'],
           uniqueTechs: ['AndeanSling', 'FabricShields']
-      },
-      {
-          name: 'Indians',
-          uniqueUnits: ['ElephantArcher', 'ImperialCamelRider'],
-          uniqueTechs: ['Sultans', 'Shatagni']
       },
       {
           name: 'Italians',
