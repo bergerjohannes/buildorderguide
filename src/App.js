@@ -8,6 +8,7 @@ import * as Constants from './Constants'
 import { UserAuthContextProvider } from './Auth/Auth.js'
 import ProfileView from './Auth/ProfileView'
 import StatsOverview from './Stats/StatsOverview'
+import ChallengeOverview from './Leagues/ChallengeOverview'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path='/log-in' element={<AuthenticationView auth={Constants.AuthType.LogIn} />} />
           <Route path='/profile' element={<ProtectedRoute><ProfileView /></ProtectedRoute>} />
           <Route path='/stats' element={<ProtectedRoute><StatsOverview /></ProtectedRoute>} />
+          <Route path='/challenge' element={<ProtectedRoute><ChallengeOverview /></ProtectedRoute>} />         
         </Routes>
       </BrowserRouter>
     </UserAuthContextProvider>
