@@ -2,6 +2,7 @@ export const OfficialPublisherId = 'nOuk4lquYrXt4H2xafiZpPUFvN82' // Everything 
 
 export const ReleaseDateLordsOfTheWest = 1611680400 // Lords of the West add-on release on 01/26/2021 17:00 UTC
 export const ReleaseDateDawnOfTheDukes = 1628611200 // Dawn of the Dukes add-on release on 08/10/2021 17:00 UTC
+export const ReleaseDateDynastiesOfIndia = 1651158000 // Dynasties of India add-on release on 04/28/2022 17:00 UTC
 
 export const StepType = {
     NewAge: 'newAge',

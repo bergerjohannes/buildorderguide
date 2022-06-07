@@ -15,31 +15,27 @@ class CivInfoService {
     }
 
     static correctCivsForOlderMatches(matches) {
-        const releaseDateLordsOfTheWest = 1611680400 // Lords of the West add-on release on 01/26/2021 17:00 UTC
-        const releaseDateDawnOfTheDukes = 1628611200 // Dawn of the Dukes add-on release on 08/10/2021 17:00 UTC
-        const releaseDateDynastiesOfIndia = 1651158000 // Dynasties of India add-on release on 04/28/2022 17:00 UTC
-
         matches.forEach(match => {
             match.players.forEach(player => {
                 player.civ = player.civ_alpha
             })
         })
 
-        matches.filter(match => match.started < releaseDateLordsOfTheWest).forEach(match => {
+        matches.filter(match => match.started < Constants.ReleaseDateLordsOfTheWest).forEach(match => {
             match.players.forEach(player => {
                 if (player.civ >= 4) player.civ++
                 if (player.civ >= 29) player.civ++
             })
         })
 
-        matches.filter(match => match.started < releaseDateDawnOfTheDukes).forEach(match => {
+        matches.filter(match => match.started < Constants.ReleaseDateDawnOfTheDukes).forEach(match => {
             match.players.forEach(player => {
                 if (player.civ >= 2) player.civ++
                 if (player.civ >= 28) player.civ++
             })
         })
 
-        matches.filter(match => match.started < releaseDateDynastiesOfIndia).forEach(match => {
+        matches.filter(match => match.started < Constants.ReleaseDateDynastiesOfIndia).forEach(match => {
             match.players.forEach(player => {
                 if (player.civ >= 1) player.civ++
                 if (player.civ >= 12) player.civ++
