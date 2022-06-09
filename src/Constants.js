@@ -12,6 +12,7 @@ export const StepType = {
     Decision: 'decision',
     AgeUp: 'ageUp',
     Lure: 'lure',
+    Boar: 'getBoar',
     Build: 'build',
     Research: 'research',
     TrainUnit: 'trainUnit',
@@ -36,7 +37,10 @@ export const Task = {
     StragglerTree: 'stragglerTree',
     Gold: 'gold',
     Stone: 'stone',
-    Build: 'build'
+    Build: 'build',
+    Collect10GoldAfterBarracksIsBuilt: 'collect10GoldAfterBarracksIsBuilt',
+    collect30GoldWithNewVillager: 'collect30GoldWithNewVillager',
+    Collect40GoldWithTwoNewVillagers: 'collect40GoldWithTwoNewVillagers'
 }
 
 export const Action = {
@@ -47,7 +51,17 @@ export const Action = {
 export const Building = {
     House: 'house',
     Dock: 'dock',
-    Barracks: 'barracks'
+    Barracks: 'barracks',
+    Blacksmith: 'blacksmith',
+    Market: 'market',
+    Mill: 'mill'
+}
+
+export const Tech = {
+    DoubleBitAxe: 'doubleBitAxe',
+    HorseCollar: 'horseCollar',
+    Fletching: 'fletching',
+    Loom: 'loom'
 }
 
 export const Age = {
@@ -57,7 +71,14 @@ export const Age = {
     ImperialAge: 'imperialAge'
 }
 
+export const Unit = {
+    Militia: 'militia'
+}
+
 export const Civ = {
+    Generic: 'Generic',
+    Unknown: 'Unknown',
+    Meso: 'Meso',
     Chinese: 'Chinese',
     Goths: 'Goths',
     Malay: 'Malay',
@@ -67,12 +88,24 @@ export const Civ = {
 }
 
 export const AuthType = {
-	LogIn: 0,
-	SignUp: 1
+    LogIn: 0,
+    SignUp: 1
 }
 
 export const AuthStatus = {
-	Undefined: 0,
-	CallingAPI: 1,
-	LoggedIn: 2
+    Undefined: 0,
+    CallingAPI: 1,
+    LoggedIn: 2
+}
+
+export const PublishStatus = {
+    Published: 'published',
+    Draft: 'draft',
+    Changed: 'changed'
+}
+
+export const Difficulty = {
+    Beginner: 'Beginner',
+    Intermediate: 'Intermediate',
+    Advanced: 'Advanced'
 }
