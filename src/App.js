@@ -9,6 +9,8 @@ import { UserAuthContextProvider } from './Auth/Auth.js'
 import ProfileView from './Auth/ProfileView'
 import StatsOverview from './Stats/StatsOverview'
 import ChallengeOverview from './Leagues/ChallengeOverview'
+import BuilderOverview from './Builder/BuilderOverview'
+import BuilderDetailView from './Builder/BuilderDetailView'
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           <Route path='/profile' element={<ProtectedRoute><ProfileView /></ProtectedRoute>} />
           <Route path='/stats' element={<ProtectedRoute><StatsOverview /></ProtectedRoute>} />
           <Route path='/challenge' element={<ProtectedRoute><ChallengeOverview /></ProtectedRoute>} />         
+          <Route path='/builder' element={<ProtectedRoute><BuilderOverview /></ProtectedRoute>} />  
+          <Route path='/builder/build/:buildId' element={<ProtectedRoute><BuilderDetailView /></ProtectedRoute>} />         
         </Routes>
       </BrowserRouter>
     </UserAuthContextProvider>

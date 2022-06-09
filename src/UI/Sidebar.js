@@ -34,6 +34,7 @@ const Sidebar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
                         <MenuItem><Link to='/uptime'>Uptime</Link></MenuItem>
                         <MenuItem><Link to='/stats'>Stats</Link></MenuItem>
                         <MenuItem><Link to='/challenge'>Challenge</Link></MenuItem>
+                        <MenuItem><Link to='/builder'>Builder</Link></MenuItem>
                     </Menu>
                     <Menu>
                         <MenuItem><Link to='/profile'>Profile</Link></MenuItem>
