@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useUserAuth } from '../Auth/Auth.js'
-import Sidebar from '../UI/Sidebar.js'
+import Menu from '../UI/Menu'
 import DatabaseService from '../DatabaseService.js'
 import BuilderOverviewTable from './BuilderOverviewTable.js'
 import { Navigate } from "react-router-dom";
@@ -43,7 +43,7 @@ const BuilderOverview = (props) => {
 
     return (
         <div>
-            <Sidebar />
+            <Menu />
             <div class='w-1/2 m-auto'>
                 <h1 class=''>Build Order Builder</h1>
                 {builds !== undefined && <BuilderOverviewTable builds={builds} />}

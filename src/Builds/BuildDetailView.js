@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import DatabaseService from '../DatabaseService'
-import Sidebar from '../UI/Sidebar'
+import Menu from '../UI/Menu'
 import BuildView from './BuildView'
 
 const BuildDetailView = (props) => {
@@ -16,7 +16,7 @@ const BuildDetailView = (props) => {
 
     return (
         <div>
-            <Sidebar />
+            <Menu />
             {build && <BuildView build={build}/>}
         </div>
     )

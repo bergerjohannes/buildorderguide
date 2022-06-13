@@ -1,7 +1,7 @@
 import { useUserAuth } from '../Auth/Auth'
 import { useEffect, useState } from 'react'
 import DatabaseService from '../DatabaseService'
-import Sidebar from '../UI/Sidebar'
+import Menu from '../UI/Menu'
 import StatsInfoService from './StatsInfoService'
 import MatchCard from './MatchCard'
 import RatingsGraph from './RatingsGraph'
@@ -63,7 +63,7 @@ const StatsOverview = (props) => {
 
     return (
         <div class='text-center'>
-            <Sidebar />
+            <Menu />
             <p class='my-12 text-4xl'>1v1 Random Map Stats</p>
             {ratings !== undefined && <div class='w-1/2 h-96 mx-auto my-12'><RatingsGraph data={ratings}/></div>}
             <p class='my-12'>Showing data for your last 1,000 matches.</p>

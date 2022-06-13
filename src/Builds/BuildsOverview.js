@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import BuildPreviewCard from './BuildPreviewCard'
 import DatabaseService from '../DatabaseService'
-import Sidebar from '../UI/Sidebar'
+import Menu from '../UI/Menu'
 
 const BuildsOverview = (props) => {
     const [builds, setBuilds] = useState([])
@@ -25,7 +25,7 @@ const BuildsOverview = (props) => {
 
     return (
         <div>
-            <Sidebar />
+            <Menu />
             <h1 class='text-4xl text-center bold text-gray-600 my-10'>Build Order Guide</h1>
             {builds !== undefined && <input class='block shadow-inner rounded-md p-2 mx-auto my-4 outline-gray-600 text-gray-600' placeholder='Search builds' onChange={handleSearch} />}
             <div class='w-8/12 m-auto flex flex-wrap justify-center'>

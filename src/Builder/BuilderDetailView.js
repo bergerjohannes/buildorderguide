@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import DatabaseService from '../DatabaseService'
 import BuildView from '../Builds/BuildView'
-import Sidebar from '../UI/Sidebar'
+import Menu from '../UI/Menu'
 import BuilderBuildCreationView from './BuilderBuildCreationView'
 import * as Constants from '../Constants'
 import BuilderDetailInfoSection from './BuilderDetailInfoSection'
@@ -165,7 +165,7 @@ const BuilderDetailView = (props) => {
 
     return (
         <div>
-            <Sidebar />
+            <Menu />
             <BuilderDetailInfoSection title={title} setTitle={setTitle} author={author} setAuthor={setAuthor} description={description} setDescription={setDescription} reference={reference} setReference={setReference} civilization={civilization} setCivilization={setCivilization} attributes={attributes} setAttributes={setAttributes} image={image} setImage={setImage} availableImages={availableImages} setAvailableImages={setAvailableImages} imgURL={imgURL} setImageURL={setImageURL} difficulty={difficulty} setDifficulty={setDifficulty} />
             {build !== undefined && <BuilderBuildCreationView build={build.build} addStep={addStep} updateStep={updateStep} removeStep={removeStep} />}
             {build !== undefined && <BuildView build={build} />}

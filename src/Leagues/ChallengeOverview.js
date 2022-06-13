@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useUserAuth } from '../Auth/Auth'
-import Sidebar from '../UI/Sidebar'
+import Menu from '../UI/Menu'
 import DatabaseService from '../DatabaseService'
 import CivChallengeView from './CivChallengeView'
 import ChallengeService from './ChallengeService'
@@ -50,7 +50,7 @@ const ChallengeOverview = (props) => {
 
     return (
         <div>
-            <Sidebar />
+            <Menu />
             <div class='text-center'>
                 <h1 class='text-2xl'>Civ Challenge</h1>
                 <p class='my-8'><b>{start.toDateString()}</b> until <b>{end.toDateString()}</b></p>
