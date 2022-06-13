@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import CivInfoService from './CivInfoService.js'
 import Select from 'react-select'
-import Sidebar from '../UI/Sidebar.js'
+import Menu from '../UI/Menu.js'
 
 const UptimeCalculatorView = (props) => {
 
@@ -92,7 +92,7 @@ const UptimeCalculatorView = (props) => {
 
     return (
         <div>
-            <Sidebar />
+            <Menu />
             <h1 class='text-4xl text-center bold text-gray-600 my-10'>Uptime Calculator</h1>
             <p class='w-11/12 max-w-lg mx-auto'>Select civilization, population when clicking up (including scout), and whether you researched loom to find out what time you should reach with flawless execution.</p>
 
