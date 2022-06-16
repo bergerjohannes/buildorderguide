@@ -49,7 +49,7 @@ const BuildOrderStepsView = (props) => {
     }
 
     return (
-        <div class='flex flex-col w-11/12 md:max-w-2xl m-auto text-gray-600 pb-16 text-xs md:text-base'>
+        <div class='flex flex-col w-11/12 md:max-w-2xl m-auto text-main-dark pb-16 text-xs md:text-base'>
             <div class='flex justify-end'><WorkerDistributionHeaderView showGold={showGold} showStone={showStone} showBuilder={showBuilder} /></div>
             <hr class='my-4' />
             {props.build.map((step, index) => (

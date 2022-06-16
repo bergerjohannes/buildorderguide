@@ -5,6 +5,8 @@ import { Navigate } from 'react-router-dom'
 import LoadingIndicator from '../LoadingIndicator'
 import EmailAndPasswordInputView from './EmailAndPasswordInputView'
 import { useUserAuth } from './Auth'
+import Button from '../UI/Button'
+import Heading1 from '../UI/Heading1'
 
 const AuthenticationView = (props) => {
 
@@ -57,10 +59,10 @@ const AuthenticationView = (props) => {
     return (
         <div>
             <div class='flex justify-center flex-wrap w-full'>
-                <h1 class='text-gray-600 text-center text-3xl mt-20'>{header}</h1>
+                <Heading1>{header}</Heading1>
                 <EmailAndPasswordInputView email={email} password={password} updateEmail={(event) => setEmail(event.target.value)} updatePassword={(event) => setPassword(event.target.value)} />
                 {error !== undefined && <div class='w-full'><div class='m-auto text-center text-red-400 font-bold'>{error}</div></div>}
-                <button class='bg-black text-white hover:bg-white hover:shadow-lg hover:text-black rounded-md p-2' onClick={authenticate}>{callToAction}</button>
+                <Button onClick={authenticate}>{callToAction}</Button>
             </div>
         </div>
     )

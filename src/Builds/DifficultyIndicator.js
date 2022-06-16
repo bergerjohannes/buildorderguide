@@ -14,8 +14,8 @@ const DifficultyIndicator = (props) => {
     }
 
     return (
-        <span class='flex pace-x-2 text-gray-600'>
-            <div class='flex bg-slate-300 pl-1 pr-2 rounded-md'>
+        <span class='flex pace-x-2 text-main-dark'>
+            <div class='flex bg-secondary-light pl-1 pr-2 rounded-md'>
             {props.difficulty === 1 && <img class='w-6 h-6' src={require('../Images/Medals/Bronze.png')} alt='Beginner Icon' />}
             {props.difficulty === 2 && <img class='w-6 h-6' src={require('../Images/Medals/Silver.png')} alt='Intermediate Icon' />}
             {props.difficulty === 3 && <img class='w-6 h-6' src={require('../Images/Medals/Gold.png')} alt='Advanced Icon' />}

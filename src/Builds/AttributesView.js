@@ -22,9 +22,9 @@ const AttributesView = (props) => {
     }
     
     return (
-        <div class='flex space-x-2 h-6 w-max overflow-scroll'>
+        <div class='flex space-x-2 h-fit'>
             {props.attributes !== undefined && props.attributes.map(attribute => (
-                <div class='bg-slate-300 text-gray-600 px-2 rounded-md'>{getAttribute(attribute)}</div>
+                <div class='bg-secondary-light text-main-dark px-2 rounded-md'>{getAttribute(attribute)}</div>
             ))}
         </div>
     )
