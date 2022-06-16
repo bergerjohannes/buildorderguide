@@ -3,6 +3,8 @@ import BuildPreviewCard from './BuildPreviewCard'
 import DatabaseService from '../DatabaseService'
 import Menu from '../UI/Menu'
 import Heading1 from '../UI/Heading1'
+import Input from '../UI/Input'
+import LoadingIndicator from '../UI/LoadingIndicator'
 
 const BuildsOverview = (props) => {
     const [builds, setBuilds] = useState([])
@@ -28,7 +30,8 @@ const BuildsOverview = (props) => {
         <div>
             <Menu />
             <Heading1>Builds</Heading1>
-            {builds !== undefined && <input class='block rounded-md p-2 mx-auto w-11/12 md:w-9/12 max-w-sm my-4 outline-transparent bg-secondary-light text-main-dark placeholder-main-light' placeholder='Search builds' onChange={handleSearch} />}
+            {builds.length === 0 && <LoadingIndicator text={'Loading'} />}
+            {builds.length > 0 && <Input placeholder='Search builds' onChange={handleSearch} />}
             <div class='w-11/12 md:w-9/12 m-auto flex flex-wrap justify-center'>
                 {buildsToDisplay !== undefined && buildsToDisplay.map(build => (
                     <BuildPreviewCard build={build} />

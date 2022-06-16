@@ -5,7 +5,7 @@ import PopIndicator from './PopIndicator'
 import UptimeIndicator from './UptimeIndicator'
 import BuildData from './BuildData'
 import * as Constants from '../Constants'
-import LoadingIndicator from '../LoadingIndicator'
+import LoadingIndicator from '../UI/LoadingIndicator'
 import Heading1 from '../UI/Heading1'
 
 const BuildView = (props) => {

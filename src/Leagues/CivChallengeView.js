@@ -18,7 +18,7 @@ const CivChallengeView = (props) => {
     }
 
     return (
-        <div class='w-1/2 p-4 flex-wrap m-auto flex justify-center'>
+        <div class='w-full md:w-1/2 p-0 flex-wrap m-auto flex justify-center'>
             {CivInfoService.getCivilizations().map((civ, index) => (
                 <>{getCivilizationImage(civ, index)}</>
             ))}

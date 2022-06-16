@@ -2,6 +2,7 @@ import AddBuildStepOptionsView from './AddBuildStepOptionsView'
 import { useState } from 'react'
 import BuilderStepView from './BuilderStepView'
 import * as Constants from '../Constants'
+import CenteredButton from '../UI/CenteredButton'
 
 const BuilderBuildCreationView = (props) => {
     const [addingStep, setAddingStep] = useState(false)
@@ -24,7 +25,7 @@ const BuilderBuildCreationView = (props) => {
             ))}
 
             {addingStep === true && <AddBuildStepOptionsView addStep={props.addStep} close={closeMenu} latestAgeResearched={latestAgeResearched} />}
-            {addingStep === false && <button class='bg-black rounded-md text-white w-fit p-4 m-auto' onClick={openMenu}>Add step</button>}
+            {addingStep === false && <CenteredButton onClick={openMenu}>Add step</CenteredButton>}
         </div >
     )
 }

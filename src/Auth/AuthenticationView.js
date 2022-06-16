@@ -2,11 +2,12 @@
 import React, { useState } from 'react'
 import * as Constants from '../Constants'
 import { Navigate } from 'react-router-dom'
-import LoadingIndicator from '../LoadingIndicator'
+import LoadingIndicator from '../UI/LoadingIndicator'
 import EmailAndPasswordInputView from './EmailAndPasswordInputView'
 import { useUserAuth } from './Auth'
 import Button from '../UI/Button'
 import Heading1 from '../UI/Heading1'
+import Menu from '../UI/Menu'
 
 const AuthenticationView = (props) => {
 
@@ -58,6 +59,7 @@ const AuthenticationView = (props) => {
 
     return (
         <div>
+            <Menu />
             <div class='flex justify-center flex-wrap w-full'>
                 <Heading1>{header}</Heading1>
                 <EmailAndPasswordInputView email={email} password={password} updateEmail={(event) => setEmail(event.target.value)} updatePassword={(event) => setPassword(event.target.value)} />

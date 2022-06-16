@@ -18,7 +18,7 @@ const PublishIndicator = (props) => {
     if (props.status === undefined) return <></>
 
     return (
-        <div class='h-10 flex justify-center w-full'>
+        <div class='h-10 flex justify-center w-full text-main-dark'>
             <div class='flex space-x-2'>
                 {getIndicator()}
                 <span>{props.status[0].toUpperCase() + props.status.slice(1)}</span>
