@@ -28,7 +28,7 @@ const BuildsOverview = (props) => {
         <div>
             <Menu />
             <Heading1>Builds</Heading1>
-            {builds !== undefined && <input class='block shadow-inner rounded-md p-2 mx-auto my-4 outline-primary-light text-main-dark placeholder-main-light' placeholder='Search builds' onChange={handleSearch} />}
+            {builds !== undefined && <input class='block rounded-md p-2 mx-auto w-9/12 max-w-sm my-4 outline-transparent bg-secondary-light text-main-dark placeholder-main-light' placeholder='Search builds' onChange={handleSearch} />}
             <div class='w-8/12 m-auto flex flex-wrap justify-center'>
                 {buildsToDisplay !== undefined && buildsToDisplay.map(build => (
                     <BuildPreviewCard build={build} />

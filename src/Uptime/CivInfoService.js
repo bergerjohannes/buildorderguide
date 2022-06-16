@@ -68,8 +68,8 @@ class CivInfoService {
             }
         }
 
-        const minutesFeudal = (Math.floor(time / 60) < 10) ? '0' + Math.floor(time / 60) : Math.floor(time / 60)
-        const secondsFeudal = (time % 60 < 10) ? '0' + Math.floor(time % 60) : Math.floor(time % 60)
+        const minutesFeudal = (Math.floor(time / 60) < 10) ? '0' + Math.floor(time / 60) : '' + Math.floor(time / 60)
+        const secondsFeudal = (time % 60 < 10) ? '0' + Math.floor(time % 60) : '' + Math.floor(time % 60)
 
         time += 160 // Castle Age research time
         time += popCastle * 25
@@ -77,8 +77,8 @@ class CivInfoService {
         if (civ === Constants.Civ.Malay) time -= 64 // Malay faster Castle Age research time
         if (civ === Constants.Civ.Persians) time -= popCastle * 25 * 0.1
 
-        const minutesCastle = (Math.floor(time / 60) < 10) ? '0' + Math.floor(time / 60) : Math.floor(time / 60)
-        const secondsCastle = (time % 60 < 10) ? '0' + Math.floor(time % 60) : Math.floor(time % 60)
+        const minutesCastle = (Math.floor(time / 60) < 10) ? '0' + Math.floor(time / 60) : '' + Math.floor(time / 60)
+        const secondsCastle = (time % 60 < 10) ? '0' + Math.floor(time % 60) : '' + Math.floor(time % 60)
 
         time += 190 // Imperial Age research time
         time += popImperial * 25
@@ -86,14 +86,15 @@ class CivInfoService {
         if (civ === Constants.Civ.Malay) time -= 76 // Malay faster Imperial Age research time
         if (civ === Constants.Civ.Persians) time -= popImperial * 25 * 0.15
 
-        const minutesImperial = (Math.floor(time / 60) < 10) ? '0' + Math.floor(time / 60) : Math.floor(time / 60)
-        const secondsImperial = (time % 60 < 10) ? '0' + Math.floor(time % 60) : Math.floor(time % 60)
+        const minutesImperial = (Math.floor(time / 60) < 10) ? '0' + Math.floor(time / 60) : '' + Math.floor(time / 60)
+        const secondsImperial = (time % 60 < 10) ? '0' + Math.floor(time % 60) : '' + Math.floor(time % 60)
 
-        return {
-            'feudal': minutesFeudal + ':' + secondsFeudal,
-            'castle': minutesCastle + ':' + secondsCastle,
-            'imperial': minutesImperial + ':' + secondsImperial
-        }
+        let uptime = {}
+        if (minutesFeudal !== 'NaN' && secondsFeudal !== 'NaN') uptime.feudalAge = `${minutesFeudal}:${secondsFeudal}`
+        if (minutesCastle !== 'NaN' && secondsCastle !== 'NaN') uptime.castleAge = `${minutesCastle}:${secondsCastle}`
+        if (minutesImperial !== 'NaN' && secondsImperial !== 'NaN') uptime.imperialAge = `${minutesImperial}:${secondsImperial}`
+
+        return uptime
     }
 }
 
