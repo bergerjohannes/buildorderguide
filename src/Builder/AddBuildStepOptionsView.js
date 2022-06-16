@@ -1,6 +1,7 @@
 import * as Constants from '../Constants'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleMinus } from '@fortawesome/free-solid-svg-icons'
+import Heading2 from '../UI/Heading2'
 
 const AddBuildStepOptionsView = (props) => {
 
@@ -123,10 +124,10 @@ const AddBuildStepOptionsView = (props) => {
     ]
     return (
         <div class=''>
-            <h3 class='text-lg'>Add a new step</h3>
+            <Heading2>Add a new step</Heading2>
             <div class='flex flex-wrap'>
                 {options.map(option => (
-                    <div class='bg-black text-white p-2 m-2 rounded-md'>{option}</div>
+                    <div class='bg-primary-light text-main-dark p-2 m-2 rounded-md'>{option}</div>
                 ))}
             </div>
 

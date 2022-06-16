@@ -5,6 +5,8 @@ import DatabaseService from '../DatabaseService'
 import CivChallengeView from './CivChallengeView'
 import ChallengeService from './ChallengeService'
 import ChallengeTable from './ChallengeTable'
+import Heading1 from '../UI/Heading1'
+import Paragraph from '../UI/Paragraph'
 
 const ChallengeOverview = (props) => {
     const date = new Date()
@@ -52,11 +54,11 @@ const ChallengeOverview = (props) => {
         <div>
             <Menu />
             <div class='text-center'>
-                <h1 class='text-2xl'>Civ Challenge</h1>
-                <p class='my-8'><b>{start.toDateString()}</b> until <b>{end.toDateString()}</b></p>
+                <Heading1>Civ Challenge</Heading1>
+                <Paragraph><b>{start.toDateString()}</b> until <b>{end.toDateString()}</b></Paragraph>
                 {league !== undefined && <ChallengeTable data={league} />}
                 {civChallenge !== undefined && <CivChallengeView data={civChallenge} />}
-                <p>Play one match with every civ available. The first ranked 1v1 RM match with a given civ will be counted.</p>
+                <Paragraph>Play one match with every civ available. The first ranked 1v1 RM match with a given civ will be counted.</Paragraph>
             </div>
         </div>
     )

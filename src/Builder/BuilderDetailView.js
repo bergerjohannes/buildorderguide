@@ -10,6 +10,7 @@ import PublishIndicator from './PublishIndicator'
 import LinkView from './LinkView'
 import BuilderInfoService from './BuilderInfoService'
 import { pickBy, identity } from 'lodash'
+import CenteredButton from '../UI/CenteredButton'
 
 const BuilderDetailView = (props) => {
 
@@ -169,8 +170,8 @@ const BuilderDetailView = (props) => {
             <BuilderDetailInfoSection title={title} setTitle={setTitle} author={author} setAuthor={setAuthor} description={description} setDescription={setDescription} reference={reference} setReference={setReference} civilization={civilization} setCivilization={setCivilization} attributes={attributes} setAttributes={setAttributes} image={image} setImage={setImage} availableImages={availableImages} setAvailableImages={setAvailableImages} imgURL={imgURL} setImageURL={setImageURL} difficulty={difficulty} setDifficulty={setDifficulty} />
             {build !== undefined && <BuilderBuildCreationView build={build.build} addStep={addStep} updateStep={updateStep} removeStep={removeStep} />}
             {build !== undefined && <BuildView build={build} />}
-            {build !== undefined && status !== Constants.PublishStatus.Published && <button class='bg-black text-white p-2 my-4 block rounded-md mx-auto' onClick={() => publishBuild()}>Publish</button>}
-            {build !== undefined && status === Constants.PublishStatus.Published && <button class='bg-black text-white p-2 my-4 block rounded-md mx-auto' onClick={() => unpublishBuild()}>Unpublish</button>}
+            {build !== undefined && status !== Constants.PublishStatus.Published && <CenteredButton onClick={() => publishBuild()}>Publish</CenteredButton>}
+            {build !== undefined && status === Constants.PublishStatus.Published && <CenteredButton onClick={() => unpublishBuild()}>Unpublish</CenteredButton>}
             <PublishIndicator status={status} />
             <LinkView status={status} buildId={buildId}/>
         </div>

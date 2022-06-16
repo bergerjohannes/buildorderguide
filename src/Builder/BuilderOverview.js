@@ -4,6 +4,8 @@ import Menu from '../UI/Menu'
 import DatabaseService from '../DatabaseService.js'
 import BuilderOverviewTable from './BuilderOverviewTable.js'
 import { Navigate } from "react-router-dom";
+import Heading1 from '../UI/Heading1.js'
+import CenteredButton from '../UI/CenteredButton.js'
 
 const BuilderOverview = (props) => {
 
@@ -44,10 +46,10 @@ const BuilderOverview = (props) => {
     return (
         <div>
             <Menu />
-            <div class='w-1/2 m-auto'>
-                <h1 class=''>Build Order Builder</h1>
+            <div class='w-full md:w-1/2 m-auto'>
+                <Heading1>Build Order Builder</Heading1>
                 {builds !== undefined && <BuilderOverviewTable builds={builds} />}
-                {user !== undefined && <button class='p-2 bg-black rounded-md shadow-md text-white my-8 mx-auto block' onClick={addNewBuild}>New Build</button>}
+                {user !== undefined && <CenteredButton onClick={addNewBuild}>New Build</CenteredButton>}
             </div>
         </div>
     )

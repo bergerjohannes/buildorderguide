@@ -15,7 +15,7 @@ const LinkView = (props) => {
     }
 
     return (
-        <div class='flex w-full justify-center'>
+        <div class='flex w-full justify-center text-main-dark'>
             {(props.status === Constants.PublishStatus.Published || props.status == Constants.PublishStatus.Changed) &&
                 <div class='flex justify-center flex-col'>
                     <div class='text-xs'>Public link</div>
