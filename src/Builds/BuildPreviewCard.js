@@ -4,6 +4,7 @@ import DifficultyIndicator from './DifficultyIndicator'
 import PopIndicator from './PopIndicator'
 import BuildData from './BuildData'
 import * as Constants from '../Constants'
+import Heading2 from '../UI/Heading2'
 
 const BuildPreviewCard = (props) => {
 
@@ -13,11 +14,11 @@ const BuildPreviewCard = (props) => {
     return (
         <Link to={{ pathname: `/build/${props.build.id}` }}>
             <div class='overflow-hidden transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-105 relative w-11/12 max-w-sm mt-10 mx-auto bg-white shadow-xl cursor-pointer rounded-2xl'>
-                {isOfficialBuild(props.build.publisher) === false && <div class='absolute transform rotate-45 bg-gray-400 text-center text-white font-semibold py-1 right-[-34px] top-[32px] w-[170px]'>
+                {isOfficialBuild(props.build.publisher) === false && <div class='absolute transform -rotate-45 bg-primary-light text-center text-main-dark font-semibold py-1 right-[-34px] bottom-[20px] w-[150px]'>
                     Community
                 </div>}
-                <h1 class='m-5 text-xl font-bold overflow-clip h-7'>{buildTitle}</h1>
-                <h3 class='ml-5 pb-5 -mt-5 text-md font-bold text-gray-400'>{props.build.author}</h3>
+                <Heading2>{buildTitle}</Heading2>
+                <h3 class='ml-5 pb-5 -mt-5 text-md text-main-light'>{props.build.author}</h3>
 
                 <div class='grid grid-cols-4 grid-rows-4 gap-0'>
                     <div class='box row-start-2 row-span-4 w-24'>
