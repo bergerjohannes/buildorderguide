@@ -37,7 +37,7 @@ const MatchCard = (props) => {
     const civPlayer1 = CivInfoService.getCivilizationNameForIndex(match.players[1].civ) !== undefined ? CivInfoService.getCivilizationNameForIndex(match.players[1].civ) : 'Unknown'
 
     return (
-        <div class='flex justify-start w-1/2 rounded-2xl mx-auto my-8 bg-slate-50 shadow-sm py-4'>
+        <div class='flex justify-start w-1/2 rounded-2xl mx-auto my-8 bg-slate-50 shadow-sm py-4 text-main-dark'>
             <div class='flex flex-col justify-center w-4/12 pl-4'>
                 <div class='flex'>
                     <img class='w-20 h-20' src={require('../Images/Maps/' + MapInfoService.getMapImageForId(match.map_type))} alt={MapInfoService.getMapNameForId(match.map_type)} />

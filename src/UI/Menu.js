@@ -17,6 +17,7 @@ const Menu = (props) => {
                 <nav class='flex flex-col md:flex-row justify-center md:justify-end md:space-x-4 space-y-6 md:space-y-0 min-h-screen md:min-h-fit fixed z-10 md:relative items-center w-full md:w-auto bg-secondary-light md:bg-transparent left-0 top-0 m-0 md:m-4 p-0'>
                     <MenuItem linkTo='/'>Builds</MenuItem>
                     <MenuItem linkTo='/uptime'>Uptime</MenuItem>
+                    <MenuItem linkTo='/stats'>Stats</MenuItem>
                     <MenuItem linkTo='/challenge'>Challenge</MenuItem>
                     <MenuItem linkTo='/builder'>Builder</MenuItem>
                     <MenuItem linkTo='/profile'>Profile</MenuItem>

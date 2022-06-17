@@ -2,7 +2,7 @@ import CivInfoService from '../Uptime/CivInfoService'
 
 const CivPerformanceTable = (props) => {
     return (
-        <div>
+        <div class='text-main-dark'>
             <div class='flex'>
                 <p class='w-1/2 text-left ml-12'><strong>Civ</strong></p>
                 <p class='w-1/6 text-center'><strong>Games</strong></p>
