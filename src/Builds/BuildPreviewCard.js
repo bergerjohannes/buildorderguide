@@ -17,7 +17,7 @@ const BuildPreviewCard = (props) => {
                 {isOfficialBuild(props.build.publisher) === false && <div class='absolute transform -rotate-45 bg-primary-light text-center text-main-dark font-semibold py-1 right-[-34px] bottom-[20px] w-[150px]'>
                     Community
                 </div>}
-                <Heading2>{buildTitle}</Heading2>
+                <div class='mt-2 mb-4 ml-5'><Heading2>{buildTitle}</Heading2></div>
                 <h3 class='ml-5 pb-5 -mt-5 text-md text-main-light'>{props.build.author}</h3>
 
                 <div class='grid grid-cols-4 grid-rows-4 gap-0'>

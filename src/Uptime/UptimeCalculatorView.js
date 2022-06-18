@@ -83,19 +83,19 @@ const UptimeCalculatorView = (props) => {
             <form class='flex flex-col mx-auto w-11/12 max-w-xs mt-12'>
                 <label>
                     <Heading2>Civilization</Heading2>
-                    <div class='-mt-4'><Select styles={selectStyle} isSearchable={true} defaultValue={civOptions[0]} onChange={civ => setCiv(civ.value)} options={civOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} /></div>
+                    <Select styles={selectStyle} isSearchable={true} defaultValue={civOptions[0]} onChange={civ => setCiv(civ.value)} options={civOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
                 </label>
                 <label class='mt-4'>
                     <Heading2>Pop</Heading2>
-                    <div class='-mt-4'><Select styles={selectStyle} isSearchable={false} defaultValue={popOptions[11]} onChange={pop => setPop(pop.value)} options={popOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} /></div>
+                    <Select styles={selectStyle} isSearchable={false} defaultValue={popOptions[11]} onChange={pop => setPop(pop.value)} options={popOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
                 </label>
                 <label class='mt-4'>
                     <Heading2>Loom</Heading2>
-                    <div class='-mt-4'><Select styles={selectStyle} isSearchable={false} defaultValue={loomOptions[0]} onChange={loom => setLoom(loom.value)} options={loomOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} /></div>
+                    <Select styles={selectStyle} isSearchable={false} defaultValue={loomOptions[0]} onChange={loom => setLoom(loom.value)} options={loomOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
                 </label>
                 <label class='mt-4'>
                     <Heading2>FC</Heading2>
-                    <div class='-mt-4'><Select styles={selectStyle} isSearchable={false} defaultValue={castlePopAdditionOptions[2]} onChange={castle => setCastle(loom.value)} options={castlePopAdditionOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} /></div>
+                    <Select styles={selectStyle} isSearchable={false} defaultValue={castlePopAdditionOptions[2]} onChange={castle => setCastle(loom.value)} options={castlePopAdditionOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
                 </label>
             </form>
 
