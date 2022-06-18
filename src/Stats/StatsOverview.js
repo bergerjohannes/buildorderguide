@@ -11,11 +11,12 @@ import CivPerformanceTable from './CivPerformanceTable'
 import Heading1 from '../UI/Heading1'
 import ParagraphCentered from '../UI/ParagraphCentered'
 import LoadingIndicator from '../UI/LoadingIndicator'
+import Switch from '../UI/Switch'
 
 const StatsOverview = (props) => {
     const { user, logOut } = useUserAuth()
     const [profileId, setProfileId] = useState('')
-    const [gameMode, setGameMode] = useState('Random Map')
+    const [gameMode, setGameMode] = useState(0)
     const [error, setError] = useState(undefined)
     const [ratings, setRatings] = useState(undefined)
     const [matches, setMatches] = useState(undefined)
@@ -31,7 +32,7 @@ const StatsOverview = (props) => {
 
     const loadMatches = (id) => {
         if (id === undefined || id === null) return
-        const matchType = gameMode === 'Random Map' ? '1v1' : 'team'
+        const matchType = gameMode === 0 ? '1v1' : 'team'
 
         fetch('https://us-central1-build-order-guide.cloudfunctions.net/getRatings?ranked=true&mode=RM&type=' + matchType + '&profile_id=' + id)
             .then((response) => response.json())
@@ -64,10 +65,15 @@ const StatsOverview = (props) => {
             })
     }
 
+    const selectStatsOption = (option) => {
+        setGameMode(option)
+    }
+
     return (
         <div class='text-center'>
             <Menu />
             <Heading1>1v1 Random Map Stats</Heading1>
+            <div class='flex justify-center w-1/4 m-auto'><Switch option1={'Random Map'} option2={'Team RM'} slectedOptionIndex={gameMode} selectOption={selectStatsOption}/></div>
             {ratings === undefined && <LoadingIndicator text={'Loading match data ..'} />}
             {ratings !== undefined && <ParagraphCentered>Showing data for your last 1,000 matches.</ParagraphCentered>}
             {ratings !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><RatingsGraph data={ratings}/></div>}
