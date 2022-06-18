@@ -1,13 +1,10 @@
 import StatsInfoService from './StatsInfoService.js'
 import MapInfoService from './MapInfoService.js'
 import CivInfoService from '../Uptime/CivInfoService.js'
+import MatchCardPlayerResultView from './MatchCardPlayerResultView.js'
+import MatchCardMapView from './MatchCardMapView.js'
 
 const MatchCard = (props) => {
-
-    const getDisplayName = (name) => {
-        if (name.length <= 20) return name
-        else return name.substring(0, 17) + '...'
-    }
 
     const match = props.match
     const profileId = props.profileId
@@ -37,42 +34,13 @@ const MatchCard = (props) => {
     const civPlayer1 = CivInfoService.getCivilizationNameForIndex(match.players[1].civ) !== undefined ? CivInfoService.getCivilizationNameForIndex(match.players[1].civ) : 'Unknown'
 
     return (
-        <div class='flex justify-start w-1/2 rounded-2xl mx-auto my-8 bg-slate-50 shadow-sm py-4 text-main-dark'>
-            <div class='flex flex-col justify-center w-4/12 pl-4'>
-                <div class='flex'>
-                    <img class='w-20 h-20' src={require('../Images/Maps/' + MapInfoService.getMapImageForId(match.map_type))} alt={MapInfoService.getMapNameForId(match.map_type)} />
-                    <div class='flex flex-col justify-center'>
-                        <p>{MapInfoService.getMapNameForId(match.map_type)}</p>
-                        <p>1v1 RM</p>
-                        <p>{StatsInfoService.toDate(match.finished)}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class='bg-slate-200 my-2 w-0.5'></div>
-
-            <div class='flex space-x-8 justify-center w-8/12'>
-                <div class='flex flex-col'>
-                    <p>{matchResultPlayer0}</p>
-                    <div class='flex space-x-2'>
-                        <div class='flex flex-col justify-center'><img class='w-5 h-5' src={require('../Images/Civilizations/' + civPlayer0 + '.png')} alt={civPlayer0} /></div>
-                        <a target='_blank' href={'https://aoe2.net/#profile-' + match.players[0].profile_id}>{getDisplayName(match.players[0].name)}</a>
-                    </div>
-                    <p>{(match.players[0].rating === null) ? '?' : match.players[0].rating}</p>
-                </div>
-
-                <div class='flex flex-col justify-center'>
-                    <span>vs.</span>
-                </div>
-
-                <div class='flex flex-col'>
-                    <p>{matchResultPlayer1}</p>
-                    <div class='flex space-x-2'>
-                        <div class='flex flex-col justify-center'><img class='w-5 h-5' src={require('../Images/Civilizations/' + civPlayer1 + '.png')} alt={civPlayer1} /></div>
-                        <a target='_blank' href={'https://aoe2.net/#profile-' + match.players[1].profile_id}>{getDisplayName(match.players[1].name)}</a>
-                    </div>
-                    <p>{(match.players[1].rating === null) ? '?' : match.players[1].rating}</p>
-                </div>
+        <div class='flex flex-col md:flex-row justify-start w-11/12 md:w-1/2 rounded-2xl mx-auto my-8 bg-secondary-light shadow-sm py-4 text-main-dark'>
+            <MatchCardMapView match={match} />
+            <div class='bg-secondary-dark mx-auto my-4 md:my-2 w-11/12 md:w-0.5 h-0.5 md:h-auto rounded-xl'></div>
+            <div class='flex space-x-4 justify-center w-full md:w-8/12 p-2'>
+                <MatchCardPlayerResultView matchResult={matchResultPlayer0} profile_id={match.players[0].profile_id} name={match.players[0].name} civ={civPlayer0} rating={match.players[0].rating}/>
+                <div class='flex flex-col justify-center'><span>vs.</span></div>
+                <MatchCardPlayerResultView matchResult={matchResultPlayer1} profile_id={match.players[1].profile_id} name={match.players[1].name} civ={civPlayer1} rating={match.players[1].rating}/>
             </div>
         </div>
     )

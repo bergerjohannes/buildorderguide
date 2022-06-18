@@ -69,11 +69,11 @@ const StatsOverview = (props) => {
             <Menu />
             <Heading1>1v1 Random Map Stats</Heading1>
             {ratings === undefined && <LoadingIndicator text={'Loading match data ..'} />}
-            {ratings !== undefined && <div class='w-1/2 h-96 mx-auto my-12'><RatingsGraph data={ratings}/></div>}
             {ratings !== undefined && <ParagraphCentered>Showing data for your last 1,000 matches.</ParagraphCentered>}
+            {ratings !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><RatingsGraph data={ratings}/></div>}
             {durationStats !== undefined && <GameDurationsView data={durationStats}/>}
-            {civStats !== undefined && <div class='w-1/2 h-96 mx-auto my-12'><CivPerformanceChart data={civStats} /></div>}
-            {civStats !== undefined && <div class='w-1/2 mx-auto my-12'><CivPerformanceTable data={civStats} /></div>}
+            {civStats !== undefined && <div class='w-full md:w-1/2 h-56 md:h-96 mx-auto my-12'><CivPerformanceChart data={civStats} /></div>}
+            {civStats !== undefined && <div class='w-full md:w-1/2 mx-auto my-12'><CivPerformanceTable data={civStats} /></div>}
             {(gameMode === 'Random Map' && matches !== undefined) && matches.map(match => ( // TODO: adapt match cards for team games
                  <MatchCard match={match} profile_id={profileId} />
             ))}

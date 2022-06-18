@@ -90,6 +90,11 @@ class StatsInfoService {
         return diffDays
     }
 
+    static getDisplayName = (name) => {
+        if (name.length <= 20) return name
+        else return name.substring(0, 17) + '...'
+    }
+
 }
 
 export default StatsInfoService
