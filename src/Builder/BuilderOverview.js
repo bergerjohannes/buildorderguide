@@ -6,6 +6,7 @@ import BuilderOverviewTable from './BuilderOverviewTable.js'
 import { Navigate } from "react-router-dom";
 import Heading1 from '../UI/Heading1.js'
 import CenteredButton from '../UI/CenteredButton.js'
+import LoadingIndicator from '../UI/LoadingIndicator.js'
 
 const BuilderOverview = (props) => {
 
@@ -48,8 +49,9 @@ const BuilderOverview = (props) => {
             <Menu />
             <div class='w-full md:w-1/2 m-auto'>
                 <Heading1>Build Order Builder</Heading1>
+                {builds === undefined && <LoadingIndicator text={'Loading build orders ..'} />}
                 {builds !== undefined && <BuilderOverviewTable builds={builds} />}
-                {user !== undefined && <CenteredButton onClick={addNewBuild}>New Build</CenteredButton>}
+                {builds !== undefined && <CenteredButton onClick={addNewBuild}>New Build</CenteredButton>}
             </div>
         </div>
     )

@@ -7,6 +7,7 @@ import ChallengeService from './ChallengeService'
 import ChallengeTable from './ChallengeTable'
 import Heading1 from '../UI/Heading1'
 import Paragraph from '../UI/Paragraph'
+import LoadingIndicator from '../UI/LoadingIndicator'
 
 const ChallengeOverview = (props) => {
     const date = new Date()
@@ -56,9 +57,10 @@ const ChallengeOverview = (props) => {
             <div class='text-center'>
                 <Heading1>Civ Challenge</Heading1>
                 <Paragraph><b>{start.toDateString()}</b> until <b>{end.toDateString()}</b></Paragraph>
+                {league === undefined && <LoadingIndicator text={'Loading match data ..'} />}
                 {league !== undefined && <ChallengeTable data={league} />}
                 {civChallenge !== undefined && <CivChallengeView data={civChallenge} />}
-                <Paragraph>Play one match with every civ available. The first ranked 1v1 RM match with a given civ will be counted.</Paragraph>
+                {civChallenge !== undefined && <Paragraph>Play one match with every civ available. The first ranked 1v1 RM match with a given civ will be counted.</Paragraph>}
             </div>
         </div>
     )
