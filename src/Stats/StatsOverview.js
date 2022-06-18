@@ -10,6 +10,7 @@ import CivPerformanceChart from './CivPerformanceChart'
 import CivPerformanceTable from './CivPerformanceTable'
 import Heading1 from '../UI/Heading1'
 import ParagraphCentered from '../UI/ParagraphCentered'
+import LoadingIndicator from '../UI/LoadingIndicator'
 
 const StatsOverview = (props) => {
     const { user, logOut } = useUserAuth()
@@ -67,8 +68,9 @@ const StatsOverview = (props) => {
         <div class='text-center'>
             <Menu />
             <Heading1>1v1 Random Map Stats</Heading1>
+            {ratings === undefined && <LoadingIndicator text={'Loading match data ..'} />}
             {ratings !== undefined && <div class='w-1/2 h-96 mx-auto my-12'><RatingsGraph data={ratings}/></div>}
-            <ParagraphCentered>Showing data for your last 1,000 matches.</ParagraphCentered>
+            {ratings !== undefined && <ParagraphCentered>Showing data for your last 1,000 matches.</ParagraphCentered>}
             {durationStats !== undefined && <GameDurationsView data={durationStats}/>}
             {civStats !== undefined && <div class='w-1/2 h-96 mx-auto my-12'><CivPerformanceChart data={civStats} /></div>}
             {civStats !== undefined && <div class='w-1/2 mx-auto my-12'><CivPerformanceTable data={civStats} /></div>}
