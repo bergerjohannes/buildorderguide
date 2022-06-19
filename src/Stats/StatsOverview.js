@@ -26,15 +26,17 @@ const StatsOverview = (props) => {
     useEffect(() => {
         DatabaseService.loadProfileInfo(user).then(userData => {
             setProfileId(userData.profile_id)
-            loadMatches(userData.profile_id)
         })
     }, [user])
 
-    const loadMatches = (id) => {
-        if (id === undefined || id === null) return
+    useEffect(() => {
+        if (profileId !== undefined) loadMatches()
+    }, [profileId, gameMode])
+
+    const loadMatches = () => {
         const matchType = gameMode === 0 ? '1v1' : 'team'
 
-        fetch('https://us-central1-build-order-guide.cloudfunctions.net/getRatings?ranked=true&mode=RM&type=' + matchType + '&profile_id=' + id)
+        fetch('https://us-central1-build-order-guide.cloudfunctions.net/getRatings?ranked=true&mode=RM&type=' + matchType + '&profile_id=' + profileId)
             .then((response) => response.json())
             .then((responseJson) => {
                 if (responseJson.error !== undefined) {
@@ -48,13 +50,13 @@ const StatsOverview = (props) => {
                 setError(true)
             })
 
-        fetch('https://us-central1-build-order-guide.cloudfunctions.net/getMatches?ranked=true&mode=RM&type=' + matchType + '&profile_id=' + id)
+        fetch('https://us-central1-build-order-guide.cloudfunctions.net/getMatches?ranked=true&mode=RM&type=' + matchType + '&profile_id=' + profileId)
             .then((response) => response.json())
             .then((responseJson) => {
                 if (responseJson.error !== undefined) {
                     setError(true)
                 } else {
-                    const stats = StatsInfoService.getStatsForPlayer(responseJson, id)
+                    const stats = StatsInfoService.getStatsForPlayer(responseJson, profileId)
                     setMatches(responseJson)
                     setCivStats(stats.civs)
                     setDurationStats(stats.durations)
