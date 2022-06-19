@@ -11,6 +11,7 @@ import LinkView from './LinkView'
 import BuilderInfoService from './BuilderInfoService'
 import { pickBy, identity } from 'lodash'
 import CenteredButton from '../UI/CenteredButton'
+import Heading1 from '../UI/Heading1'
 
 const BuilderDetailView = (props) => {
 
@@ -167,6 +168,7 @@ const BuilderDetailView = (props) => {
     return (
         <div>
             <Menu />
+            <Heading1>Build Order Builder</Heading1>
             <BuilderDetailInfoSection title={title} setTitle={setTitle} author={author} setAuthor={setAuthor} description={description} setDescription={setDescription} reference={reference} setReference={setReference} civilization={civilization} setCivilization={setCivilization} attributes={attributes} setAttributes={setAttributes} image={image} setImage={setImage} availableImages={availableImages} setAvailableImages={setAvailableImages} imgURL={imgURL} setImageURL={setImageURL} difficulty={difficulty} setDifficulty={setDifficulty} />
             {build !== undefined && <BuilderBuildCreationView build={build.build} addStep={addStep} updateStep={updateStep} removeStep={removeStep} />}
             {build !== undefined && <BuildView build={build} />}
