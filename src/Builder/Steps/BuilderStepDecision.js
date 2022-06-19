@@ -1,5 +1,6 @@
 import BuilderText from '../UI/BuilderText'
 import * as Constants from '../../Constants'
+import Input from '../../UI/Input'
 
 const BuilderStepDecision = (props) => {
 
@@ -16,8 +17,8 @@ const BuilderStepDecision = (props) => {
 
     return (
         <div class='flex space-x-1'>
-            <BuilderText>DECISION OPTION:</BuilderText>
-            <input class='border p-2 rounded-md' type='text' value={props.step.text} onChange={handleTextChange} />
+            <BuilderText>DECISION:</BuilderText>
+            <Input value={props.step.text} onChange={handleTextChange} />
         </div>
     )
 }

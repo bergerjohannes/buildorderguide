@@ -83,7 +83,7 @@ const BuilderDetailInfoSection = (props) => {
             </div>
             <div class='mt-6'>
                 <Heading2>Civilization</Heading2>
-                <Dropdown isSearchable={true} value={civOptions.find(element => element.value === props.civilization)} onChange={handleClickOnCivilization} options={civOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} placeholder='Select civilization' />
+                <Dropdown isSearchable={true} value={props.civilization} onChange={handleClickOnCivilization} options={civOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} placeholder='Select civilization' />
             </div>
             <div class='mt-6'>
                 <Heading2>Description</Heading2>
@@ -91,15 +91,15 @@ const BuilderDetailInfoSection = (props) => {
             </div>
             <div class='mt-6'>
                 <Heading2>Difficulty</Heading2>
-                <Dropdown isSearchable={true} value={difficultyOptions.find(element => element.value === props.difficulty)} onChange={handleClickOnDifficulty} options={difficultyOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} placeholder='Select difficulty' />
+                <Dropdown isSearchable={true} value={props.difficulty} onChange={handleClickOnDifficulty} options={difficultyOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} placeholder='Select difficulty' />
             </div>
             <div class='mt-6'>
                 <Heading2>Attributes</Heading2>
-                <Dropdown isSearchable={true} isMulti={true} value={BuildData.getBuildAttributes().filter(element => props.attributes !== undefined && props.attributes.includes(element.value))} onChange={handleClickOnAttributes} options={BuildData.getBuildAttributes()} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} placeholder='Select attributes' />
+                <Dropdown isSearchable={true} isMulti={true} value={props.attributes} onChange={handleClickOnAttributes} options={BuildData.getBuildAttributes()} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} placeholder='Select attributes' />
             </div>
             <div class='mt-6'>
                 <Heading2>Image</Heading2>
-                <Dropdown isSearchable={true} value={props.availableImages === null || props.image === null ? '' : props.availableImages.find(element => element.value === props.image)} onChange={handleClickOnImage} options={props.availableImages} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} placeholder='Select image' />
+                <Dropdown isSearchable={true} value={props.image} onChange={handleClickOnImage} options={props.availableImages} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} placeholder='Select image' />
             </div>
             <div class='mt-6'>
                 <Heading2>Author</Heading2>

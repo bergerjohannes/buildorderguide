@@ -35,8 +35,8 @@ const Dropdown = (props) => {
         }
     }
 
-    if (props.isMulti !== undefined && props.isMulti === true) return <Select styles={selectStyle} placeholder={props.placeholder} isMulti isSearchable={props.isSearchable} defaultValue={props.defaultValue} value={props.value} onChange={props.onChange} options={props.options} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
-    else return <Select styles={selectStyle} placeholder={props.placeholder} isSearchable={props.isSearchable} defaultValue={props.defaultValue} value={props.value} onChange={props.onChange} options={props.options} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
+    if (props.isMulti !== undefined && props.isMulti === true) return <Select styles={selectStyle} placeholder={props.placeholder} isMulti isSearchable={props.isSearchable} value={props.options.filter(element => props.value !== undefined && props.value.includes(element.value))} onChange={props.onChange} options={props.options} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
+    else return <Select styles={selectStyle} placeholder={props.placeholder} isSearchable={props.isSearchable} value={props.options.find(element => element.value === props.value)} onChange={props.onChange} options={props.options} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
 }
 
 export default Dropdown
