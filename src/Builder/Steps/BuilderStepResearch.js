@@ -1,9 +1,9 @@
 import AddOptionButton from '../UI/AddOptionButton'
 import BuilderInfoService from '../BuilderInfoService'
-import BuilderSelect from '../UI/BuilderSelect'
 import RemoveOptionButton from '../UI/RemoveOptionButton'
 import BuilderText from '../UI/BuilderText'
 import * as Constants from '../../Constants'
+import Dropdown from '../../UI/Dropdown'
 
 const BuilderStepResearch = (props) => {
 
@@ -48,7 +48,7 @@ const BuilderStepResearch = (props) => {
             <BuilderText>Research</BuilderText>
             {props.step.tech.map((item, index) => (
                 <>
-                    <BuilderSelect selected={props.step.tech[index]} options={BuilderInfoService.getTechOptions()} onChange={(event) => handleClickOnTechWithIndex(event, index)} />
+                    <Dropdown value={props.step.tech[index]} options={BuilderInfoService.getTechOptions()} onChange={(event) => handleClickOnTechWithIndex(event, index)} />
                     {index > 0 && <RemoveOptionButton onClick={() => removeTechWithIndex(index)} />}
                     {props.step.tech.length - 1 > index && <BuilderText>&</BuilderText>}
                 </>

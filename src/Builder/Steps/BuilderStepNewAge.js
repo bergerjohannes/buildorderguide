@@ -1,7 +1,7 @@
 import BuilderInfoService from '../BuilderInfoService'
-import BuilderSelect from '../UI/BuilderSelect'
 import BuilderText from '../UI/BuilderText'
 import * as Constants from '../../Constants'
+import Dropdown from '../../UI/Dropdown'
 
 const BuildStepNewAge = (props) => {
 
@@ -19,7 +19,7 @@ const BuildStepNewAge = (props) => {
     return (
         <div class='flex space-x-1'>
             <BuilderText>New Age Reached: </BuilderText>
-            <BuilderSelect selected={props.step.age} options={BuilderInfoService.getAgeOptions()} onChange={handleClickOnAge} />
+            <Dropdown value={props.step.age} options={BuilderInfoService.getAgeOptions()} onChange={handleClickOnAge} />
         </div>
     )
 }

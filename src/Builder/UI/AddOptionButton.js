@@ -4,7 +4,7 @@ import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 const AddOptionButton = (props) => {
 
     return (
-        <button class='ml-4' onClick={props.onClick}><FontAwesomeIcon icon={faCirclePlus} /></button>
+        <button class='ml-4 hover:text-primary-dark' onClick={props.onClick}><FontAwesomeIcon icon={faCirclePlus} /></button>
     )
 }
 

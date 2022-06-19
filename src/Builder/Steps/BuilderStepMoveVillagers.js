@@ -1,7 +1,7 @@
 import BuilderInfoService from '../BuilderInfoService'
-import BuilderSelect from '../UI/BuilderSelect'
 import BuilderText from '../UI/BuilderText'
 import * as Constants from '../../Constants'
+import Dropdown from '../../UI/Dropdown'
 
 const BuilderStepMoveVillagers = (props) => {
 
@@ -28,10 +28,10 @@ const BuilderStepMoveVillagers = (props) => {
 
     return (
         <div class='flex space-x-1'>
-            <BuilderSelect selected={props.step.count} options={BuilderInfoService.getNumericOptions()} onChange={handleClickOnCount} />
-            <BuilderSelect selected={props.step.from} options={BuilderInfoService.getTaskOptions()} onChange={handleClickOnTaskFrom} />
+            <Dropdown value={props.step.count} options={BuilderInfoService.getNumericOptions()} onChange={handleClickOnCount} />
+            <Dropdown value={props.step.from} options={BuilderInfoService.getTaskOptions()} onChange={handleClickOnTaskFrom} />
             <BuilderText>→</BuilderText>
-            <BuilderSelect selected={props.step.to} options={BuilderInfoService.getTaskOptions()} onChange={handleClickOnTaskTo} />
+            <Dropdown value={props.step.to} options={BuilderInfoService.getTaskOptions()} onChange={handleClickOnTaskTo} />
         </div>
     )
 }

@@ -1,8 +1,8 @@
 import BuilderInfoService from '../BuilderInfoService'
-import BuilderSelect from '../UI/BuilderSelect'
 import BuilderText from '../UI/BuilderText'
 import BuilderStepBuild from './BuilderStepBuild'
 import * as Constants from '../../Constants'
+import Dropdown from '../../UI/Dropdown'
 
 const BuilderStepNewVillagers = (props) => {
 
@@ -26,9 +26,9 @@ const BuilderStepNewVillagers = (props) => {
     return (
         <div class='flex space-x-1'>
             {props.step.buildings !== undefined && <><BuilderStepBuild step={props.step} update={props.update} /><BuilderText>&</BuilderText></>}
-            <BuilderSelect selected={props.step.count} options={BuilderInfoService.getNumericOptions()} onChange={handleClickOnCount} />
+            <Dropdown value={props.step.count} options={BuilderInfoService.getNumericOptions()} onChange={handleClickOnCount} />
             <BuilderText>on</BuilderText>
-            <BuilderSelect selected={props.step.task} options={BuilderInfoService.getTaskOptions()} onChange={handleClickOnTask} />
+            <Dropdown value={props.step.task} options={BuilderInfoService.getTaskOptions()} onChange={handleClickOnTask} />
         </div>
     )
 }
