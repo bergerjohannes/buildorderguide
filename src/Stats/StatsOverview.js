@@ -80,7 +80,7 @@ const StatsOverview = (props) => {
             {durationStats !== undefined && <GameDurationsView data={durationStats}/>}
             {civStats !== undefined && <div class='w-full md:w-1/2 h-56 md:h-96 mx-auto my-12'><CivPerformanceChart data={civStats} /></div>}
             {civStats !== undefined && <div class='w-full md:w-1/2 mx-auto my-12'><CivPerformanceTable data={civStats} /></div>}
-            {(gameMode === 'Random Map' && matches !== undefined) && matches.map(match => ( // TODO: adapt match cards for team games
+            {(gameMode === 0 && matches !== undefined) && matches.map(match => ( // TODO: adapt match cards for team games
                  <MatchCard match={match} profile_id={profileId} />
             ))}
         </div>
