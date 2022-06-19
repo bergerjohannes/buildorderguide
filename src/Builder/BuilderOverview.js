@@ -8,17 +8,17 @@ import Heading1 from '../UI/Heading1.js'
 import CenteredButton from '../UI/CenteredButton.js'
 import LoadingIndicator from '../UI/LoadingIndicator.js'
 import Switch from '../UI/Switch.js'
+import * as Constants from '../Constants'
 
 const BuilderOverview = (props) => {
 
     const { user } = useUserAuth()
     const [builds, setBuilds] = useState(undefined)
-    const [loadallBuilds, setLoadAllBuilds] = useState(false) // ToDO: Implement way for admin to see all builds
+    const [loadAllBuilds, setLoadAllBuilds] = useState(false) // ToDO: Implement way for admin to see all builds
     const [redirect, setRedirect] = useState(undefined)
-    const [buildLoadingPreference, setBuildLoadingPreference] = useState(0)
 
     useEffect(() => {
-        if (loadallBuilds) {
+        if (loadAllBuilds) {
             DatabaseService.loadAllBuildsForAdmin().then(data => {
                 setBuilds(data)
             }, (error) => {
@@ -31,8 +31,7 @@ const BuilderOverview = (props) => {
                 console.log(error)
             })
         }
-
-    }, [user])
+    }, [user, loadAllBuilds])
 
     const addNewBuild = () => {
         if (user === undefined) return
@@ -47,15 +46,17 @@ const BuilderOverview = (props) => {
     if (redirect !== undefined) return <Navigate to={`/builder/build/${redirect}`} />
 
     const selectBuildLoadingPreferenceOption = (option) => {
-        setBuildLoadingPreference(option)
+        setLoadAllBuilds(option === 0 ? false : true)
     }
+
+    const isAdmin = () => user.uid === Constants.OfficialPublisherId
 
     return (
         <div>
             <Menu />
             <div class='w-full md:w-1/2 m-auto'>
                 <Heading1>Build Order Builder</Heading1>
-                <div class='flex justify-center w-1/2 mx-auto my-4'><Switch option1={'My builds'} option2={'All builds'} slectedOptionIndex={buildLoadingPreference} selectOption={selectBuildLoadingPreferenceOption} /></div>
+                {isAdmin() && <div class='flex justify-center w-1/2 mx-auto my-4'><Switch option1={'My builds'} option2={'All builds'} slectedOptionIndex={loadAllBuilds === false ? 0 : 1} selectOption={selectBuildLoadingPreferenceOption} /></div>}
                 {builds === undefined && <LoadingIndicator text={'Loading build orders ..'} />}
                 {builds !== undefined && <BuilderOverviewTable builds={builds} />}
                 {builds !== undefined && <CenteredButton onClick={addNewBuild}>New Build</CenteredButton>}
