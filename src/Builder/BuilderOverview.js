@@ -14,7 +14,7 @@ const BuilderOverview = (props) => {
 
     const { user } = useUserAuth()
     const [builds, setBuilds] = useState(undefined)
-    const [loadAllBuilds, setLoadAllBuilds] = useState(false) // ToDO: Implement way for admin to see all builds
+    const [loadAllBuilds, setLoadAllBuilds] = useState(false)
     const [redirect, setRedirect] = useState(undefined)
 
     useEffect(() => {
