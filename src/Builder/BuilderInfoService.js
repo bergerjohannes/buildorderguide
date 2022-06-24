@@ -147,9 +147,9 @@ class BuilderInfoService {
         } else {
             let civ = civilization === undefined ? Constants.Civ.Generic : civilization
             let times = CivInfoService.getUptime(civ, pop.feudalAge, loom, pop.castleAge, pop.imperialAge)
-            uptime = { feudalAge: times.feudal }
-            if (times.castle !== undefined && !times.castle.includes('NaN')) uptime.castleAge = times.castle
-            if (times.imperial !== undefined && !times.imperial.includes('NaN')) uptime.imperialAge = times.imperial
+            uptime = { feudalAge: times.feudalAge }
+            if (times.castleAge !== undefined && !times.castleAge.includes('NaN')) uptime.castleAge = times.castleAge
+            if (times.imperialAge !== undefined && !times.imperialAge.includes('NaN')) uptime.imperialAge = times.imperialAge
         }
 
         return {
