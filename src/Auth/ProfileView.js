@@ -8,6 +8,7 @@ import Button from '../UI/Button'
 import Heading1 from '../UI/Heading1'
 import ParagraphCentered from '../UI/ParagraphCentered'
 import Heading2 from '../UI/Heading2'
+import Centered from '../UI/Centered'
 
 const ProfileView = (props) => {
     const { user, logOut } = useUserAuth()
@@ -44,8 +45,10 @@ const ProfileView = (props) => {
                 <Button onClick={handleLogOut}>Log out</Button>
                 <div class='flex justify-center mt-20'><Heading2 class='text-center mt-20'>Age of Empires II Profile ID</Heading2></div>
                 <img class='w-11/12 max-w-lg mx-auto' src={require('../Images/Aoe2NetId.png')} alt='Aoe2.net ID' />
-                <ParagraphCentered>Add your profile ID to see your stats.<br/>Go to <a class='font-semibold' href='https://aoe2.net' target='_blank'>AoE2.net</a> and search for your profile to find your ID in the URL.</ParagraphCentered>
-                <Input placeholder='Profile ID' value={profileId} onChange={value => setProfileId(value.value)} />
+                <ParagraphCentered>Add your profile ID to see your stats.<br />Go to <a class='font-semibold' href='https://aoe2.net' target='_blank'>AoE2.net</a> and search for your profile to find your ID in the URL.</ParagraphCentered>
+                <Centered>
+                    <Input placeholder='Profile ID' value={profileId} onChange={value => setProfileId(value.value)} />
+                </Centered>
                 <Button onClick={save}>Save ID</Button>
             </div>
         </div>

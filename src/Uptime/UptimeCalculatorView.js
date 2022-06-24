@@ -6,6 +6,7 @@ import Paragraph from '../UI/Paragraph.js'
 import UptimeIndicator from '../Builds/UptimeIndicator.js'
 import Heading2 from '../UI/Heading2.js'
 import Dropdown from '../UI/Dropdown.js'
+import Centered from '../UI/Centered.js'
 
 const UptimeCalculatorView = (props) => {
 
@@ -43,7 +44,7 @@ const UptimeCalculatorView = (props) => {
             <Heading1 class='text-4xl text-center bold text-gray-600 my-10'>Uptime Calculator</Heading1>
             <Paragraph>Select civilization, population when clicking up (including scout), and whether you researched loom to find out what time you should reach with flawless execution.</Paragraph>
 
-            <form class='flex flex-col mx-auto w-11/12 max-w-md mt-12'>
+            <form class='flex flex-col mx-auto w-11/12 max-w-md my-12'>
                 <div>
                     <Heading2>Civilization</Heading2>
                     <Dropdown isSearchable={true} value={civ} onChange={civ => setCiv(civ.value)} options={civOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
@@ -62,9 +63,9 @@ const UptimeCalculatorView = (props) => {
                 </div>
             </form>
 
-            <div class='flex justify-center w-11/12 mt-12 mx-auto'>
+            <Centered>
                 <UptimeIndicator uptime={uptimes} />
-            </div>
+            </Centered>
         </div>
     )
 }
