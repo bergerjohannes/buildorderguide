@@ -88,13 +88,20 @@ const BuilderDetailView = (props) => {
         updateBuildResourcesAndUptime(newBuild)
     }
 
+    const reorderSteps = (fromIndex, toIndex) => {
+        let newBuild = JSON.parse(JSON.stringify(build.build))
+        const [removed] = newBuild.splice(fromIndex, 1)
+        newBuild.splice(toIndex, 0, removed)
+        updateBuildResourcesAndUptime(newBuild)
+    }
+
     const updateBuildResourcesAndUptime = (newBuild) => {
+        setShouldSave(true)
         const info = BuilderInfoService.updateBuildResourcesAndUptime(newBuild, civilization)
 
         build.build = info.build
         setPop(info.pop)
         setUptime(info.uptime)
-        setShouldSave(true)
     }
 
     const getBuildObject = () => {
@@ -121,9 +128,10 @@ const BuilderDetailView = (props) => {
     }
 
     const save = () => {
-        if (getBuildObject() !== undefined) {
+        const buildObject = getBuildObject()
+        if (buildObject !== undefined) {
             try {
-                DatabaseService.saveBuildWithId(buildId, getBuildObject())
+                DatabaseService.saveBuildWithId(buildId, buildObject)
             } catch (error) {
                 console.error(error)
             }
@@ -170,12 +178,12 @@ const BuilderDetailView = (props) => {
             <Menu />
             <Heading1>Build Order Builder</Heading1>
             <BuilderDetailInfoSection title={title} setTitle={setTitle} author={author} setAuthor={setAuthor} description={description} setDescription={setDescription} reference={reference} setReference={setReference} civilization={civilization} setCivilization={setCivilization} attributes={attributes} setAttributes={setAttributes} image={image} setImage={setImage} availableImages={availableImages} setAvailableImages={setAvailableImages} imgURL={imgURL} setImageURL={setImageURL} difficulty={difficulty} setDifficulty={setDifficulty} />
-            {build !== undefined && <BuilderBuildCreationView build={build.build} addStep={addStep} updateStep={updateStep} removeStep={removeStep} />}
+            {build !== undefined && <BuilderBuildCreationView build={build.build} addStep={addStep} updateStep={updateStep} removeStep={removeStep} reorderSteps={reorderSteps} />}
             {build !== undefined && <BuildView build={build} />}
             {build !== undefined && status !== Constants.PublishStatus.Published && <CenteredButton onClick={() => publishBuild()}>Publish</CenteredButton>}
             {build !== undefined && status === Constants.PublishStatus.Published && <CenteredButton onClick={() => unpublishBuild()}>Unpublish</CenteredButton>}
             <PublishIndicator status={status} />
-            <LinkView status={status} buildId={buildId}/>
+            <LinkView status={status} buildId={buildId} />
         </div>
     )
 }
