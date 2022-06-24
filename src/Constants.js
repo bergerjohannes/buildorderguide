@@ -109,3 +109,8 @@ export const Difficulty = {
     Intermediate: 'Intermediate',
     Advanced: 'Advanced'
 }
+
+export const MatchType = {
+    OneVersusOne: '1v1',
+    Team: 'team'
+}

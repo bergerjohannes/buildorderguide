@@ -12,11 +12,12 @@ import Heading1 from '../UI/Heading1'
 import ParagraphCentered from '../UI/ParagraphCentered'
 import LoadingIndicator from '../UI/LoadingIndicator'
 import Switch from '../UI/Switch'
+import * as Constants from '../Constants'
 
 const StatsOverview = (props) => {
     const { user, logOut } = useUserAuth()
     const [profileId, setProfileId] = useState('')
-    const [gameMode, setGameMode] = useState(0)
+    const [matchType, setMatchType] = useState(Constants.MatchType.OneVersusOne)
     const [error, setError] = useState(undefined)
     const [ratings, setRatings] = useState(undefined)
     const [matches, setMatches] = useState(undefined)
@@ -31,11 +32,9 @@ const StatsOverview = (props) => {
 
     useEffect(() => {
         if (profileId !== undefined) loadMatches()
-    }, [profileId, gameMode])
+    }, [profileId, matchType])
 
     const loadMatches = () => {
-        const matchType = gameMode === 0 ? '1v1' : 'team'
-
         fetch('https://us-central1-build-order-guide.cloudfunctions.net/getRatings?ranked=true&mode=RM&type=' + matchType + '&profile_id=' + profileId)
             .then((response) => response.json())
             .then((responseJson) => {
@@ -68,21 +67,22 @@ const StatsOverview = (props) => {
     }
 
     const selectStatsOption = (option) => {
-        setGameMode(option)
+        if (option === 0) setMatchType(Constants.MatchType.OneVersusOne)
+        else setMatchType(Constants.MatchType.Team)
     }
 
     return (
         <div class='text-center'>
             <Menu />
             <Heading1>1v1 Random Map Stats</Heading1>
-            <div class='flex justify-center w-1/4 m-auto'><Switch option1={'Random Map'} option2={'Team RM'} slectedOptionIndex={gameMode} selectOption={selectStatsOption}/></div>
+            <div class='flex justify-center w-1/4 m-auto'><Switch option1={'Random Map'} option2={'Team RM'} slectedOptionIndex={matchType === Constants.MatchType.OneVersusOne ? 0 : 1} selectOption={selectStatsOption}/></div>
             {ratings === undefined && <LoadingIndicator text={'Loading match data ..'} />}
             {ratings !== undefined && <ParagraphCentered>Showing data for your last 1,000 matches.</ParagraphCentered>}
             {ratings !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><RatingsGraph data={ratings}/></div>}
             {durationStats !== undefined && <GameDurationsView data={durationStats}/>}
             {civStats !== undefined && <div class='w-full md:w-1/2 h-56 md:h-96 mx-auto my-12'><CivPerformanceChart data={civStats} /></div>}
             {civStats !== undefined && <div class='w-full md:w-1/2 mx-auto my-12'><CivPerformanceTable data={civStats} /></div>}
-            {(gameMode === 0 && matches !== undefined) && matches.map(match => ( // TODO: adapt match cards for team games
+            {(matchType === Constants.MatchType.OneVersusOne && matches !== undefined) && matches.map(match => ( // TODO: adapt match cards for team games
                  <MatchCard match={match} profile_id={profileId} />
             ))}
         </div>
