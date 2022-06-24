@@ -1,38 +1,10 @@
 
-import { useEffect, useRef, useState } from 'react'
-import { Chart as ChartJS } from 'chart.js/auto'
+import { useRef } from 'react'
 import { Line } from 'react-chartjs-2'
 
 const RatingsGraph = (props) => {
 
     const chartRef = useRef(null)
-    const [chartData, setChartData] = useState({
-        datasets: []
-    })
-
-    useEffect(() => {
-
-        const chart = chartRef.current
-        if (!chart) return
-
-        const data = prepareData()
-
-        const chartData = {
-            ...data,
-            datasets: data.datasets.map(dataset => ({
-                ...dataset,
-                label: 'Elo',
-                borderWidth: 2,
-                pointRadius: 0,
-                fill: 'start',
-                tension: 1,
-                borderColor: '#2dd4bf',
-                backgroundColor: createGradient(chart.ctx, chart.chartArea),
-            })),
-        }
-
-        setChartData(chartData)
-    }, [])
 
     const chartOptions = {
         plugins: {
@@ -87,13 +59,32 @@ const RatingsGraph = (props) => {
             labels: dataLabels,
             datasets: [{ data: dataPoints }]
         }
-        return data
+
+        if (chartRef === undefined) return
+        const chart = chartRef.current
+        if (!chart) return { labels: [], datasets: [{ data: [] }] }
+
+        const chartData = {
+            ...data,
+            datasets: data.datasets.map(dataset => ({
+                ...dataset,
+                label: 'Elo',
+                borderWidth: 2,
+                pointRadius: 0,
+                fill: 'start',
+                tension: 1,
+                borderColor: '#2dd4bf',
+                backgroundColor: createGradient(chart.ctx, chart.chartArea),
+            })),
+        }
+
+        return chartData
     }
 
     if (props.data === undefined || props.data.length === 0) {
         return <></>
     } else {
-        return <Line ref={chartRef} data={chartData} options={chartOptions} />
+        return <Line ref={chartRef} data={prepareData()} options={chartOptions} />
     }
 }
 
