@@ -5,6 +5,7 @@ import Menu from '../UI/Menu'
 import Heading1 from '../UI/Heading1'
 import Input from '../UI/Input'
 import LoadingIndicator from '../UI/LoadingIndicator'
+import Centered from '../UI/Centered'
 
 const BuildsOverview = (props) => {
     const [builds, setBuilds] = useState([])
@@ -31,7 +32,7 @@ const BuildsOverview = (props) => {
             <Menu />
             <Heading1>Builds</Heading1>
             {builds.length === 0 && <LoadingIndicator text={'Loading build orders ..'} />}
-            {builds.length > 0 && <div class='max-w-md m-auto'><Input placeholder='Search builds' onChange={handleSearch} /></div>}
+            {builds.length > 0 && <Centered><Input placeholder='Search builds' onChange={handleSearch} /></Centered>}
             <div class='w-11/12 md:w-9/12 m-auto flex flex-wrap justify-center'>
                 {buildsToDisplay !== undefined && buildsToDisplay.map(build => (
                     <BuildPreviewCard build={build} />
