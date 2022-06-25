@@ -4,9 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
+import { useUserAuth } from '../Auth/Auth'
 
 const Menu = (props) => {
-
+    const { user } = useUserAuth()
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     isMenuOpen ? disableBodyScroll(document) : enableBodyScroll(document)
 
@@ -20,7 +21,8 @@ const Menu = (props) => {
                     <MenuItem linkTo='/stats'>Stats</MenuItem>
                     <MenuItem linkTo='/challenge'>Challenge</MenuItem>
                     <MenuItem linkTo='/builder'>Builder</MenuItem>
-                    <MenuItem linkTo='/profile'>Profile</MenuItem>
+                    <MenuItem linkTo='/about'>About</MenuItem>
+                    {user !== null && <MenuItem linkTo='/profile'>Profile</MenuItem>}
                 </nav>
             </div>
             <button class={isMenuOpen ? 'hidden' : 'block md:hidden z-40 m-4'} onClick={() => setIsMenuOpen(!isMenuOpen)}><FontAwesomeIcon icon={faBars} /></button>
