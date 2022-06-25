@@ -114,3 +114,7 @@ export const MatchType = {
     OneVersusOne: '1v1',
     Team: 'team'
 }
+
+export const Error = {
+    ProfileIdMissing: 0
+}

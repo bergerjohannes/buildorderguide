@@ -13,10 +13,11 @@ import ParagraphCentered from '../UI/ParagraphCentered'
 import LoadingIndicator from '../UI/LoadingIndicator'
 import Switch from '../UI/Switch'
 import * as Constants from '../Constants'
+import ErrorView from '../UI/ErrorView'
 
 const StatsOverview = (props) => {
     const { user, logOut } = useUserAuth()
-    const [profileId, setProfileId] = useState('')
+    const [profileId, setProfileId] = useState(undefined)
     const [matchType, setMatchType] = useState(Constants.MatchType.OneVersusOne)
     const [error, setError] = useState(undefined)
     const [ratings, setRatings] = useState(undefined)
@@ -26,12 +27,13 @@ const StatsOverview = (props) => {
 
     useEffect(() => {
         DatabaseService.loadProfileInfo(user).then(userData => {
-            setProfileId(userData.profile_id)
+            if (userData.profile_id !== undefined && userData.profile_id !== '') setProfileId(userData.profile_id)
+            else setError(Constants.Error.ProfileIdMissing)
         })
     }, [user])
 
     useEffect(() => {
-        if (profileId !== undefined) loadMatches()
+        if (profileId !== undefined && profileId !== '') loadMatches()
     }, [profileId, matchType])
 
     const loadMatches = () => {
@@ -71,19 +73,35 @@ const StatsOverview = (props) => {
         else setMatchType(Constants.MatchType.Team)
     }
 
+    if (error === Constants.Error.ProfileIdMissing) return (
+        <div class='text-center'>
+            <Menu />
+            <Heading1>1v1 Random Map Stats</Heading1>
+            <ErrorView title={'Profile Id missing'} description={'To load your stats, please enter your AoE II Profile Id.'} callToAction={'Add Id'} callToActionLink={'/profile'} />
+        </div>
+    )
+
+    if (profileId === undefined) return (
+        // Before id is loaded
+        <div class='text-center'>
+            <Menu />
+            <Heading1>1v1 Random Map Stats</Heading1>
+        </div>
+    )
+
     return (
         <div class='text-center'>
             <Menu />
             <Heading1>1v1 Random Map Stats</Heading1>
-            <div class='flex justify-center w-1/4 m-auto'><Switch option1={'Random Map'} option2={'Team RM'} slectedOptionIndex={matchType === Constants.MatchType.OneVersusOne ? 0 : 1} selectOption={selectStatsOption}/></div>
+            <div class='flex justify-center w-1/4 m-auto'><Switch option1={'Random Map'} option2={'Team RM'} slectedOptionIndex={matchType === Constants.MatchType.OneVersusOne ? 0 : 1} selectOption={selectStatsOption} /></div>
             {ratings === undefined && <LoadingIndicator text={'Loading match data ..'} />}
             {ratings !== undefined && <ParagraphCentered>Showing data for your last 1,000 matches.</ParagraphCentered>}
-            {ratings !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><RatingsGraph data={ratings}/></div>}
-            {durationStats !== undefined && <GameDurationsView data={durationStats}/>}
+            {ratings !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><RatingsGraph data={ratings} /></div>}
+            {durationStats !== undefined && <GameDurationsView data={durationStats} />}
             {civStats !== undefined && <div class='w-full md:w-1/2 h-56 md:h-96 mx-auto my-12'><CivPerformanceChart data={civStats} /></div>}
             {civStats !== undefined && <div class='w-full md:w-1/2 mx-auto my-12'><CivPerformanceTable data={civStats} /></div>}
             {(matchType === Constants.MatchType.OneVersusOne && matches !== undefined) && matches.map(match => ( // TODO: adapt match cards for team games
-                 <MatchCard match={match} profile_id={profileId} />
+                <MatchCard match={match} profile_id={profileId} />
             ))}
         </div>
     )
