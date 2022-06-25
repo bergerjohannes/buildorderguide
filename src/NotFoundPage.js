@@ -11,7 +11,7 @@ const NotFoundPage = (props) => {
             <Menu />
             <Heading1>Not Found</Heading1>
             <Centered><Paragraph>The page you are looking is not available. <strong>gl next!</strong></Paragraph></Centered>
-            <Centered><Button><Link to="/">Go to Builds </Link></Button></Centered>
+            <Centered><Button><Link to='/'>Go to Builds </Link></Button></Centered>
         </div>
     )
 }
