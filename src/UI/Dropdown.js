@@ -27,12 +27,25 @@ const Dropdown = (props) => {
             borderRadius: 2,
             cursor: 'pointer'
         }),
-        singleValue: (provided, state) => {
-            const opacity = state.isDisabled ? 0.5 : 1
-            const transition = 'opacity 300ms'
-            const color = '#134e4a'
-            return { ...provided, opacity, transition, color };
-        }
+        singleValue: base => ({
+            ...base,
+            transition: 'opacity 300ms',
+            color: '#134e4a'
+        }),
+        multiValue: base => ({
+            ...base,
+            borderRadius: 2,
+            backgroundColor: '#cbd5e1'
+        }),
+        multiValueLabel: base => ({
+            ...base,
+            color: '#134e4a'
+        }),
+        multiValueRemove: base => ({
+            ...base,
+            color: '#cbd5e1',
+            backgroundColor: '#134e4a'
+        })
     }
 
     if (props.isMulti !== undefined && props.isMulti === true) return <Select styles={selectStyle} placeholder={props.placeholder} isMulti isSearchable={props.isSearchable} value={props.options.filter(element => props.value !== undefined && props.value.includes(element.value))} onChange={props.onChange} options={props.options} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
