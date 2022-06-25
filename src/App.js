@@ -11,6 +11,7 @@ import StatsOverview from './Stats/StatsOverview'
 import ChallengeOverview from './Leagues/ChallengeOverview'
 import BuilderOverview from './Builder/BuilderOverview'
 import BuilderDetailView from './Builder/BuilderDetailView'
+import AboutPage from './AboutPage'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route exact path='/' element={<BuildsOverview />} />
           <Route path='/build/:buildId' element={<BuildDetailView />} />
           <Route path='/uptime' element={<UptimeCalculatorView />} />
+          <Route path='/about' element={<AboutPage />} />
           <Route path='/sign-up' element={<AuthenticationView auth={Constants.AuthType.SignUp} />} />
           <Route path='/log-in' element={<AuthenticationView auth={Constants.AuthType.LogIn} />} />
           <Route path='/profile' element={<ProtectedRoute><ProfileView /></ProtectedRoute>} />
