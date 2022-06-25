@@ -41,22 +41,24 @@ const StatsOverview = (props) => {
             .then((response) => response.json())
             .then((responseJson) => {
                 if (responseJson.error !== undefined) {
-                    setError(true)
+                    setError(Constants.Error.LoadingDataUnsuccessful)
                 } else {
+                    if (responseJson.length === 0) setError(Constants.Error.LoadingDataUnsuccessful)
                     const ratingsData = StatsInfoService.prepareRatingsData(responseJson)
                     setRatings(ratingsData)
                 }
             }).catch((error) => {
                 console.log(`Couldn't load ratings: ${error}`)
-                setError(true)
+                setError(Constants.Error.LoadingDataUnsuccessful)
             })
 
         fetch('https://us-central1-build-order-guide.cloudfunctions.net/getMatches?ranked=true&mode=RM&type=' + matchType + '&profile_id=' + profileId)
             .then((response) => response.json())
             .then((responseJson) => {
                 if (responseJson.error !== undefined) {
-                    setError(true)
+                    setError(Constants.Error.LoadingDataUnsuccessful)
                 } else {
+                    if (responseJson.length === 0) setError(Constants.Error.LoadingDataUnsuccessful)
                     const stats = StatsInfoService.getStatsForPlayer(responseJson, profileId)
                     setMatches(responseJson)
                     setCivStats(stats.civs)
@@ -64,7 +66,7 @@ const StatsOverview = (props) => {
                 }
             }).catch((error) => {
                 console.log(`Couldn't load matches: ${error}`)
-                setError(true)
+                setError(Constants.Error.LoadingDataUnsuccessful)
             })
     }
 
@@ -78,6 +80,14 @@ const StatsOverview = (props) => {
             <Menu />
             <Heading1>1v1 Random Map Stats</Heading1>
             <ErrorView title={'Profile Id missing'} description={'To load your stats, please enter your AoE II Profile Id.'} callToAction={'Add Id'} callToActionLink={'/profile'} />
+        </div>
+    )
+
+    if (error === Constants.Error.LoadingDataUnsuccessful) return (
+        <div class='text-center'>
+            <Menu />
+            <Heading1>1v1 Random Map Stats</Heading1>
+            <ErrorView title={'Error loading data'} description={'Not able to load your data.'} />
         </div>
     )
 
