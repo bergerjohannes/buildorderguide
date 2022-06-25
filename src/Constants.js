@@ -116,5 +116,6 @@ export const MatchType = {
 }
 
 export const Error = {
-    ProfileIdMissing: 0
+    ProfileIdMissing: 0,
+    LoadingDataUnsuccessful: 1
 }

@@ -43,16 +43,16 @@ const ChallengeOverview = (props) => {
             .then((response) => response.json())
             .then((responseJson) => {
                 if (responseJson.error !== undefined) {
-                    setError(true)
+                    setError(Constants.Error.LoadingDataUnsuccessful)
                 } else {
+                    if (responseJson.length === 0) setError(Constants.Error.LoadingDataUnsuccessful)
                     const preppedData = ChallengeService.prepareDataForLeagueTable(responseJson, profileId)
                     setLeague(preppedData[0])
                     setCivChallenge(preppedData[1])
-                    setError(false)
                 }
             }).catch((error) => {
                 console.log(`Couldn't load civ challenge data: ${error}`)
-                setError(true)
+                setError(Constants.Error.LoadingDataUnsuccessful)
             })
     }
 
@@ -61,6 +61,14 @@ const ChallengeOverview = (props) => {
             <Menu />
             <Heading1>Civ Challeng</Heading1>
             <ErrorView title={'Profile Id missing'} description={'To load your stats, please enter your AoE II Profile Id.'} callToAction={'Add Id'} callToActionLink={'/profile'} />
+        </div>
+    )
+
+    if (error === Constants.Error.LoadingDataUnsuccessful) return (
+        <div class='text-center'>
+            <Menu />
+            <Heading1>1v1 Random Map Stats</Heading1>
+            <ErrorView title={'Error loading data'} description={'Not able to load your data.'} />
         </div>
     )
 
