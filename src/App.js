@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { HashRouter, Route, Routes } from 'react-router-dom'
 import BuildsOverview from './Builds/BuildsOverview'
 import BuildDetailView from './Builds/BuildDetailView'
 import UptimeCalculatorView from './Uptime/UptimeCalculatorView'
@@ -17,7 +17,7 @@ import NotFoundPage from './NotFoundPage'
 function App() {
   return (
     <UserAuthContextProvider>
-      <BrowserRouter basename='/'>
+      <HashRouter basename='/'>
         <Routes>
           <Route exact path='/' element={<BuildsOverview />} />
           <Route path='/build/:buildId' element={<BuildDetailView />} />
@@ -33,7 +33,7 @@ function App() {
           <Route path='/404' element={<NotFoundPage />} />
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </UserAuthContextProvider>
 
   )
