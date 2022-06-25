@@ -29,16 +29,16 @@ const ChallengeOverview = (props) => {
 
     useEffect(() => {
         DatabaseService.loadProfileInfo(user).then(userData => {
-            setProfileId(userData.profile_id)
+            if (userData.profile_id !== undefined && userData.profile_id !== '') setProfileId(userData.profile_id)
+            else setError(Constants.Error.ProfileIdMissing)
         })
     }, [user])
 
     useEffect(() => {
-        if (profileId === undefined || profileId === '') {
-            setError(Constants.Error.ProfileIdMissing)
-            return
-        }
+        if (profileId !== undefined && profileId !== '') loadData()
+    }, [profileId])
 
+    const loadData = () => {
         fetch('https://us-central1-build-order-guide.cloudfunctions.net/getCivChallengeProgress?profile_id=' + profileId + '&year=' + year + '&month=' + month)
             .then((response) => response.json())
             .then((responseJson) => {
@@ -54,7 +54,7 @@ const ChallengeOverview = (props) => {
                 console.log(`Couldn't load civ challenge data: ${error}`)
                 setError(true)
             })
-    }, [profileId])
+    }
 
     if (error === Constants.Error.ProfileIdMissing) return (
         <div class='text-center'>
