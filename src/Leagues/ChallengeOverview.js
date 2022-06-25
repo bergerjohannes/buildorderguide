@@ -8,6 +8,8 @@ import ChallengeTable from './ChallengeTable'
 import Heading1 from '../UI/Heading1'
 import Paragraph from '../UI/Paragraph'
 import LoadingIndicator from '../UI/LoadingIndicator'
+import * as Constants from '../Constants'
+import ErrorView from '../UI/ErrorView'
 
 const ChallengeOverview = (props) => {
     const date = new Date()
@@ -32,7 +34,10 @@ const ChallengeOverview = (props) => {
     }, [user])
 
     useEffect(() => {
-        if (profileId === undefined) return
+        if (profileId === undefined || profileId === '') {
+            setError(Constants.Error.ProfileIdMissing)
+            return
+        }
 
         fetch('https://us-central1-build-order-guide.cloudfunctions.net/getCivChallengeProgress?profile_id=' + profileId + '&year=' + year + '&month=' + month)
             .then((response) => response.json())
@@ -50,6 +55,22 @@ const ChallengeOverview = (props) => {
                 setError(true)
             })
     }, [profileId])
+
+    if (error === Constants.Error.ProfileIdMissing) return (
+        <div class='text-center'>
+            <Menu />
+            <Heading1>Civ Challeng</Heading1>
+            <ErrorView title={'Profile Id missing'} description={'To load your stats, please enter your AoE II Profile Id.'} callToAction={'Add Id'} callToActionLink={'/profile'} />
+        </div>
+    )
+
+    if (profileId === undefined) return (
+        // Before id is loaded
+        <div class='text-center'>
+            <Menu />
+            <Heading1>Civ Challeng</Heading1>
+        </div>
+    )
 
     return (
         <div>
