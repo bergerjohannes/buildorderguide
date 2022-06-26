@@ -3,7 +3,7 @@ import * as Constants from '../Constants'
 class BuildData {
 
   static getBuildAttributes() {
-    return [{value: 'drush', label: 'Dark Age Rush (Drush)'}, {value: 'fastFeudal', label: 'Fast Feudal'}, {value: 'fastCastle', label: 'Fast Castle'}, {value: 'fastImperial', label: 'Fast Imperial'}, {value: 'water', label: 'Water/Hybrid'}, {value: 'arena', label: 'Arena'}, {value: 'meme', label: 'Meme'}]
+    return [{value: 'drush', label: 'Drush'}, {value: 'fastFeudal', label: 'Fast Feudal'}, {value: 'fastCastle', label: 'Fast Castle'}, {value: 'fastImperial', label: 'Fast Imperial'}, {value: 'water', label: 'Water/Hybrid'}, {value: 'arena', label: 'Arena'}, {value: 'meme', label: 'Meme'}]
   }
 
   static getTaskOptions() {
