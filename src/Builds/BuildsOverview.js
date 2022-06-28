@@ -42,8 +42,7 @@ const BuildsOverview = (props) => {
             <Menu />
             <Heading1>Builds</Heading1>
             {builds.length === 0 && <LoadingIndicator text={'Loading build orders ..'} />}
-            {builds.length > 0 && <FilterView civilization={civilization} setCivilization={setCivilization} type={type} setType={setType} />}
-            {builds.length > 0 && <Centered><Input placeholder='Search builds' onChange={handleSearch} /></Centered>}
+            {builds.length > 0 && <FilterView civilization={civilization} setCivilization={setCivilization} type={type} setType={setType} handleSearch={handleSearch} />}
             <div class='w-11/12 md:w-9/12 m-auto flex flex-wrap justify-center'>
                 {buildsToDisplay !== undefined && buildsToDisplay.map(build => (
                     <BuildPreviewCard build={build} />
