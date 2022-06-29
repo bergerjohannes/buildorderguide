@@ -7,19 +7,20 @@ import BuildData from './BuildData'
 import * as Constants from '../Constants'
 import LoadingIndicator from '../UI/LoadingIndicator'
 import Heading1 from '../UI/Heading1'
+import CivView from '../UI/CivView'
 
 const BuildView = (props) => {
     const build = props.build
     if (build === undefined) return (<LoadingIndicator />)
 
-    const buildTitle = BuildData.getTitleForBuild(build)
     const isOfficialBuild = build.publisher === Constants.OfficialPublisherId
 
     return (
         <div class='flex flex-col space-y-4'>
-            <div class='flex justify-center mt-10 -mb-14'>{build.imageURL !== null && build.imageURL !== undefined && <img class='h-32 w-32' src={build.imageURL} alt={(buildTitle)} />}</div>
-            <div class='flex justify-center mt-10 -mb-14'>{build.imageURL === null || build.imageURL === undefined && <img class='h-32 w-32' src={require('../Images/BuildImagePlaceholder.png')} alt={buildTitle} />}</div>
-            <div class='text-center'><Heading1>{buildTitle}</Heading1></div>
+            <div class='flex justify-center mt-10'>{build.imageURL !== null && build.imageURL !== undefined && <img class='h-32 w-32' src={build.imageURL} alt={(build.title)} />}</div>
+            <div class='flex justify-center mt-10'>{build.imageURL === null || build.imageURL === undefined && <img class='h-32 w-32' src={require('../Images/BuildImagePlaceholder.png')} alt={build.title} />}</div>
+            <div class='flex justify-center'><CivView civ={build.civilization} /></div>
+            <div class='text-center'><Heading1>{build.title}</Heading1></div>
             <div class='text-center'><p class='text-main-dark -mt-12'>{build.author}</p></div>
             {build.publisher !== undefined && isOfficialBuild === false && <div class='bg-primary-light text-main-dark text-center font-semibold rounded-md max-w-xs w-fit py-1 px-5 m-auto'>Community</div>}
             {build.description !== undefined && <div class='m-auto md:max-w-lg w-11/12 text-center'><p class='text-main-dark'>{build.description}</p></div>}
