@@ -2,14 +2,13 @@ import { Link } from 'react-router-dom'
 import AttributesView from './AttributesView'
 import DifficultyIndicator from './DifficultyIndicator'
 import PopIndicator from './PopIndicator'
-import BuildData from './BuildData'
 import * as Constants from '../Constants'
 import Heading2 from '../UI/Heading2'
+import CivView from '../UI/CivView'
 
 const BuildPreviewCard = (props) => {
 
     const isOfficialBuild = (publisher) => publisher === Constants.OfficialPublisherId
-    const buildTitle = BuildData.getTitleForBuild(props.build)
 
     return (
         <Link to={{ pathname: `/build/${props.build.id}` }}>
@@ -17,8 +16,9 @@ const BuildPreviewCard = (props) => {
                 {isOfficialBuild(props.build.publisher) === false && <div class='absolute transform -rotate-45 bg-primary-light text-center text-main-dark font-semibold py-1 right-[-34px] bottom-[20px] w-[150px]'>
                     Community
                 </div>}
-                <div class='mt-2 mb-4 ml-5'><Heading2>{buildTitle}</Heading2></div>
-                <h3 class='ml-5 pb-5 -mt-5 text-md text-main-light'>{props.build.author}</h3>
+                <div class='mt-2 scale-90'><CivView civ={props.build.civilization} /></div>
+                <div class='mb-4 ml-5'><Heading2>{props.build.title}</Heading2></div>
+                <h3 class='ml-5 pb-8 -mt-5 text-md text-main-light'>{props.build.author}</h3>
 
                 <div class='grid grid-cols-4 grid-rows-4 gap-0'>
                     <div class='box row-start-2 row-span-4 w-24'>

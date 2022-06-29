@@ -76,6 +76,7 @@ export const Unit = {
 }
 
 export const Civ = {
+    All: 'All',
     Generic: 'Generic',
     Unknown: 'Unknown',
     Meso: 'Meso',
@@ -119,4 +120,8 @@ export const Error = {
     ProfileIdMissing: 0,
     LoadingDataUnsuccessful: 1,
     BuildNotExistent: 2
+}
+
+export const Sorting = {
+    Alphabetically: 'Alphabetically'
 }

@@ -1,50 +1,49 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowDownWideShort, faArrowUpShortWide } from '@fortawesome/free-solid-svg-icons'
 import * as Constants from '../Constants'
 import Filter from '../UI/Filter'
-import Heading2 from '../UI/Heading2'
 import CivInfoService from '../Uptime/CivInfoService'
 import BuildData from './BuildData'
 import { useState } from 'react'
-import Centered from '../UI/Centered'
-import Input from '../UI/Input'
+import CivView from '../UI/CivView'
 
 const FilterView = (props) => {
 
-    const [showFilters, setShowFilters] = useState(false)
+    const [showFilters, setShowFilters] = useState(true)
 
     let civOptions = [
-        { value: Constants.Civ.Generic, label: <div class='flex space-x-2'><img class='w-8 h-8' src={require('../Images/Civilizations/Generic.png')} alt={Constants.Civ.Generic} /><span >All</span></div> },
-        { value: Constants.Civ.Meso, label: <div class='flex space-x-2'><img class='w-8 h-8' src={require('../Images/Civilizations/Meso.png')} alt={Constants.Civ.Meso} /><span >Meso</span></div> }
+        { value: Constants.Civ.Generic, label: <CivView civ={Constants.Civ.All} />},
+        { value: Constants.Civ.Meso, label: <CivView civ={Constants.Civ.Meso} /> }
     ]
-    CivInfoService.getCivilizations().forEach((item, i) => {
-        civOptions.push({ value: item, label: <div class='flex space-x-2'><img class='w-8 h-8' src={require('../Images/Civilizations/' + item + '.png')} alt={item} /><span >{item}</span></div> })
+    CivInfoService.getCivilizations().forEach(civ => {
+        civOptions.push({ value: civ, label: <CivView civ={civ} />})
     })
 
     let typeOptions = [{ value: 'All', label: 'All' }]
     typeOptions = typeOptions.concat(BuildData.getBuildAttributes())
 
+    let sortOptions = [{ value: Constants.Sorting.Alphabetically, label: Constants.Sorting.Alphabetically }]
+
     return (
-        <div class='my-12 text-xl text-center m-auto p-6 w-11/2 md:w-9/12 lg:w-1/2'>
-            <button class='p-4 bg-secondary-light rounded-sm text-main-dark' onClick={() => setShowFilters(!showFilters)}><span class='mr-2'>Filters</span><FontAwesomeIcon icon={showFilters ? faArrowUpShortWide : faArrowDownWideShort} /></button>
-            <div class={showFilters ? 'block' : 'hidden'}>
-                <div class='w-full flex flex-col space-y-4'>
-                <div class='w-full flex justify-center items-center space-x-8 text-center m-auto'>
-                    <div class='mt-6 w-1/2 lg:w-1/4'>
-                        <Heading2>Civilization</Heading2>
-                        <Filter isSearchable={true} value={props.civilization} onChange={event => props.setCivilization(event.value)} options={civOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} placeholder='Select civ' />
-                    </div>
-                    <div class='mt-6 w-1/2 lg:w-1/4'>
-                        <Heading2>Type</Heading2>
-                        <Filter isSearchable={true} value={props.type} onChange={event => props.setType(event.value)} options={typeOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} placeholder='Select type' />
-                    </div>
+        <div class='w-full cursor-pointer flex justify-center text-main-dark' onClick={(event) => { setShowFilters(!showFilters); event.preventDefault() }}>
+            <div class='flex justify-center w-11/12 md:w-1/2 lg:1/2 xl:w-1/3 border-2 rounded-sm text-center'>
+                <div class='w-1/3'>
+                    <label class='text-xs text-main-dark'>Civ</label>
+                    <Filter isDisabled={false} isSearchable={true} value={props.civilization} onChange={event => props.setCivilization(event.value)} options={civOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} placeholder='All' />
                 </div>
-                <Centered><Input placeholder='Search builds' onChange={props.handleSearch} /></Centered>
+                <div class='w-0.5 h-3/4 my-auto rounded-md bg-secondary-light'></div>
+                <div class='w-1/3'>
+                    <label class='text-xs text-main-dark'>Type</label>
+                    <Filter isDisabled={false} isSearchable={false} value={props.type} onChange={event => props.setType(event.value)} options={typeOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} placeholder='All' />
+                </div>
+                <div class='w-0.5 h-3/4 my-auto rounded-md bg-secondary-light'></div>
+                <div class='w-1/3'>
+                    <label class='text-xs text-main-dark'>Sorting</label>
+                    <Filter isDisabled={false} isSearchable={false} value={props.sorting} onChange={event => props.setSorting(event.value)} options={sortOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} placeholder='Alphabetically' />
                 </div>
             </div>
         </div>
-
     )
 }
 
 export default FilterView
+
+// {showFilters ? 'transition duration-500 ease-in-out transform scale-100 cursor-pointer' : 'transition duration-500 ease-in-out transform scale-75 cursor-pointer'}
