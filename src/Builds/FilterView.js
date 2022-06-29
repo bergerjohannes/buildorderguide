@@ -45,5 +45,3 @@ const FilterView = (props) => {
 }
 
 export default FilterView
-
-// {showFilters ? 'transition duration-500 ease-in-out transform scale-100 cursor-pointer' : 'transition duration-500 ease-in-out transform scale-75 cursor-pointer'}
