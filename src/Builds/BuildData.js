@@ -42,12 +42,6 @@ class BuildData {
     return [{value: 'collect10GoldWithNewVillager', label: '1 Collects 10 Gold'}, {value: 'collect40GoldWithTwoNewVillagers', label: '2 Collect 40 Gold'}, {value: 'collect30GoldWithNewVillager', label: '1 Collects 30 Gold'}, {value: 'collect10GoldAfterBarracksIsBuilt', label: 'Collect 10 Gold After Barracks Is Built'}]
   }
 
-  static getTitleForBuild(build) {
-    if (build.civilization === 'Generic' || build.civilization === undefined || build.civilization === undefined) return build.title
-    if (build.civilization.charAt(build.civilization.length-1) === 's') return build.civilization.substring(0, build.civilization.length-1) + ' ' + build.title
-    return build.civilization + ' ' + build.title
-  }
-
   static getTitleForStep(step) {
       if (step.type === Constants.StepType.NewAge) BuildData.currentGroup = null
 

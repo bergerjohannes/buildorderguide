@@ -6,6 +6,7 @@ import CivInfoService from '../Uptime/CivInfoService'
 import Heading2 from '../UI/Heading2'
 import Input from '../UI/Input'
 import Dropdown from '../UI/Dropdown'
+import CivView from '../UI/CivView'
 
 const BuilderDetailInfoSection = (props) => {
 
@@ -64,11 +65,11 @@ const BuilderDetailInfoSection = (props) => {
     }, 250)
 
     let civOptions = [
-        { value: Constants.Civ.Generic, label: <div class='flex space-x-2'><img class='w-8 h-8' src={require('../Images/Civilizations/Generic.png')} alt={Constants.Civ.Generic} /><span >Generic</span></div> },
-        { value: Constants.Civ.Meso, label: <div class='flex space-x-2'><img class='w-8 h-8' src={require('../Images/Civilizations/Meso.png')} alt={Constants.Civ.Meso} /><span >Meso</span></div> }
+        { value: Constants.Civ.Generic, label: <CivView civ={Constants.Civ.Generic} />},
+        { value: Constants.Civ.Meso, label: <CivView civ={Constants.Civ.Meso} /> }
     ]
-    CivInfoService.getCivilizations().forEach((item, i) => {
-        civOptions.push({ value: item, label: <div class='flex space-x-2'><img class='w-8 h-8' src={require('../Images/Civilizations/' + item + '.png')} alt={item} /><span >{item}</span></div> })
+    CivInfoService.getCivilizations().forEach(civ => {
+        civOptions.push({ value: civ, label: <CivView civ={civ} />})
     })
 
     let difficultyOptions = [{ value: 1, label: Constants.Difficulty.Beginner }, { value: 2, label: Constants.Difficulty.Intermediate }, { value: 3, label: Constants.Difficulty.Advanced }]
