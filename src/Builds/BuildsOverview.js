@@ -6,6 +6,7 @@ import Heading1 from '../UI/Heading1'
 import LoadingIndicator from '../UI/LoadingIndicator'
 import FilterView from './FilterView'
 import * as Constants from '../Constants'
+import Input from '../UI/Input'
 
 const BuildsOverview = (props) => {
     const [builds, setBuilds] = useState([])
@@ -46,7 +47,8 @@ const BuildsOverview = (props) => {
             <Menu />
             <Heading1>Builds</Heading1>
             {builds.length === 0 && <LoadingIndicator text={'Loading build orders ..'} />}
-            {builds.length > 0 && <div class='w-full flex justify-center'><FilterView civilization={civilization} setCivilization={setCivilization} type={type} setType={setType} handleSearch={handleSearch} sorting={sorting} setSorting={setSorting}/></div>}
+            {builds.length > 0 && <div class='w-full flex justify-center mb-5'><FilterView civilization={civilization} setCivilization={setCivilization} type={type} setType={setType} handleSearch={handleSearch} sorting={sorting} setSorting={setSorting}/></div>}
+            {builds.length > 0 && <div class='w-11/12 md:w-1/2 lg:1/2 xl:w-1/3 m-auto'><Input placeholder='Search builds' onChange={handleSearch} /></div>}
             <div class='w-11/12 md:w-9/12 m-auto flex flex-wrap justify-center'>
                 {buildsToDisplay !== undefined && buildsToDisplay.map(build => (
                     <BuildPreviewCard build={build} />
