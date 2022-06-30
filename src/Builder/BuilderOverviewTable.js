@@ -25,24 +25,24 @@ const BuilderOverviewTable = (props) => {
     }
 
     return (
-        <div class='text-main-dark'>
+        <div class='text-main-dark mt-10 text-sm md:text-base w-11/12 m-auto'>
             {props.builds !== undefined && props.builds.length > 0 &&
-                <div class='flex justify-center space-x-2 w-full'>
-                    <p class='w-1/12'><strong>Civ</strong></p>
-                    <p class='w-2/12'><strong>Pop</strong></p>
-                    <p class='w-5/12'><strong>Name</strong></p>
-                    <p class='hidden md:block w-3/12'><strong>Author</strong></p>
-                    <p class='w-1/12'><strong>Status</strong></p>
+                <div class='grid grid-cols-12 grid-rows-1 w-full mb-2'>
+                    <p class='col-span-1'><strong>Civ</strong></p>
+                    <p class='col-span-2'><strong>Pop</strong></p>
+                    <p class='col-span-6 md:col-span-4'><strong>Name</strong></p>
+                    <p class='hidden md:block md:col-span-3'><strong>Author</strong></p>
+                    <p class='col-span-2'><strong>Status</strong></p>
                 </div>
             }
             {props.builds !== undefined && props.builds.sort((a, b) => a.id - b.id).map(build => (
                 <Link to={{ pathname: `/builder/build/${build.id}`, state: { title: build.title, id: build.id } }} >
-                <div class='flex justify-center space-x-2 w-full'>
-                    <p class='w-1/12'>{getCivilizationForBuild(build)}</p>
-                    <p class='w-2/12'>{getPopForBuild(build)}</p>
-                    <p class='w-5/12'>{getTitleForBuild(build)}</p>
-                    <p class='hidden md:block w-3/12'>{getAuthorForBuild(build)}</p>
-                    <p class='w-1/12'><PublishIndicator status={build.status} /></p>
+                <div class='grid grid-cols-12 grid-rows-1 w-full'>
+                    <p class='col-span-1'>{getCivilizationForBuild(build)}</p>
+                    <p class='col-span-2'>{getPopForBuild(build)}</p>
+                    <p class='col-span-6 md:col-span-4'>{getTitleForBuild(build)}</p>
+                    <p class='hidden md:block md:col-span-3'>{getAuthorForBuild(build)}</p>
+                    <p class='col-span-2'><PublishIndicator status={build.status} /></p>
                 </div>
                 </Link>
             ))}

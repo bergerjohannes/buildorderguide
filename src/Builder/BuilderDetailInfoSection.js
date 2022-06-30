@@ -75,7 +75,7 @@ const BuilderDetailInfoSection = (props) => {
     let difficultyOptions = [{ value: 1, label: Constants.Difficulty.Beginner }, { value: 2, label: Constants.Difficulty.Intermediate }, { value: 3, label: Constants.Difficulty.Advanced }]
 
     return (
-        <div class='w-1/2 m-auto mt-12'>
+        <div class='w-11/12 md:w-1/2 m-auto mt-12'>
             <div class='mt-6'>
                 <Heading2>Title</Heading2>
                 <Input value={props.title} onChange={event => { handleTitleChange(event.target.value) }} placeholder='Title of build' />
