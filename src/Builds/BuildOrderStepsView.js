@@ -38,9 +38,9 @@ const BuildOrderStepsView = (props) => {
 
         return (
             <div>
-                {step.type !== Constants.StepType.NewAge && <div class='flex justify-between h-6'>
-                    <div>{title}</div>
-                    {(step.type === Constants.StepType.NewVillagers || step.type === Constants.StepType.MoveVillagers || step.type === Constants.StepType.CollectGold) && <WorkerDistributionView food={step.resources.food} builder={step.resources.build} wood={step.resources.wood} stone={step.resources.stone} showGold={showGold} showStone={showStone} showBuilder={showBuilder} gold={step.resources.gold} />}
+                {step.type !== Constants.StepType.NewAge && <div class='grid overflow-hidden grid-cols-12 grid-rows-1'>
+                    <div class='box row-start-1 row-end-auto col-span-9 md:col-span-8'>{title}</div>
+                    {(step.type === Constants.StepType.NewVillagers || step.type === Constants.StepType.MoveVillagers || step.type === Constants.StepType.CollectGold) && <div class='box col-span-3 md:col-span-4'><WorkerDistributionView food={step.resources.food} builder={step.resources.build} wood={step.resources.wood} stone={step.resources.stone} showGold={showGold} showStone={showStone} showBuilder={showBuilder} gold={step.resources.gold} /></div>}
                 </div>}
                 {step.type === Constants.StepType.NewAge && <><hr class='my-4' /><div class='flex my-4 text-xl'><img class='w-6 h-6' src={require('../Images/Ages/' + step.age + '.png')} alt={'Feudal Age'} />{age}</div></>}
                 {(step.type === Constants.StepType.AgeUp && index + 1 < props.build.length && props.build[index + 1].type !== Constants.StepType.NewAge && props.build[index + 1].type !== Constants.StepType.Decision) && <><hr class='my-4' /><div class='italic my-4 text-xl'>Before {age}</div></>}
