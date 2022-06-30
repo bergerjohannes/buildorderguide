@@ -8,7 +8,11 @@ const Filter = (props) => {
             fontSize: '16px',
             color: state.isFocused ? '#134e4a' : state.isSelected ? '#0f172a' : '#134e4a',
             cursor: 'pointer',
-            backgroundColor: '#ffffff'
+            backgroundColor: '#ffffff',
+            "@media only screen and (max-width: 767px)": {
+                ...provided["@media only screen and (max-width: 767px)"],
+                fontSize: '12px',
+            }
         }),
         menu: base => ({
             ...base,
@@ -16,8 +20,12 @@ const Filter = (props) => {
             fontSize: '16px',
             color: '#134e4a',
             backgroundColor: '#ffffff',
+            "@media only screen and (max-width: 767px)": {
+                ...base["@media only screen and (max-width: 767px)"],
+                fontSize: '12px',
+            }
         }),
-        control: () => ({
+        control: base => ({
             height: 42,
             color: '#134e4a',
             backgroundColor: '#ffffff',
@@ -26,13 +34,21 @@ const Filter = (props) => {
             justifyContent: 'center',
             display: 'flex',
             borderRadius: 2,
-            cursor: 'pointer'
+            cursor: 'pointer',
+            "@media only screen and (max-width: 767px)": {
+                ...base["@media only screen and (max-width: 767px)"],
+                fontSize: '12px',
+            }
         }),
         singleValue: base => ({
             ...base,
             transition: 'opacity 300ms',
             color: '#134e4a',
             margin: 'auto',
+            "@media only screen and (max-width: 767px)": {
+                ...base["@media only screen and (max-width: 767px)"],
+                fontSize: '12px',
+            }
         })
     }
 
