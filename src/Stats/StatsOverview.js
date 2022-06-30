@@ -103,7 +103,7 @@ const StatsOverview = (props) => {
         <div class='text-center'>
             <Menu />
             <Heading1>1v1 Random Map Stats</Heading1>
-            <div class='flex justify-center w-1/4 m-auto'><Switch option1={'Random Map'} option2={'Team RM'} slectedOptionIndex={matchType === Constants.MatchType.OneVersusOne ? 0 : 1} selectOption={selectStatsOption} /></div>
+            <Switch option1={'Random Map'} option2={'Team RM'} slectedOptionIndex={matchType === Constants.MatchType.OneVersusOne ? 0 : 1} selectOption={selectStatsOption} />
             {ratings === undefined && <LoadingIndicator text={'Loading match data ..'} />}
             {ratings !== undefined && <ParagraphCentered>Showing data for your last 1,000 matches.</ParagraphCentered>}
             {ratings !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><RatingsGraph data={ratings} /></div>}
