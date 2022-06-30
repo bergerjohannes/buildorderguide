@@ -23,8 +23,8 @@ const FilterView = (props) => {
     let sortOptions = [{ value: Constants.Sorting.Alphabetically, label: Constants.Sorting.Alphabetically }]
 
     return (
-        <div class='w-full cursor-pointer flex justify-center text-main-dark' onClick={(event) => { setShowFilters(!showFilters); event.preventDefault() }}>
-            <div class='flex justify-center w-11/12 md:w-1/2 lg:1/2 xl:w-1/3 border-2 rounded-sm text-center'>
+        <div class='w-full flex justify-center text-main-dark' onClick={(event) => { setShowFilters(!showFilters); event.preventDefault() }}>
+            <div class='flex justify-center w-11/12 md:w-1/2 lg:1/2 xl:w-1/3 border-2 rounded-sm text-center border-secondary-light'>
                 <div class='w-1/3'>
                     <label class='text-xs text-main-dark'>Civ</label>
                     <Filter isDisabled={false} isSearchable={true} value={props.civilization} onChange={event => props.setCivilization(event.value)} options={civOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} placeholder='All' />
