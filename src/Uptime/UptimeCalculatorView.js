@@ -59,7 +59,7 @@ const UptimeCalculatorView = (props) => {
                 </div>
                 <div class='mt-6'>
                     <Heading2>FC</Heading2>
-                    <Dropdown isSearchable={false} value={castle} onChange={castle => setCastle(loom.value)} options={castlePopAdditionOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
+                    <Dropdown isSearchable={false} value={castle} onChange={castle => setCastle(castle.value)} options={castlePopAdditionOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
                 </div>
             </form>
 
