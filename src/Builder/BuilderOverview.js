@@ -56,7 +56,7 @@ const BuilderOverview = (props) => {
             <Menu />
             <div class='w-full md:w-1/2 m-auto'>
                 <Heading1>Build Order Builder</Heading1>
-                {isAdmin() && <div class='flex justify-center w-1/2 mx-auto my-4'><Switch option1={'My builds'} option2={'All builds'} slectedOptionIndex={loadAllBuilds === false ? 0 : 1} selectOption={selectBuildLoadingPreferenceOption} /></div>}
+                {isAdmin() && <Switch option1={'My builds'} option2={'All builds'} slectedOptionIndex={loadAllBuilds === false ? 0 : 1} selectOption={selectBuildLoadingPreferenceOption} />}
                 {builds === undefined && <LoadingIndicator text={'Loading build orders ..'} />}
                 {builds !== undefined && <BuilderOverviewTable builds={builds} />}
                 {builds !== undefined && <CenteredButton onClick={addNewBuild}>New Build</CenteredButton>}
