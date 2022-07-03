@@ -5,6 +5,8 @@ import PopIndicator from './PopIndicator'
 import * as Constants from '../Constants'
 import Heading2 from '../UI/Heading2'
 import CivView from '../UI/CivView'
+import FavView from '../UI/FavView'
+import RatingView from '../UI/RatingView'
 
 const BuildPreviewCard = (props) => {
 
@@ -16,7 +18,7 @@ const BuildPreviewCard = (props) => {
                 {isOfficialBuild(props.build.publisher) === false && <div class='absolute transform -rotate-45 bg-primary-light text-center text-main-dark font-semibold py-1 right-[-34px] bottom-[20px] w-[150px]'>
                     Community
                 </div>}
-                <div class='mt-2 scale-90'><CivView civ={props.build.civilization} /></div>
+                <div class='mt-2 scale-90 flex justify-between'><CivView civ={props.build.civilization} /><FavView fav={true} onClick={(event) => { event.preventDefault(); console.log('Click!') }} /></div>
                 <div class='mb-4 ml-5'><Heading2>{props.build.title}</Heading2></div>
                 <h3 class='ml-5 pb-8 -mt-5 text-md text-main-light'>{props.build.author}</h3>
 
@@ -33,6 +35,9 @@ const BuildPreviewCard = (props) => {
                     </div>
                     <div class='col-start-2 col-span-3 ml-4'>
                         <DifficultyIndicator difficulty={props.build.difficulty} />
+                    </div>
+                    <div class='col-start-4 col-span-3 -ml-4'>
+                        <RatingView />
                     </div>
                 </div>
             </div>
