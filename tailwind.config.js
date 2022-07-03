@@ -20,6 +20,10 @@ module.exports = {
         'danger': {
           dark: '#ef4444',
           light: '#fb7185'
+        },
+        'highlight': {
+          dark: '#f59e0b',
+          light: '#fde047'
         }
       }
     },
