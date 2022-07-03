@@ -1,5 +1,5 @@
 import { store, storage } from './FirebaseService.js'
-import { doc, getDoc, getDocs, updateDoc, addDoc, setDoc, query, collection, where, deleteDoc } from 'firebase/firestore'
+import { doc, getDoc, getDocs, updateDoc, addDoc, setDoc, query, collection, where, deleteDoc, arrayUnion, arrayRemove } from 'firebase/firestore'
 import { ref, listAll } from 'firebase/storage'
 import * as Constants from './Constants'
 
@@ -227,6 +227,32 @@ class DatabaseService {
         })
             .catch((error) => {
                 console.error(`Error saving profile info for user with id ${user.uid}: ${error}`)
+            })
+    }
+
+    // FAV BUILDS
+
+    static async favBuildWithIdForUser(id, user) {
+        console.log(`Fav build with id ${id} for user with id ${user.uid}`)
+        const docRef = doc(store, 'users', user.uid)
+
+        await updateDoc(docRef, {
+            favorites: arrayUnion(id)
+        })
+            .catch((error) => {
+                console.error(`Error favoring build with id ${id}: ${error}`)
+            })
+    }
+
+    static async removeFavBuildWithIdForUser(id, user) {
+        console.log(`Remove fav build with id ${id} for user with id ${user.uid}`)
+        const docRef = doc(store, 'users', user.uid)
+
+        await updateDoc(docRef, {
+            favorites: arrayRemove(id)
+        })
+            .catch((error) => {
+                console.error(`Error removing favorite build with id ${id}: ${error}`)
             })
     }
 }
