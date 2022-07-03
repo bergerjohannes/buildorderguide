@@ -59,8 +59,12 @@ const BuildsOverview = (props) => {
         buildsToDisplay = buildsToDisplay.filter(build => type === 'All' || build.attributes.filter(attribute => attribute.toUpperCase().indexOf(type.trim().toUpperCase()) !== -1).length > 0)
     }
 
-    if (sorting === Constants.Sorting.Alphabetically) {
+    if (sorting === Constants.Sorting.Alphabetically || Constants.Sorting.FavoritesOnly) {
         buildsToDisplay = buildsToDisplay.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0))
+    }
+
+    if (sorting === Constants.Sorting.FavoritesOnly) {
+        buildsToDisplay = buildsToDisplay.filter(build => favorites.some(entry => entry === build.id))
     }
 
     return (
