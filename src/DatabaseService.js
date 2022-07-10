@@ -255,5 +255,33 @@ class DatabaseService {
                 console.error(`Error removing favorite build with id ${id}: ${error}`)
             })
     }
+
+    // RATINGS
+
+    static async rateBuildWithIdForUser(id, user, rating) {
+        const docRef = doc(store, 'ratings', `rating-${id}-${user.uid}`)
+        const data = { 'build_id': id, 'user_id': user.uid, 'rating': rating }
+
+        await setDoc(docRef, data).then(() => {
+            console.log(`Rated build with id ${id}`)
+        })
+            .catch((error) => {
+                console.error(`Error rating build with id ${id}: ${error}`)
+            })
+
+        return docRef.id
+    }
+
+    static async loadRatings() {
+        let q = query(collection(store, 'ratings-aggregate'))
+        const querySnapshot = await getDocs(q)
+        let data = []
+        querySnapshot.forEach((doc) => {
+            let ratingDoc = doc.data()
+            ratingDoc.id = doc.id
+            data.push(ratingDoc)
+        })
+        return data
+    }
 }
 export default DatabaseService

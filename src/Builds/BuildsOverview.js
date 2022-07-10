@@ -12,6 +12,7 @@ import { useUserAuth } from '../Auth/Auth'
 const BuildsOverview = (props) => {
     const { user } = useUserAuth()
     const [builds, setBuilds] = useState([])
+    const [ratings, setRatings] = useState([])
     const [searchQuery, setSearchQuery] = useState(null)
     const [civilization, setCivilization] = useState(Constants.Civ.Generic)
     const [type, setType] = useState('All')
@@ -21,6 +22,9 @@ const BuildsOverview = (props) => {
     useEffect(() => {
         DatabaseService.loadAllPublishedBuilds().then(b => {
             setBuilds(b)
+        })
+        DatabaseService.loadRatings().then(r => {
+            setRatings(r)
         })
     }, [])
 
@@ -76,7 +80,7 @@ const BuildsOverview = (props) => {
             {builds.length > 0 && <div class='w-11/12 md:w-1/2 lg:1/2 xl:w-1/3 m-auto'><Input placeholder='Search builds' onChange={handleSearch} /></div>}
             <div class='w-11/12 md:w-9/12 m-auto flex flex-wrap justify-center'>
                 {buildsToDisplay !== undefined && buildsToDisplay.map(build => (
-                    <BuildPreviewCard build={build} fav={favorites.some(entry => entry === build.id)} favBuildWithId={favBuildWithId} />
+                    <BuildPreviewCard build={build} rating={ratings.filter(r => r.id === build.id)[0]} fav={favorites.some(entry => entry === build.id)} favBuildWithId={favBuildWithId} />
                 ))}
             </div>
         </div>
