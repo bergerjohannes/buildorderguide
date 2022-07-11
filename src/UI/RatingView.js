@@ -10,6 +10,7 @@ const Star = (props) => {
 }
 
 const RatingView = (props) => {
+
     return (
         <div>
             <div class='absolute right-4 bottom-3 z-10 flex flex-row space-x-0.5 text-sm w-100'>
@@ -19,7 +20,7 @@ const RatingView = (props) => {
                 <Star color={false} full={true} />
                 <Star color={false} full={true} />
             </div>
-            {props.rating !== undefined && <div class='absolute right-4 bottom-3 z-20 flex flex-row space-x-0.5 text-sm w-100'>
+            {props.rating !== undefined && props.rating > 0 && <div class='absolute right-4 bottom-3 z-20 flex flex-row space-x-0.5 text-sm w-100'>
                 <Star color={true} full={true} />
                 <Star color={props.rating > 1.25 ? true : false} full={props.rating > 1.75} />
                 <Star color={props.rating > 2.25 ? true : false} full={props.rating > 2.75} />

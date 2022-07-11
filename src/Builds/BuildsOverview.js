@@ -8,6 +8,7 @@ import FilterView from './FilterView'
 import * as Constants from '../Constants'
 import Input from '../UI/Input'
 import { useUserAuth } from '../Auth/Auth'
+import _ from 'lodash'
 
 const BuildsOverview = (props) => {
     const { user } = useUserAuth()
@@ -18,6 +19,7 @@ const BuildsOverview = (props) => {
     const [type, setType] = useState('All')
     const [sorting, setSorting] = useState(Constants.Sorting.Alphabetically)
     const [favorites, setFavorites] = useState([])
+    const [buildsAndRatingsAdded, setBuildsAndRatingsAdded] = useState(false)
 
     useEffect(() => {
         DatabaseService.loadAllPublishedBuilds().then(b => {
@@ -33,6 +35,31 @@ const BuildsOverview = (props) => {
             setFavorites(userData.favorites)
         })
     }, [user])
+
+    useEffect(() => {
+        combineRatingsAndBuilds()
+    }, [builds])
+
+    useEffect(() => {
+        combineRatingsAndBuilds()
+    }, [ratings])
+
+    const combineRatingsAndBuilds = () => {
+        if (buildsAndRatingsAdded) return
+
+        if (builds.length > 0 && ratings.length > 0) {
+            let buildsWithRating = builds.map(build => ({
+                ...build,
+                rating: ratings.filter(rating => rating.id === build.id)[0]?.avg_rating
+            }))
+            buildsWithRating = buildsWithRating.map(b => {
+                if (b.rating === undefined) return {...b, rating: 0}
+                else return b
+            })
+            setBuildsAndRatingsAdded(true)
+            setBuilds(buildsWithRating)
+        }
+    }
 
     const favBuildWithId = (id) => {
         if (user === null) alert('Make sure you are loogged in to fav builds!') // TODO: Pop up with CTA to log in or sign up instead
@@ -63,8 +90,12 @@ const BuildsOverview = (props) => {
         buildsToDisplay = buildsToDisplay.filter(build => type === 'All' || build.attributes.filter(attribute => attribute.toUpperCase().indexOf(type.trim().toUpperCase()) !== -1).length > 0)
     }
 
-    if (sorting === Constants.Sorting.Alphabetically || Constants.Sorting.FavoritesOnly) {
-        buildsToDisplay = buildsToDisplay.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0))
+    if (sorting === Constants.Sorting.ByRating) {
+        buildsToDisplay = _.orderBy(buildsToDisplay, ['rating', 'title'], ['desc', 'asc'])
+    }
+
+    if (sorting === Constants.Sorting.Alphabetically || sorting === Constants.Sorting.FavoritesOnly) {
+        buildsToDisplay = _.orderBy(buildsToDisplay, ['title'], ['asc'])
     }
 
     if (sorting === Constants.Sorting.FavoritesOnly) {
@@ -80,7 +111,7 @@ const BuildsOverview = (props) => {
             {builds.length > 0 && <div class='w-11/12 md:w-1/2 lg:1/2 xl:w-1/3 m-auto'><Input placeholder='Search builds' onChange={handleSearch} /></div>}
             <div class='w-11/12 md:w-9/12 m-auto flex flex-wrap justify-center'>
                 {buildsToDisplay !== undefined && buildsToDisplay.map(build => (
-                    <BuildPreviewCard build={build} rating={ratings.filter(r => r.id === build.id)[0]} fav={favorites.some(entry => entry === build.id)} favBuildWithId={favBuildWithId} />
+                    <BuildPreviewCard build={build} fav={favorites.some(entry => entry === build.id)} favBuildWithId={favBuildWithId} />
                 ))}
             </div>
         </div>

@@ -124,5 +124,6 @@ export const Error = {
 
 export const Sorting = {
     Alphabetically: 'Alphabetically',
-    FavoritesOnly: 'Favorites only'
+    FavoritesOnly: 'Favorites only',
+    ByRating: 'By rating'
 }

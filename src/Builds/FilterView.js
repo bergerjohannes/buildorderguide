@@ -20,7 +20,7 @@ const FilterView = (props) => {
     let typeOptions = [{ value: 'All', label: 'All' }]
     typeOptions = typeOptions.concat(BuildData.getBuildAttributes())
 
-    let sortOptions = [{ value: Constants.Sorting.Alphabetically, label: Constants.Sorting.Alphabetically }, { value: Constants.Sorting.FavoritesOnly, label: Constants.Sorting.FavoritesOnly }]
+    let sortOptions = [{ value: Constants.Sorting.Alphabetically, label: Constants.Sorting.Alphabetically }, { value: Constants.Sorting.ByRating, label: Constants.Sorting.ByRating }, { value: Constants.Sorting.FavoritesOnly, label: Constants.Sorting.FavoritesOnly }]
 
     return (
         <div class='w-full flex justify-center text-main-dark' onClick={(event) => { setShowFilters(!showFilters); event.preventDefault() }}>
