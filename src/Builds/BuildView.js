@@ -3,17 +3,15 @@ import BuildOrderStepsView from './BuildOrderStepsView'
 import DifficultyIndicator from './DifficultyIndicator'
 import PopIndicator from './PopIndicator'
 import UptimeIndicator from './UptimeIndicator'
-import BuildData from './BuildData'
-import * as Constants from '../Constants'
 import LoadingIndicator from '../UI/LoadingIndicator'
 import Heading1 from '../UI/Heading1'
 import CivView from '../UI/CivView'
+import RatingView from '../UI/RatingView'
+import RatingPrompt from '../UI/RatingPrompt'
 
 const BuildView = (props) => {
     const build = props.build
     if (build === undefined) return (<LoadingIndicator />)
-
-    const isOfficialBuild = build.publisher === Constants.OfficialPublisherId
 
     return (
         <div class='flex flex-col space-y-4'>
@@ -22,12 +20,13 @@ const BuildView = (props) => {
             <div class='flex justify-center'><CivView civ={build.civilization} /></div>
             <div class='text-center'><Heading1>{build.title}</Heading1></div>
             <div class='text-center'><p class='text-main-dark -mt-12'>{build.author}</p></div>
-            {build.publisher !== undefined && isOfficialBuild === false && <div class='bg-primary-light text-main-dark text-center font-semibold rounded-md max-w-xs w-fit py-1 px-5 m-auto'>Community</div>}
             {build.description !== undefined && <div class='m-auto md:max-w-lg w-11/12 text-center'><p class='text-main-dark'>{build.description}</p></div>}
             {build.pop !== undefined && <div class='flex justify-center'><PopIndicator pop={build.pop} /></div>}
             {build.uptime !== undefined && Object.keys(build.uptime).length > 0 && <div class='flex justify-center'><UptimeIndicator uptime={build.uptime} /></div>}
             {build.attributes !== undefined && <div class='flex justify-center'><AttributesView attributes={build.attributes} /></div>}
             {build.difficulty !== undefined && <div class='flex justify-center'><DifficultyIndicator difficulty={build.difficulty} /></div>}
+            <div class='flex justify-center ml-20 pl-2'><RatingView rating={props.rating} /></div>
+            <div class='flex justify-center pt-10'><RatingPrompt currentRating={props.userRating} rateBuild={props.rateBuild} /></div>
             <BuildOrderStepsView build={build.build}/>
         </div>
     )

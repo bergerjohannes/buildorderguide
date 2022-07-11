@@ -283,5 +283,27 @@ class DatabaseService {
         })
         return data
     }
+
+    static async loadAverageRatingForBuild(id) {
+        const docRef = doc(store, 'ratings-aggregate', id)
+        const docSnap = await getDoc(docRef)
+
+        if (docSnap.exists()) {
+            return docSnap.data()
+        } else {
+            throw new Error(`No build with id ${id}`)
+        }
+    }
+
+    static async loadUserRatingForBuild(buildId, userId) {
+        const docRef = doc(store, 'ratings', `rating-${buildId}-${userId}`)
+        const docSnap = await getDoc(docRef)
+
+        if (docSnap.exists()) {
+            return docSnap.data()
+        } else {
+            throw new Error(`No rating for build with id ${buildId} and user ${userId}`)
+        }
+    }
 }
 export default DatabaseService
