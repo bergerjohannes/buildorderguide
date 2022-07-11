@@ -5,10 +5,14 @@ import Menu from '../UI/Menu'
 import BuildView from './BuildView'
 import * as Constants from '../Constants'
 import ErrorView from '../UI/ErrorView'
+import { useUserAuth } from '../Auth/Auth'
 
 const BuildDetailView = (props) => {
+    const { user } = useUserAuth()
     let { buildId } = useParams()
     const [build, setBuild] = useState(undefined)
+    const [rating, setRating] = useState(undefined)
+    const [userRating, setUserRating] = useState(undefined)
     const [error, setError] = useState(undefined)
 
     useEffect(() => {
@@ -17,7 +21,24 @@ const BuildDetailView = (props) => {
         }).catch(e => {
             setError(Constants.Error.BuildNotExistent)
         })
+        DatabaseService.loadAverageRatingForBuild(buildId).then(r => {
+            setRating(r)
+        })
     }, [])
+
+    useEffect(() => {
+        if (user === undefined) return
+
+        DatabaseService.loadUserRatingForBuild(buildId, user.uid).then(r => {
+            setUserRating(r.rating)
+        })
+    }, [user])
+
+    const rateBuild = (stars) => {
+        DatabaseService.rateBuildWithIdForUser(buildId, user, stars).then(() => {
+            setUserRating(stars)
+        })
+    }
 
     if (error === Constants.Error.BuildNotExistent) return (
         <div class='text-center'>
@@ -29,7 +50,7 @@ const BuildDetailView = (props) => {
     return (
         <div>
             <Menu />
-            {build && <BuildView build={build} />}
+            {build && <BuildView build={build} rating={rating?.avg_rating} userRating={userRating} rateBuild={rateBuild} />}
         </div>
     )
 }
