@@ -17,14 +17,9 @@ const BuildPreviewCard = (props) => {
         props.favBuildWithId(props.build.id)
     }
 
-    const rating = props.rating !== undefined ? props.rating.avg_rating : undefined
-
     return (
         <Link to={{ pathname: `/build/${props.build.id}` }}>
             <div class='overflow-hidden transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-105 relative w-11/12 max-w-sm mt-10 mx-auto bg-white shadow-xl cursor-pointer rounded-2xl'>
-                {isOfficialBuild(props.build.publisher) === false && <div class='absolute transform -rotate-45 bg-primary-light text-center text-main-dark font-semibold py-1 right-[-34px] bottom-[20px] w-[150px] z-50'>
-                    Community
-                </div>}
                 <div class='mt-2 scale-90 flex justify-between'><CivView civ={props.build.civilization} /><FavView fav={props.fav} onClick={(event) => { favBuild(event) }} /></div>
                 <div class='mb-4 ml-5'><Heading2>{props.build.title}</Heading2></div>
                 <h3 class='ml-5 pb-8 -mt-5 text-md text-main-light'>{props.build.author}</h3>
@@ -44,7 +39,7 @@ const BuildPreviewCard = (props) => {
                         <DifficultyIndicator difficulty={props.build.difficulty} />
                     </div>
                     <div class='col-start-4 col-span-3 -ml-4'>
-                        <RatingView rating={rating}/>
+                        <RatingView rating={props.build.rating} />
                     </div>
                 </div>
             </div>
