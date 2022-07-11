@@ -103,6 +103,8 @@ const BuildsOverview = (props) => {
         buildsToDisplay = buildsToDisplay.filter(build => favorites.some(entry => entry === build.id))
     }
 
+    if (builds === undefined || builds.length === 0) buildsToDisplay = undefined
+
     return (
         <div>
             <Menu />
