@@ -9,6 +9,7 @@ import * as Constants from '../Constants'
 import Input from '../UI/Input'
 import { useUserAuth } from '../Auth/Auth'
 import _ from 'lodash'
+import EmptyState from '../UI/EmptyState'
 
 const BuildsOverview = (props) => {
     const { user } = useUserAuth()
@@ -113,6 +114,7 @@ const BuildsOverview = (props) => {
                 {buildsToDisplay !== undefined && buildsToDisplay.map(build => (
                     <BuildPreviewCard build={build} fav={favorites.some(entry => entry === build.id)} favBuildWithId={favBuildWithId} />
                 ))}
+                {buildsToDisplay !== undefined && buildsToDisplay.length === 0 && <EmptyState>No builds found ..</EmptyState>}
             </div>
         </div>
     )
