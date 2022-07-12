@@ -8,10 +8,25 @@ import Heading1 from '../UI/Heading1'
 import CivView from '../UI/CivView'
 import RatingView from '../UI/RatingView'
 import RatingPrompt from '../UI/RatingPrompt'
+import Button from '../UI/Button'
+import { useState } from 'react'
+import FocusView from './FocusView'
 
 const BuildView = (props) => {
+    const [showFocusMode, setShowFocusMode] = useState(false)
+    const [focusModeStep, setFocusModeStep] = useState(0)
+
     const build = props.build
     if (build === undefined) return (<LoadingIndicator />)
+
+    if (showFocusMode) {
+        return (
+            <div>
+                <div class='text-center'><Heading1>{build.title}</Heading1></div>
+                <FocusView build={build.build} step={focusModeStep} nextStep={() => setFocusModeStep(focusModeStep + 1)} previousStep={() => setFocusModeStep(focusModeStep - 1)}/>
+            </div>
+        )
+    }
 
     return (
         <div class='flex flex-col space-y-4'>
@@ -27,7 +42,8 @@ const BuildView = (props) => {
             {build.difficulty !== undefined && <div class='flex justify-center'><DifficultyIndicator difficulty={build.difficulty} /></div>}
             <div class='flex justify-center ml-20 pl-2'><RatingView rating={props.rating} /></div>
             <div class='flex justify-center pt-10'><RatingPrompt currentRating={props.userRating} rateBuild={props.rateBuild} /></div>
-            <BuildOrderStepsView build={build.build}/>
+            <Button onClick={() => setShowFocusMode(true)}>Start Focus Mode</Button>
+            <BuildOrderStepsView build={build.build} />
         </div>
     )
 }
