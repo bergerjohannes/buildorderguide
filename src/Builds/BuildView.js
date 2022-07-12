@@ -23,7 +23,7 @@ const BuildView = (props) => {
         return (
             <div>
                 <div class='text-center'><Heading1>{build.title}</Heading1></div>
-                <FocusView build={build.build} step={focusModeStep} nextStep={() => setFocusModeStep(focusModeStep + 1)} previousStep={() => setFocusModeStep(focusModeStep - 1)}/>
+                <FocusView build={build.build} step={focusModeStep} nextStep={() => setFocusModeStep(focusModeStep + 1)} previousStep={() => setFocusModeStep(focusModeStep - 1)} goToFocusModeStep={(step) => setFocusModeStep(step)} />
             </div>
         )
     }

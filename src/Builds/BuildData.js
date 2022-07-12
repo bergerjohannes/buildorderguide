@@ -198,7 +198,7 @@ class BuildData {
         const decisionSteps = BuildData.getIndicesOfChoicesForBuild(build)
         let startingPoint = 0
         for (let decision in decisionSteps) {
-            if (step - 1 <= decisionSteps[decision]) {
+            if (step <= decisionSteps[decision]) {
                 // In first decision tree
                 if (startingPoint === 0) return `${step - startingPoint + 1}/${decisionSteps[decision] - startingPoint + 1}`
                 // In a decision tree in the middle
@@ -217,7 +217,18 @@ class BuildData {
     static getIndicesOfChoicesForBuild(build) {
         let b = JSON.parse(JSON.stringify(build))
         b.forEach((item, index) => item.step = index)
-        return b.filter(item => item.type === 'decision').map(item => item.step)
+        return b.filter(item => item.type === Constants.StepType.Decision).map(item => item.step)
+    }
+
+    static getListOfChoicesForBuild(build) {
+        let b = JSON.parse(JSON.stringify(build))
+        b.forEach((item, index) => item.step = index)
+        return b.filter(step => step.type === Constants.StepType.Decision)
+    }
+
+    static getShortTitleForDecisionStep(title) {
+        if (title.includes('→')) return '→ ' + title.split('→')[1]
+        if (title.includes('+')) return '+ ' + title.split('+')[1]
     }
 }
 
