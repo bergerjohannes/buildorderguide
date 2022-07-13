@@ -13,20 +13,20 @@ const FocusWorkerDistributionView = (props) => {
     const builder = props.build[props.step].resources.build
 
     return (
-        <div class='w-full m-auto grid grid-cols-4 grid-rows-2 overflow-visible text-main-dark'>
-            <div class='col-span-4 flex justify-around w-full'>
-                <img class='w-4 h-4 md:w-6 md:h-6' src={require('../Images/Resources/Aoe2de_wood.png')} alt='Wood' />
-                <img class='w-4 h-4 md:w-6 md:h-6' src={require('../Images/Resources/Aoe2de_food.png')} alt='Food' />
-                {showGold && <img class='w-4 h-4 md:w-6 md:h-6' src={require('../Images/Resources/Aoe2de_gold.png')} alt='Gold' />}
-                {showStone && <img class='w-4 h-4 md:w-6 md:h-6' src={require('../Images/Resources/Aoe2de_stone.png')} alt='Stone' />}
-                {showBuilder && <img class='w-4 h-4 md:w-6 md:h-6' src={require('../Images/Resources/Aoe2de_builder.png')} alt='Builder' />}
+        <div class='m-auto grid space-y-2 grid-cols-4 grid-rows-2 text-main-dark text-3xl bg-secondary-light py-4'>
+            <div class='w-full md:w-5/12 lg:w-4/12 col-span-4 flex justify-around m-auto'>
+                <img class='w-8 h-8 md:w-12 md:h-12' src={require('../Images/Resources/Aoe2de_wood.png')} alt='Wood' />
+                <img class='w-8 h-8 md:w-12 md:h-12' src={require('../Images/Resources/Aoe2de_food.png')} alt='Food' />
+                {showGold && <img class='w-8 h-8 md:w-12 md:h-12' src={require('../Images/Resources/Aoe2de_gold.png')} alt='Gold' />}
+                {showStone && <img class='w-8 h-8 md:w-12 md:h-12' src={require('../Images/Resources/Aoe2de_stone.png')} alt='Stone' />}
+                {showBuilder && <img class='w-8 h-8 md:w-12 md:h-12' src={require('../Images/Resources/Aoe2de_builder.png')} alt='Builder' />}
             </div>
-            <div class='col-span-4 flex justify-around w-full'>
-                <p class='w-4 h-4 md:w-6 md:h-6 text-center'>{wood}</p>
-                <p class='w-4 h-4 md:w-6 md:h-6 text-center'>{food}</p>
-                {showGold && <p class='w-4 h-4 md:w-6 md:h-6 text-center'>{gold}</p>}
-                {showStone && <p class='w-4 h-4 md:w-6 md:h-6 text-center'>{stone}</p>}
-                {showBuilder && <p class='w-4 h-4 md:w-6 md:h-6 text-center'>{builder}</p>}
+            <div class='w-full md:w-5/12 lg:w-4/12 col-span-4 flex justify-around m-auto'>
+                <p class='w-8 h-8 md:w-12 md:h-12 text-center'>{wood}</p>
+                <p class='w-8 h-8 md:w-12 md:h-12 text-center'>{food}</p>
+                {showGold && <p class='w-8 h-8 md:w-12 md:h-12 text-center'>{gold}</p>}
+                {showStone && <p class='w-8 h-8 md:w-12 md:h-12 text-center'>{stone}</p>}
+                {showBuilder && <p class='w-8 h-8 md:w-12 md:h-12 text-center'>{builder}</p>}
             </div>
         </div>
     )

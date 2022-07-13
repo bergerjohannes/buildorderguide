@@ -10,13 +10,11 @@ const FocusView = (props) => {
     }
 
     return (
-        <div class='flex flex-col'>
+        <div class='h-full'>
             {props.build[props.step].type === Constants.StepType.Decision && <FocusChoiceView build={props.build} goToFocusModeStep={props.goToFocusModeStep}/>}
-            {props.build[props.step].type !== Constants.StepType.Decision && <>
-                <div class='flex justify-center mb-10'>{BuildData.getTitleForStep(props.build[props.step])}</div>
-                <div class='w-8/12 md:w-5/12 lg:w-4/12 m-auto'><FocusWorkerDistributionView build={props.build} step={props.step} /></div>
-            </>}
-            <FocusNavigation build={props.build} step={props.step} nextStep={props.nextStep} previousStep={props.previousStep} selectChoiceWithIndex={selectChoiceWithIndex} />
+            {props.build[props.step].type !== Constants.StepType.Decision && <div class='flex justify-center my-32 md:my-80 mx-4 md:mx-20 text-lg md:text-3xl text-main-dark font-bold text-center'>{BuildData.getTitleForStep(props.build[props.step])}</div>}
+            <div class='fixed bottom-40 w-full'><FocusNavigation build={props.build} step={props.step} nextStep={props.nextStep} previousStep={props.previousStep} selectChoiceWithIndex={selectChoiceWithIndex} /></div>
+            <div class='fixed bottom-0 w-full'><div class='w-full'><FocusWorkerDistributionView build={props.build} step={props.step} /></div></div>
         </div>
     )
 }
