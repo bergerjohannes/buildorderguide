@@ -112,7 +112,7 @@ const BuildsOverview = (props) => {
             {builds.length === 0 && <LoadingIndicator text={'Loading build orders ..'} />}
             {builds.length > 0 && <div class='w-full flex justify-center mb-5'><FilterView civilization={civilization} setCivilization={setCivilization} type={type} setType={setType} handleSearch={handleSearch} sorting={sorting} setSorting={setSorting} /></div>}
             {builds.length > 0 && <div class='w-11/12 md:w-1/2 lg:1/2 xl:w-1/3 m-auto'><Input placeholder='Search builds' onChange={handleSearch} /></div>}
-            <div class='w-11/12 md:w-9/12 m-auto flex flex-wrap justify-center'>
+            <div class='w-11/12 md:w-10/12 lg:w-9/12 m-auto flex flex-wrap justify-center'>
                 {buildsToDisplay !== undefined && buildsToDisplay.map(build => (
                     <BuildPreviewCard build={build} fav={favorites.some(entry => entry === build.id)} favBuildWithId={favBuildWithId} />
                 ))}
