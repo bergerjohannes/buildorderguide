@@ -182,7 +182,7 @@ const BuilderDetailView = (props) => {
             {build !== undefined && <BuildView build={build} />}
             {build !== undefined && status !== Constants.PublishStatus.Published && <CenteredButton onClick={() => publishBuild()}>Publish</CenteredButton>}
             {build !== undefined && status === Constants.PublishStatus.Published && <CenteredButton onClick={() => unpublishBuild()}>Unpublish</CenteredButton>}
-            <PublishIndicator status={status} />
+            <div class='flex justify-center'><PublishIndicator status={status} /></div>
             <LinkView status={status} buildId={buildId} />
         </div>
     )

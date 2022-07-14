@@ -50,7 +50,7 @@ const BuildDetailView = (props) => {
     return (
         <div>
             <Menu />
-            {build && <BuildView build={build} rating={rating?.avg_rating} userRating={userRating} rateBuild={rateBuild} />}
+            {build && <BuildView live={true} build={build} rating={rating?.avg_rating} userRating={userRating} rateBuild={rateBuild} />}
         </div>
     )
 }
