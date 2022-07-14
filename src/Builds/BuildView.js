@@ -22,6 +22,7 @@ const BuildView = (props) => {
     if (showFocusMode) {
         return (
             <div class='h-full'>
+                <div class='flex justify-center mt-10 -mb-10'><CivView civ={build.civilization} /></div>
                 <div class='text-center'><Heading1>{build.title}</Heading1></div>
                 <FocusView build={build.build} step={focusModeStep} nextStep={() => setFocusModeStep(focusModeStep + 1)} previousStep={() => setFocusModeStep(focusModeStep - 1)} goToFocusModeStep={(step) => setFocusModeStep(step)} />
             </div>
@@ -30,12 +31,12 @@ const BuildView = (props) => {
 
     return (
         <div class='flex flex-col space-y-4'>
-            <div class='flex justify-center mt-10'>{build.imageURL !== null && build.imageURL !== undefined && <img class='h-32 w-32' src={build.imageURL} alt={(build.title)} />}</div>
-            <div class='flex justify-center mt-10'>{build.imageURL === null || build.imageURL === undefined && <img class='h-32 w-32' src={require('../Images/BuildImagePlaceholder.png')} alt={build.title} />}</div>
-            <div class='flex justify-center'><CivView civ={build.civilization} /></div>
+            <div class='flex justify-center mt-10 -mb-10'><CivView civ={build.civilization} /></div>
             <div class='text-center'><Heading1>{build.title}</Heading1></div>
-            <div class='text-center'><p class='text-main-dark -mt-12'>{build.author}</p></div>
+            <div class='flex justify-center'>{build.imageURL !== null && build.imageURL !== undefined && <img class='h-32 w-32' src={build.imageURL} alt={(build.title)} />}</div>
+            <div class='flex justify-center'>{build.imageURL === null || build.imageURL === undefined && <img class='h-32 w-32' src={require('../Images/BuildImagePlaceholder.png')} alt={build.title} />}</div>
             {build.description !== undefined && <div class='m-auto md:max-w-lg w-11/12 text-center'><p class='text-main-dark'>{build.description}</p></div>}
+            <div class='text-center'><p class='text-main-dark'>{build.author}</p></div>
             {build.pop !== undefined && <div class='flex justify-center'><PopIndicator pop={build.pop} /></div>}
             {build.uptime !== undefined && Object.keys(build.uptime).length > 0 && <div class='flex justify-center'><UptimeIndicator uptime={build.uptime} /></div>}
             {build.attributes !== undefined && <div class='flex justify-center'><AttributesView attributes={build.attributes} /></div>}
