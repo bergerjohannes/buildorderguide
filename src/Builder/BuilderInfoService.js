@@ -180,6 +180,13 @@ class BuilderInfoService {
         }
         return true
     }
+
+    static checkBuildForCorrectUsageOfAgeUp = (build) => {
+        for (const [key, value] of Object.entries(build.uptime)) {
+            if (value.includes('NaN')) return false
+          }
+        return true
+    }
 }
 
 export default BuilderInfoService

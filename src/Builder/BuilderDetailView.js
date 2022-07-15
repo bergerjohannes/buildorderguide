@@ -151,6 +151,11 @@ const BuilderDetailView = (props) => {
             return
         }
 
+        if (BuilderInfoService.checkBuildForCorrectUsageOfAgeUp(build) === false) {
+            alert('Not able to publish: please make sure to always use the Age Up step to inidcate researching the next age.')
+            return
+        }
+
         build.status = Constants.PublishStatus.Published
         try {
             DatabaseService.publishBuildWithId(buildId, getBuildObject()).then(() => {
