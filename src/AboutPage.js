@@ -10,18 +10,13 @@ const AboutPage = (props) => {
         <div class=''>
             <Menu/>
             <Heading1>About Build Order Guide</Heading1>
-            <Centered><Heading2>Support</Heading2></Centered>
-            <Paragraph>If you enjoy using the site, you can contribute by visiting Build Order Guide's <A href='https://buymeacoffee.com/buildorderguide'>Buy Me A Coffe page</A>. Thanks ❤️</Paragraph>
-            <br />
-            <br />
-            <br />
             <Centered><Heading2>Get in touch</Heading2></Centered>
-            <Paragraph>A build is missing, there's a mistake, or something can be improved? Feel free to reach out and submit your suggestion via <A href='https://forms.gle/AKkgrp5r68zrGs6cA'>Google Forms</A>.</Paragraph>
+            <Paragraph>A build is missing, there's a mistake, something can be improved, or you need help creating your own build order? Feel free to join our <A href='https://discord.gg/JmfGYQcM3Z'>Discord server</A>.</Paragraph>
             <br />
             <br />
             <br />
             <Centered><Heading2>Contribute</Heading2></Centered>
-            <Paragraph>Looking to contribute? Check out Build Order Guide's <A href='https://github.com/triplejberger/buildorderguide'>GitHub page</A>.</Paragraph>
+            <Paragraph>Looking to contribute to the project? Check out Build Order Guide's <A href='https://github.com/triplejberger/buildorderguide'>GitHub page</A>.</Paragraph>
             <br />
             <br />
             <br />
