@@ -47,9 +47,8 @@ const BuilderDetailInfoSection = (props) => {
 
     const handleClickOnImage = (event) => {
         props.setImage(event.value)
-
         DatabaseService.getImageURLWithName(event.value).then(URL => {
-            props.setImgURL(URL)
+            props.setImageURL(URL)
 
         }, (error) => {
             console.log(error)

@@ -1,6 +1,6 @@
 import { store, storage } from './FirebaseService.js'
 import { doc, getDoc, getDocs, updateDoc, addDoc, setDoc, query, collection, where, deleteDoc, arrayUnion, arrayRemove } from 'firebase/firestore'
-import { ref, listAll } from 'firebase/storage'
+import { ref, listAll, getDownloadURL } from 'firebase/storage'
 import * as Constants from './Constants'
 
 class DatabaseService {
@@ -201,6 +201,16 @@ class DatabaseService {
             })
 
         return images
+    }
+
+    static async getImageURLWithName(name) {
+        return await getDownloadURL(ref(storage, `Images/${name}.png`))
+            .then((url) => {
+                return url
+            })
+            .catch((error) => {
+                throw new Error(`Not able to get URL for image with name: ${name} - Error: ${error}`)
+            })
     }
 
     // PROFILE
