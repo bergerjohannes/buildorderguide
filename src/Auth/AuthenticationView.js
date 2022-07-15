@@ -52,6 +52,7 @@ const AuthenticationView = (props) => {
     if (status === Constants.AuthStatus.CallingAPI) {
         return (
             <div>
+                <Menu />
                 <LoadingIndicator text={'Loading'} />
             </div>
         )
