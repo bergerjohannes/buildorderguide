@@ -108,17 +108,8 @@ class DatabaseService {
     }
 
     static async addNewBuildforPublisher(publisher) {
-        const build = BuildData.getDemoBuild()
-
-        const data = {
-            title: 'New Build',
-            civilization: Constants.Civ.Generic,
-            publisher: publisher,
-            status: Constants.PublishStatus.Draft,
-            build: build
-        }
-
-        const docRef = await addDoc(collection(store, 'builds'), data)
+        const build = BuildData.getDemoBuildForUser(publisher)
+        const docRef = await addDoc(collection(store, 'builds'), build)
         return docRef.id
     }
 

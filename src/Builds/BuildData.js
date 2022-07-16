@@ -231,8 +231,8 @@ class BuildData {
         if (title.includes('+')) return '+ ' + title.split('+')[1]
     }
 
-    static getDemoBuild() {
-        return [
+    static getDemoBuildForUser(userId) {
+        const steps = [
             {
                 type: Constants.StepType.NewVillagers,
                 task: Constants.Task.Sheep,
@@ -427,6 +427,18 @@ class BuildData {
                 }
             }
         ]
+
+        const data = {
+            title: 'New Build',
+            civilization: Constants.Civ.Generic,
+            publisher: userId,
+            status: Constants.PublishStatus.Draft,
+            build: steps,
+            pop: { 'feudalAge': 21 },
+            uptime: { 'feudalAge': '09:40' }
+        }
+
+        return data
     }
 }
 
