@@ -9,7 +9,7 @@ const BuilderOverviewTable = (props) => {
 
     const getCivilizationForBuild = (build) => {
         const imageName = (build.civilization === undefined || build.civilization === '') ? Constants.Civ.Unknown : build.civilization
-        return <div><img class='w-5 h-5' src={require('../Images/Civilizations/' + imageName + '.png')} alt={imageName} /></div>
+        return <div><img class='w-6 h-6' src={require('../Images/Civilizations/' + imageName + '.png')} alt={imageName} /></div>
     }
 
     const getPopForBuild = (build) => {
