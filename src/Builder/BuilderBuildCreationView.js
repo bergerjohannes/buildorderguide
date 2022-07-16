@@ -32,7 +32,7 @@ const BuilderBuildCreationView = (props) => {
     ))
 
     return (
-        <div class='flex flex-col justify-center w-11/12 md:w-1/2 mx-auto my-20 space-y-4 text-xs md:text-base'>
+        <div class='flex flex-col justify-center w-11/12 xl:w-1/2 mx-auto my-20 space-y-4 text-xs xl:text-base'>
 
             <Droppable items={steps} key={'DnD'} handleDragEnd={handleDragEnd} />
 

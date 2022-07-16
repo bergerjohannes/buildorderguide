@@ -17,7 +17,7 @@ class BuilderInfoService {
 
     static getNumericTradeOptions = () => {
         let numericTradeOptions = []
-        for (var i = 100; i <= 500; i += 100) numericTradeOptions.push({ value: i, label: i })
+        for (var i = 100; i <= 1000; i += 100) numericTradeOptions.push({ value: i, label: i })
         return numericTradeOptions
     }
 

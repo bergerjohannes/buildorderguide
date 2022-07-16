@@ -16,7 +16,7 @@ import BuilderStepCustom from './Steps/BuilderStepCustom'
 const BuilderStepView = (props) => {
 
     return (
-        <div class='flex justify-between text-main-dark p-2'>
+        <div class='flex justify-between items-center text-main-dark py-2 pl-1'>
             {props.step.type === Constants.StepType.NewVillagers && <BuilderStepNewVillagers step={props.step} index={props.index} update={props.updateStep} />}
             {props.step.type === Constants.StepType.TrainUnit && <BuilderStepTrainUnit step={props.step} index={props.index} update={props.updateStep} />}
             {props.step.type === Constants.StepType.Research && <BuilderStepResearch step={props.step} index={props.index} update={props.updateStep} />}

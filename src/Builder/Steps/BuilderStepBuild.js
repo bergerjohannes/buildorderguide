@@ -3,7 +3,8 @@ import BuilderInfoService from '../BuilderInfoService'
 import RemoveOptionButton from '../UI/RemoveOptionButton'
 import BuilderText from '../UI/BuilderText'
 import * as Constants from '../../Constants'
-import Dropdown from '../../UI/Dropdown'
+import BuilderDropdownSmall from '../UI/BuilderDropdownSmall'
+import BuilderDropdownMedium from '../UI/BuilderDropdownMedium'
 
 const BuilderStepBuild = (props) => {
 
@@ -60,8 +61,8 @@ const BuilderStepBuild = (props) => {
             <BuilderText>Build</BuilderText>
             {props.step.buildings.map((item, index) => (
                 <>
-                    <Dropdown value={props.step.buildings[index].count} options={BuilderInfoService.getNumericOptions()} onChange={(event) => handleClickOnCountWithIndex(event, index)} />
-                    <Dropdown value={props.step.buildings[index].type} options={BuilderInfoService.getBuildingsOptions()} onChange={(event) => handleClickOnBuildingWithIndex(event, index)} />
+                    <BuilderDropdownSmall value={props.step.buildings[index].count} options={BuilderInfoService.getNumericOptions()} onChange={(event) => handleClickOnCountWithIndex(event, index)} />
+                    <BuilderDropdownMedium value={props.step.buildings[index].type} options={BuilderInfoService.getBuildingsOptions()} onChange={(event) => handleClickOnBuildingWithIndex(event, index)} />
                     {(index > 0 || props.step.type === Constants.StepType.NewVillagers) && <RemoveOptionButton onClick={() => removeBuildingWithIndex(index)} />}
                     {props.step.buildings.length - 1 > index && <BuilderText>&</BuilderText>}
                 </>

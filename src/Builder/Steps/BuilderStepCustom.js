@@ -1,12 +1,13 @@
 import BuilderText from '../UI/BuilderText'
 import * as Constants from '../../Constants'
 import Input from '../../UI/Input'
+import { debounce } from 'lodash'
 
 const BuildStepCustom = (props) => {
 
-    const handleTextChange = (event) => {
-        update(event.target.value)
-    }
+    const handleTextChange = debounce(value => {
+        update(value)
+    }, 250)
 
     const update = (text) => {
         props.update(props.index, {
@@ -17,8 +18,8 @@ const BuildStepCustom = (props) => {
 
     return (
         <div class='flex space-x-1'>
-            <BuilderText>Custom step:</BuilderText>
-            <Input value={props.step.text} onChange={handleTextChange} />
+            <BuilderText>Custom:</BuilderText>
+            <div class='lg:min-w-lg'><Input defaultValue={props.step.text} onChange={event => { handleTextChange(event.target.value) }} /></div>
         </div>
     )
 }

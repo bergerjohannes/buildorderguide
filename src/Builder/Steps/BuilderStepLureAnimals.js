@@ -1,7 +1,8 @@
 import BuilderInfoService from '../BuilderInfoService'
 import BuilderText from '../UI/BuilderText'
 import * as Constants from '../../Constants'
-import Dropdown from '../../UI/Dropdown'
+import BuilderDropdownSmall from '../UI/BuilderDropdownSmall'
+import BuilderDropdownMedium from '../UI/BuilderDropdownMedium'
 
 const BuildStepLureAnmials = (props) => {
 
@@ -26,8 +27,8 @@ const BuildStepLureAnmials = (props) => {
         <div class='flex space-x-1'>
             {props.step.animal !== 'boar' && <BuilderText>Push</BuilderText>}
             {props.step.animal === 'boar' && <BuilderText>Lure</BuilderText>}
-            {props.step.animal !== 'boar' && <Dropdown value={props.step.count} options={BuilderInfoService.getNumericOptions()} onChange={handleClickOnCount} />}
-            <Dropdown value={props.step.animal} options={BuilderInfoService.getAnimalOptions()} onChange={handleClickOnAnimal} />
+            {props.step.animal !== 'boar' && <BuilderDropdownSmall value={props.step.count} options={BuilderInfoService.getNumericOptions()} onChange={handleClickOnCount} />}
+            <BuilderDropdownMedium value={props.step.animal} options={BuilderInfoService.getAnimalOptions()} onChange={handleClickOnAnimal} />
             {props.step.animal !== 'boar' && <BuilderText>With Scout</BuilderText>}
             {props.step.animal === 'boar' && <BuilderText>With Villager Under TC</BuilderText>}
         </div>

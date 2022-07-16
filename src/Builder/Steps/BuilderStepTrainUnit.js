@@ -1,7 +1,8 @@
 import BuilderInfoService from '../BuilderInfoService'
 import BuilderText from '../UI/BuilderText'
 import * as Constants from '../../Constants'
-import Dropdown from '../../UI/Dropdown'
+import BuilderDropdownSmall from '../UI/BuilderDropdownSmall'
+import BuilderDropdownMedium from '../UI/BuilderDropdownMedium'
 
 const BuilderStepTrainUnit = (props) => {
 
@@ -24,8 +25,8 @@ const BuilderStepTrainUnit = (props) => {
     return (
         <div class='flex space-x-1'>
             <BuilderText>Train</BuilderText>
-            <Dropdown value={props.step.count} options={BuilderInfoService.getNumericOptionsIncludingUnlimited()} onChange={handleClickOnCount} />
-            <Dropdown value={props.step.unit} options={BuilderInfoService.getTrainUnitOptions()} onChange={handleClickOnUnit} />
+            <BuilderDropdownSmall value={props.step.count} options={BuilderInfoService.getNumericOptionsIncludingUnlimited()} onChange={handleClickOnCount} />
+            <BuilderDropdownMedium value={props.step.unit} options={BuilderInfoService.getTrainUnitOptions()} onChange={handleClickOnUnit} />
         </div>
     )
 }
