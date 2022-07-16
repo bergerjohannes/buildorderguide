@@ -1,7 +1,7 @@
 
 import BuilderInfoService from '../BuilderInfoService'
 import * as Constants from '../../Constants'
-import Dropdown from '../../UI/Dropdown'
+import BuilderDropdownLarge from '../UI/BuilderDropdownLarge'
 
 const BuildStepCollectGold = (props) => {
 
@@ -35,7 +35,7 @@ const BuildStepCollectGold = (props) => {
 
     return (
         <div class='flex space-x-1'>
-            <Dropdown value={props.step.task} options={BuilderInfoService.getGoldCollectionOptions()} onChange={(event) => handleClickOnTask(event)} />
+            <BuilderDropdownLarge value={props.step.task} options={BuilderInfoService.getGoldCollectionOptions()} onChange={(event) => handleClickOnTask(event)} />
         </div>
     )
 }

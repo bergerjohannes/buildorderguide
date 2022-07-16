@@ -1,6 +1,7 @@
 import BuilderInfoService from '../BuilderInfoService'
 import * as Constants from '../../Constants'
-import Dropdown from '../../UI/Dropdown'
+import BuilderDropdownMedium from '../UI/BuilderDropdownMedium'
+import BuilderDropdownSmall from '../UI/BuilderDropdownSmall'
 
 const BuilderStepTrade = (props) => {
 
@@ -27,9 +28,9 @@ const BuilderStepTrade = (props) => {
 
     return (
         <div class='flex space-x-1'>
-            <Dropdown value={props.step.action} options={BuilderInfoService.getMarketOptions()} onChange={handleClickOnAction} />
-            <Dropdown value={props.step.count} options={BuilderInfoService.getNumericTradeOptions()} onChange={handleClickOnCount} />
-            <Dropdown value={props.step.resource} options={BuilderInfoService.getTradableResourceOptions()} onChange={handleClickOnResource} />
+            <BuilderDropdownMedium value={props.step.action} options={BuilderInfoService.getMarketOptions()} onChange={handleClickOnAction} />
+            <BuilderDropdownSmall value={props.step.count} options={BuilderInfoService.getNumericTradeOptions()} onChange={handleClickOnCount} />
+            <BuilderDropdownMedium value={props.step.resource} options={BuilderInfoService.getTradableResourceOptions()} onChange={handleClickOnResource} />
         </div>
     )
 }

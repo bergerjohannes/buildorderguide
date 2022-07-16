@@ -18,7 +18,7 @@ const SortableItem = (props) => {
                 {props.item}
             </div>
             <button class='cursor-grab' {...listeners} {...attributes}>
-                <FontAwesomeIcon icon={faBars} />
+                <div class='text-xs'><FontAwesomeIcon icon={faBars} /></div>
             </button>
         </div>
     )
