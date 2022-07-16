@@ -230,6 +230,204 @@ class BuildData {
         if (title.includes('→')) return '→ ' + title.split('→')[1]
         if (title.includes('+')) return '+ ' + title.split('+')[1]
     }
+
+    static getDemoBuild() {
+        return [
+            {
+                type: Constants.StepType.NewVillagers,
+                task: Constants.Task.Sheep,
+                count: 6,
+                buildings: [
+                    {
+                        type: Constants.Building.House,
+                        count: 2
+                    }
+                ],
+                resources: {
+                    food: 6,
+                    wood: 0,
+                    stone: 0,
+                    gold: 0,
+                    build: 0
+                }
+            },
+            {
+                type: Constants.StepType.NewVillagers,
+                task: Constants.Task.Wood,
+                count: 3,
+                resources: {
+                    food: 6,
+                    wood: 3,
+                    stone: 0,
+                    gold: 0,
+                    build: 0
+                }
+            },
+            {
+                type: Constants.StepType.NewVillagers,
+                task: Constants.Task.Boar,
+                count: 1,
+                resources: {
+                    food: 7,
+                    wood: 3,
+                    stone: 0,
+                    gold: 0,
+                    build: 0
+                }
+            },
+            {
+                type: Constants.StepType.NewVillagers,
+                task: Constants.Task.Berries,
+                count: 4,
+                buildings: [
+                    {
+                        type: Constants.Building.House,
+                        count: 2
+                    }, {
+                        type: Constants.Building.Mill,
+                        count: 1
+                    }
+                ],
+                resources: {
+                    food: 11,
+                    wood: 3,
+                    stone: 0,
+                    gold: 0,
+                    build: 0
+                }
+            },
+            {
+                type: Constants.StepType.Lure,
+                animal: Constants.Animal.Boar,
+                resources: {
+                    food: 14,
+                    wood: 3,
+                    stone: 0,
+                    gold: 0,
+                    build: 0
+                }
+            },
+            {
+                type: Constants.StepType.NewVillagers,
+                task: Constants.Task.Berries,
+                count: 3,
+                buildings: [
+                    {
+                        type: Constants.Building.LumberCamp,
+                        count: 1
+                    }
+                ],
+                resources: {
+                    food: 14,
+                    wood: 6,
+                    stone: 0,
+                    gold: 0,
+                    build: 0
+                }
+            },
+            {
+                type: Constants.StepType.Research,
+                tech: [Constants.Tech.Loom],
+                resources: {
+                    food: 14,
+                    wood: 6,
+                    stone: 0,
+                    gold: 0,
+                    build: 0
+                }
+            },
+            {
+                type: Constants.StepType.AgeUp,
+                age: Constants.Age.FeudalAge,
+                resources: {
+                    food: 14,
+                    wood: 6,
+                    stone: 0,
+                    gold: 0,
+                    build: 0
+                }
+            },
+            {
+                type: Constants.StepType.MoveVillagers,
+                from: Constants.Task.Sheep,
+                to: Constants.Task.Wood,
+                count: 4,
+                resources: {
+                    food: 10,
+                    wood: 10,
+                    stone: 0,
+                    gold: 0,
+                    build: 0
+                }
+            },
+            {
+                type: Constants.StepType.Build,
+                buildings: [
+                    {
+                        type: Constants.Building.Barracks,
+                        count: 1
+                    }
+                ],
+                resources: {
+                    food: 10,
+                    wood: 10,
+                    stone: 0,
+                    gold: 0,
+                    build: 0
+                }
+            },
+            {
+                type: Constants.StepType.NewAge,
+                age: Constants.Age.FeudalAge,
+                resources: {
+                    food: 14,
+                    wood: 6,
+                    stone: 0,
+                    gold: 0,
+                    build: 0
+                }
+            },
+            {
+                type: Constants.StepType.Research,
+                tech: [Constants.Tech.DoubleBitAxe, Constants.Tech.HorseCollar],
+                resources: {
+                    food: 10,
+                    wood: 10,
+                    stone: 0,
+                    gold: 0,
+                    build: 0
+                }
+            },
+            {
+                type: Constants.StepType.Build,
+                buildings: [
+                    {
+                        type: Constants.Building.Stable,
+                        count: 1
+                    }
+                ],
+                resources: {
+                    food: 10,
+                    wood: 10,
+                    stone: 0,
+                    gold: 0,
+                    build: 0
+                }
+            },
+            {
+                type: Constants.StepType.TrainUnit,
+                unit: Constants.Unit.Scout,
+                count: 3,
+                resources: {
+                    food: 10,
+                    wood: 10,
+                    stone: 0,
+                    gold: 0,
+                    build: 0
+                }
+            }
+        ]
+    }
 }
 
 export default BuildData
