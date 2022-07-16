@@ -9,7 +9,7 @@ import BuilderDetailInfoSection from './BuilderDetailInfoSection'
 import PublishIndicator from './PublishIndicator'
 import LinkView from './LinkView'
 import BuilderInfoService from './BuilderInfoService'
-import { pickBy, identity } from 'lodash'
+import { pickBy, identity, debounce } from 'lodash'
 import CenteredButton from '../UI/CenteredButton'
 import Heading1 from '../UI/Heading1'
 
@@ -68,7 +68,7 @@ const BuilderDetailView = (props) => {
         setStatus(newStatus)
         setShouldSave(true)
         save()
-    }, [build, title, author, description, difficulty, attributes, civilization, image, reference, pop, uptime])
+    }, [build, title, author, description, difficulty, attributes, civilization, image, imageURL, reference, pop, uptime])
 
     const addStep = (step) => {
         let newBuild = JSON.parse(JSON.stringify(build.build))
@@ -127,7 +127,7 @@ const BuilderDetailView = (props) => {
         return pickBy(object, identity)
     }
 
-    const save = () => {
+    const save = debounce(() => {
         const buildObject = getBuildObject()
         if (buildObject !== undefined) {
             try {
@@ -136,7 +136,7 @@ const BuilderDetailView = (props) => {
                 console.error(error)
             }
         }
-    }
+    }, 1000)
 
     const publishBuild = () => {
         let build = getBuildObject()

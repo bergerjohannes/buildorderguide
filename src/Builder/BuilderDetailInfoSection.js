@@ -49,7 +49,6 @@ const BuilderDetailInfoSection = (props) => {
         props.setImage(event.value)
         DatabaseService.getImageURLWithName(event.value).then(URL => {
             props.setImageURL(URL)
-
         }, (error) => {
             console.log(error)
         })
@@ -77,7 +76,7 @@ const BuilderDetailInfoSection = (props) => {
         <div class='w-11/12 md:w-1/2 m-auto mt-12'>
             <div class='mt-6'>
                 <Heading2>Title</Heading2>
-                <Input value={props.title} onChange={event => { handleTitleChange(event.target.value) }} placeholder='Title of build' />
+                <Input defaultValue={props.title} onChange={event => { handleTitleChange(event.target.value) }} placeholder='Title of build' />
                 <p class='text-xs text-main-dark'>Allowed special characters: <span>→</span> <span >+</span> (Everything else will be automatically removed on save!)</p>
                 <p class='text-xs text-main-dark'>Don't add the civ or the pop number to the title. Both will be added automatically when publishing.</p>
             </div>
@@ -103,12 +102,12 @@ const BuilderDetailInfoSection = (props) => {
             </div>
             <div class='mt-6'>
                 <Heading2>Author</Heading2>
-                <Input value={props.author} onChange={event => { handleAuthorChange(event.target.value) }} placeholder='Name of author' />
+                <Input defaultValue={props.author} onChange={event => { handleAuthorChange(event.target.value) }} placeholder='Name of author' />
                 <p class='text-xs'>Enter the author of the build. If Viper came up with the build, Viper is the author, not you. (Unless you are Viper!)</p>
             </div>
             <div class='mt-6'>
                 <Heading2>Source</Heading2>
-                <Input value={props.reference} onChange={event => { handleReferenceChange(event.target.value) }} placeholder='Link to source' />
+                <Input defaultValue={props.reference} onChange={event => { handleReferenceChange(event.target.value) }} placeholder='Link to source' />
             </div>
         </div>
     )
