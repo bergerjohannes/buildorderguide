@@ -161,7 +161,7 @@ class BuilderInfoService {
 
     static checkBuildForCompleteness = (build) => {
         return build.build !== undefined && build.build.length > 0
-            && build.title !== undefined && build.title.length > 0
+            && build.title !== undefined && build.title.length > 0 && build.title.toUpperCase() !== 'NEW BUILD'
             && build.description !== undefined && build.description.length > 0
             && build.attributes !== undefined && build.attributes.length > 0
             && build.difficulty !== undefined && build.difficulty !== null && build.difficulty !== ''
