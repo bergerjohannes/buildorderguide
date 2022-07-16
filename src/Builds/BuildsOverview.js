@@ -10,6 +10,7 @@ import Input from '../UI/Input'
 import { useUserAuth } from '../Auth/Auth'
 import _ from 'lodash'
 import EmptyState from '../UI/EmptyState'
+import debounce from 'lodash/debounce'
 
 const BuildsOverview = (props) => {
     const { user } = useUserAuth()
@@ -54,7 +55,7 @@ const BuildsOverview = (props) => {
                 rating: ratings.filter(rating => rating.id === build.id)[0]?.avg_rating
             }))
             buildsWithRating = buildsWithRating.map(b => {
-                if (b.rating === undefined) return {...b, rating: 0}
+                if (b.rating === undefined) return { ...b, rating: 0 }
                 else return b
             })
             setBuildsAndRatingsAdded(true)
@@ -74,10 +75,10 @@ const BuildsOverview = (props) => {
         }
     }
 
-    const handleSearch = (event) => {
-        const search = event.target.value === '' ? null : event.target.value
+    const handleSearch = debounce(value => {
+        const search = value === '' ? null : value
         setSearchQuery(search)
-    }
+    }, 250)
 
     let buildsToDisplay = builds
     if (searchQuery !== null) {
@@ -111,7 +112,7 @@ const BuildsOverview = (props) => {
             <Heading1>Builds</Heading1>
             {builds.length === 0 && <LoadingIndicator text={'Loading build orders ..'} />}
             {builds.length > 0 && <div class='w-full flex justify-center mb-5'><FilterView civilization={civilization} setCivilization={setCivilization} type={type} setType={setType} handleSearch={handleSearch} sorting={sorting} setSorting={setSorting} /></div>}
-            {builds.length > 0 && <div class='w-11/12 md:w-1/2 lg:1/2 xl:w-1/3 m-auto'><Input placeholder='Search builds' onChange={handleSearch} /></div>}
+            {builds.length > 0 && <div class='w-11/12 md:w-1/2 lg:1/2 xl:w-1/3 m-auto'><Input placeholder='Search builds' onChange={event => { handleSearch(event.target.value) }} /></div>}
             <div class='w-11/12 md:w-10/12 lg:w-9/12 m-auto flex flex-wrap justify-center'>
                 {buildsToDisplay !== undefined && buildsToDisplay.map(build => (
                     <BuildPreviewCard build={build} fav={favorites.some(entry => entry === build.id)} favBuildWithId={favBuildWithId} />
