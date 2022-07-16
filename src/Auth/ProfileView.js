@@ -47,7 +47,7 @@ const ProfileView = (props) => {
                 <img class='w-11/12 max-w-lg mx-auto' src={require('../Images/Aoe2NetId.png')} alt='Aoe2.net ID' />
                 <ParagraphCentered>Add your profile ID to see your stats.<br />Go to <a class='font-semibold' href='https://aoe2.net' target='_blank'>AoE2.net</a> and search for your profile to find your ID in the URL.</ParagraphCentered>
                 <Centered>
-                    <Input placeholder='Profile ID' value={profileId} onChange={event => setProfileId(event.target.value)} />
+                    <Input placeholder='Profile ID' defaultValue={profileId} onChange={event => setProfileId(event.target.value)} />
                 </Centered>
                 <Button onClick={save}>Save ID</Button>
             </div>
