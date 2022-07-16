@@ -54,7 +54,9 @@ export const Building = {
     Barracks: 'barracks',
     Blacksmith: 'blacksmith',
     Market: 'market',
-    Mill: 'mill'
+    Mill: 'mill',
+    LumberCamp: 'lumberCamp',
+    Stable: 'stable'
 }
 
 export const Tech = {
@@ -72,7 +74,8 @@ export const Age = {
 }
 
 export const Unit = {
-    Militia: 'militia'
+    Militia: 'militia',
+    Scout: 'scout'
 }
 
 export const Civ = {

@@ -2,6 +2,7 @@ import { store, storage } from './FirebaseService.js'
 import { doc, getDoc, getDocs, updateDoc, addDoc, setDoc, query, collection, where, deleteDoc, arrayUnion, arrayRemove } from 'firebase/firestore'
 import { ref, listAll, getDownloadURL } from 'firebase/storage'
 import * as Constants from './Constants'
+import BuildData from './Builds/BuildData.js'
 
 class DatabaseService {
 
@@ -107,71 +108,7 @@ class DatabaseService {
     }
 
     static async addNewBuildforPublisher(publisher) {
-        const build = [
-            {
-                type: Constants.StepType.NewVillagers,
-                task: Constants.Task.Sheep,
-                count: 6,
-                buildings: [
-                    {
-                        type: Constants.Building.House,
-                        count: 2
-                    }
-                ],
-                resources: {
-                    food: 6,
-                    wood: 0,
-                    stone: 0,
-                    gold: 0,
-                    build: 0
-                }
-            },
-            {
-                type: Constants.StepType.NewVillagers,
-                task: Constants.Task.Wood,
-                count: 4,
-                resources: {
-                    food: 6,
-                    wood: 4,
-                    stone: 0,
-                    gold: 0,
-                    build: 0
-                }
-            },
-            {
-                type: Constants.StepType.NewVillagers,
-                task: Constants.Task.Boar,
-                count: 1,
-                resources: {
-                    food: 7,
-                    wood: 4,
-                    stone: 0,
-                    gold: 0,
-                    build: 0
-                }
-            },
-            {
-                type: Constants.StepType.NewVillagers,
-                task: Constants.Task.Berries,
-                count: 4,
-                buildings: [
-                    {
-                        type: Constants.Building.House,
-                        count: 2
-                    }, {
-                        type: Constants.Building.Mill,
-                        count: 1
-                    }
-                ],
-                resources: {
-                    food: 11,
-                    wood: 4,
-                    stone: 0,
-                    gold: 0,
-                    build: 0
-                }
-            }
-        ]
+        const build = BuildData.getDemoBuild()
 
         const data = {
             title: 'New Build',
@@ -180,8 +117,6 @@ class DatabaseService {
             status: Constants.PublishStatus.Draft,
             build: build
         }
-
-        console.log(data)
 
         const docRef = await addDoc(collection(store, 'builds'), data)
         return docRef.id
