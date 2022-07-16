@@ -2,7 +2,7 @@ import StatsInfoService from './StatsInfoService'
 
 const MatchCardPlayerResultView = (props) => {
     return (
-        <div class='flex flex-col'>
+        <div class='flex flex-col items-center'>
             <p>{props.matchResult}</p>
             <div class='flex space-x-2'>
                 <div class='flex flex-col justify-center'><img class='w-5 h-5' src={require('../Images/Civilizations/' + props.civ + '.png')} alt={props.civ} /></div>
