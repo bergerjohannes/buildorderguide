@@ -65,7 +65,7 @@ const BuildsOverview = (props) => {
 
     const favBuildWithId = (id) => {
         if (user === null) {
-            alert('Make sure you are loogged in to fav builds!') // TODO: Pop up with CTA to log in or sign up instead
+            alert('Make sure you are logged in to fav builds!') // TODO: Pop up with CTA to log in or sign up instead
             return
         }
 

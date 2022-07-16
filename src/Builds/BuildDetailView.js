@@ -27,7 +27,7 @@ const BuildDetailView = (props) => {
     }, [])
 
     useEffect(() => {
-        if (user === undefined) return
+        if (user === undefined || user === null) return
 
         DatabaseService.loadUserRatingForBuild(buildId, user.uid).then(r => {
             setUserRating(r.rating)
@@ -35,6 +35,11 @@ const BuildDetailView = (props) => {
     }, [user])
 
     const rateBuild = (stars) => {
+        if (user === null) {
+            alert('Make sure you are logged in to rate builds!') // TODO: Pop up with CTA to log in or sign up instead
+            return
+        }
+
         DatabaseService.rateBuildWithIdForUser(buildId, user, stars).then(() => {
             setUserRating(stars)
         })
@@ -46,6 +51,8 @@ const BuildDetailView = (props) => {
             <ErrorView title={'Error loading build'} description={'Seems like the build you are looking for doesn\'t exist.'} />
         </div>
     )
+
+        if (build !== undefined) console.log(JSON.stringify(build))
 
     return (
         <div>
