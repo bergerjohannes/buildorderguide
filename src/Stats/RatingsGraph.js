@@ -40,8 +40,8 @@ const RatingsGraph = (props) => {
     const createGradient = (ctx, area) => {
         const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top)
 
-        gradient.addColorStop(0, '#ffffff')
-        gradient.addColorStop(1, '#2dd4bf')
+        gradient.addColorStop(0, '#40546900')
+        gradient.addColorStop(1, '#40546980')
 
         return gradient
     }
@@ -73,7 +73,7 @@ const RatingsGraph = (props) => {
                 pointRadius: 0,
                 fill: 'start',
                 tension: 1,
-                borderColor: '#2dd4bf',
+                borderColor: '#405469',
                 backgroundColor: createGradient(chart.ctx, chart.chartArea),
             })),
         }
