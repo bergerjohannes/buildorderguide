@@ -24,11 +24,12 @@ const ProfileView = (props) => {
     }
 
     const save = () => {
-        console.log(`Save new profile id for user ${user.uid}: email: ${email} and id: ${profileId}`)
         DatabaseService.saveProfileInfo(user, email, profileId)
     }
 
     useEffect(() => {
+        if (user === null || user === undefined) return
+
         DatabaseService.loadProfileInfo(user).then(userData => {
             setEmail(userData.email)
             setProfileId(userData.profile_id)
