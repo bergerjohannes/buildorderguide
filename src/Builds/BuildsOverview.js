@@ -33,6 +33,7 @@ const BuildsOverview = (props) => {
     }, [])
 
     useEffect(() => {
+        if (user === null || user === undefined) return
         DatabaseService.loadProfileInfo(user).then(userData => {
             setFavorites(userData.favorites)
         })
