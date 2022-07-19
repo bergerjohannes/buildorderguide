@@ -1,4 +1,13 @@
 rules_version = '2';
+
+service firebase.storage {
+  match /b/build-order-guide.appspot.com/o {
+    match /{allPaths=**} {
+      allow read;
+    }
+  }
+}
+
 service cloud.firestore {
   match /databases/{database}/documents {
 
@@ -15,7 +24,6 @@ service cloud.firestore {
     match /builds/{document=**} {
       allow write: if request.auth != null && resource.data.publisher == request.auth.uid;
       allow read: if request.auth != null && resource.data.publisher == request.auth.uid;
-      allow create: if request.auth != null && request.resource.data.publisher == request.auth.uid;
       allow write: if request.auth != null && request.auth.uid == 'nOuk4lquYrXt4H2xafiZpPUFvN82';
       allow read: if request.auth != null && request.auth.uid == 'nOuk4lquYrXt4H2xafiZpPUFvN82';
     }
@@ -32,6 +40,15 @@ service cloud.firestore {
     	allow read;
       allow write: if request.auth != null && request.auth.uid == 'nOuk4lquYrXt4H2xafiZpPUFvN82';
     	allow delete: if request.auth != null && request.auth.uid == 'nOuk4lquYrXt4H2xafiZpPUFvN82';
+    }
+    
+    match /ratings/{document=**} {
+      allow write: if request.auth != null && request.resource.data.user_id == request.auth.uid && request.resource.data.rating >= 1 && request.resource.data.rating <= 5;
+      allow read: if request.auth != null && resource.data.user_id == request.auth.uid;
+    }
+    
+    match /ratings-aggregate/{document=**} {
+    	allow read;
     }
   }
 }
