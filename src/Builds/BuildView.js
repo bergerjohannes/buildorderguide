@@ -38,8 +38,8 @@ const BuildView = (props) => {
             <div class='flex justify-center'>{build.imageURL !== null && build.imageURL !== undefined && <img class='h-32 w-32' src={build.imageURL} alt={(build.title)} />}</div>
             <div class='flex justify-center'>{build.imageURL === null || build.imageURL === undefined && <img class='h-32 w-32' src={require('../Images/BuildImagePlaceholder.png')} alt={build.title} />}</div>
             {build.description !== undefined && <div class='m-auto md:max-w-lg w-11/12 text-center'><p class='text-main-dark'>{build.description}</p></div>}
-            {(build.reference !== undefined || build.reference !== '') && (build.reference.includes('https://') || build.reference.includes('www')) && <div class='w-fit m-auto'><A href={build.reference}>{build.author}</A></div>}
-            {(build.reference === undefined || build.reference === '') || (!build.reference.includes('https://') && !build.reference.includes('www')) && <ParagraphCentered>{build.author}</ParagraphCentered>}
+            {build.reference !== undefined && ((build.reference.includes('https://') || build.reference.includes('www'))) && <div class='w-fit m-auto'><A href={build.reference}>{build.author}</A></div>}
+            {build.reference === undefined || (!build.reference.includes('https://') && !build.reference.includes('www')) && <ParagraphCentered>{build.author}</ParagraphCentered>}
             {build.pop !== undefined && <div class='flex justify-center'><PopIndicator pop={build.pop} /></div>}
             {build.uptime !== undefined && Object.keys(build.uptime).length > 0 && <div class='flex justify-center'><UptimeIndicator uptime={build.uptime} /></div>}
             {build.attributes !== undefined && <div class='flex justify-center'><AttributesView attributes={build.attributes} /></div>}
