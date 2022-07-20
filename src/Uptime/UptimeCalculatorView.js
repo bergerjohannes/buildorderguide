@@ -6,7 +6,6 @@ import Paragraph from '../UI/Paragraph.js'
 import UptimeIndicator from '../Builds/UptimeIndicator.js'
 import Heading2 from '../UI/Heading2.js'
 import Dropdown from '../UI/Dropdown.js'
-import Centered from '../UI/Centered.js'
 
 const UptimeCalculatorView = (props) => {
 
@@ -47,25 +46,25 @@ const UptimeCalculatorView = (props) => {
             <form class='flex flex-col mx-auto w-11/12 max-w-md my-12'>
                 <div>
                     <Heading2>Civilization</Heading2>
-                    <Dropdown isSearchable={true} value={civ} onChange={civ => setCiv(civ.value)} options={civOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
+                    <Dropdown isSearchable={true} noSizeChange={true} value={civ} onChange={civ => setCiv(civ.value)} options={civOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
                 </div>
                 <div class='mt-6'>
                     <Heading2>Pop</Heading2>
-                    <Dropdown isSearchable={false} value={pop} onChange={pop => setPop(pop.value)} options={popOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
+                    <Dropdown isSearchable={false} noSizeChange={true} value={pop} onChange={pop => setPop(pop.value)} options={popOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
                 </div>
                 <div class='mt-6'>
                     <Heading2>Loom</Heading2>
-                    <Dropdown isSearchable={false} value={loom} onChange={loom => setLoom(loom.value)} options={loomOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
+                    <Dropdown isSearchable={false} noSizeChange={true} value={loom} onChange={loom => setLoom(loom.value)} options={loomOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
                 </div>
                 <div class='mt-6'>
                     <Heading2>FC</Heading2>
-                    <Dropdown isSearchable={false} value={castle} onChange={castle => setCastle(castle.value)} options={castlePopAdditionOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
+                    <Dropdown isSearchable={false} noSizeChange={true} value={castle} onChange={castle => setCastle(castle.value)} options={castlePopAdditionOptions} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
                 </div>
             </form>
 
-            <Centered>
+            <div class='text-center pb-10'>
                 <UptimeIndicator uptime={uptimes} />
-            </Centered>
+            </div>
         </div>
     )
 }
