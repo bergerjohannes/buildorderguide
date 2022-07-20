@@ -58,7 +58,7 @@ class BuilderInfoService {
     }
 
     static getResourceForTask = (task) => {
-        if (task === Constants.Task.Sheep || task === Constants.Task.Boar || task === Constants.Task.Berries || task === Constants.Task.Farm || task === Constants.Task.Deer || task === Constants.Task.ShoreFish) {
+        if (task === Constants.Task.Sheep || task === Constants.Task.Boar || task === Constants.Task.Berries || task === Constants.Task.Farm || task === Constants.Task.Deer || task === Constants.Task.ShoreFish || task === Constants.Task.FoodUnderTC) {
             return 'food'
         } else if (task === Constants.Task.Wood || task === Constants.Task.StragglerTree) {
             return 'wood'
