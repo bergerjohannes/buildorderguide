@@ -7,7 +7,7 @@ class BuildData {
     }
 
     static getTaskOptions() {
-        return [{ value: 'sheep', label: 'Sheep' }, { value: 'wood', label: 'Wood' }, { value: 'stone', label: 'Stone' }, { value: 'gold', label: 'Gold' }, { value: 'berries', label: 'Berries' }, { value: 'boar', label: 'Boar' }, { value: 'stragglerTree', label: 'Straggler Tree' }, { value: 'shoreFish', label: 'Shore Fish' }, { value: 'deer', label: 'Deer' }, { value: 'build', label: 'Build' }, { value: 'farm', label: 'Farm' }, { value: 'forward', label: 'Forward' }]
+        return [{ value: 'sheep', label: 'Sheep' }, { value: 'wood', label: 'Wood' }, { value: 'stone', label: 'Stone' }, { value: 'gold', label: 'Gold' }, { value: 'berries', label: 'Berries' }, { value: 'boar', label: 'Boar' }, { value: 'stragglerTree', label: 'Straggler Tree' }, { value: 'shoreFish', label: 'Shore Fish' }, { value: 'deer', label: 'Deer' }, { value: 'build', label: 'Build' }, { value: 'farm', label: 'Farm' }, { value: 'forward', label: 'Forward' }, { value: 'foodUnderTC', label: 'Food Under TC' }]
     }
 
     static getBuildingsOptions() {
@@ -78,7 +78,7 @@ class BuildData {
                     if (step.from === Constants.Task.Berries) title += 'Forager'
                     else if (step.from === Constants.Task.Wood) title += 'Lumberjack'
                     else if (step.from === Constants.Task.Forward) title += 'Forward Villager'
-                    else if (step.from === Constants.Task.StragglerTree) title += 'Villager'
+                    else if (step.from === Constants.Task.StragglerTree || step.from === Constants.Task.FoodUnderTC) title += 'Villager'
                     else if (step.from === Constants.Task.ShoreFish) title += 'Fisher'
                     else if (step.from === Constants.Task.Deer) title += 'Hunter'
                     else if (step.from === Constants.Task.Build) title += 'Builder'
@@ -86,6 +86,7 @@ class BuildData {
                     else if (step.from === Constants.Task.Stone) title += 'Stone Miner'
                     if (step.count > 1) title += 's'
                     if (step.from === Constants.Task.StragglerTree) title += ' on Straggler Trees'
+                    else if (step.from === Constants.Task.FoodUnderTC) title += 'under TC'
                 }
             } else {
                 let from = BuildData.getTaskOptions().filter(x => x.value === step.from)[0].label

@@ -35,6 +35,7 @@ export const Task = {
     Boar: 'boar',
     Wood: 'wood',
     StragglerTree: 'stragglerTree',
+    FoodUnderTC: 'foodUnderTC',
     Gold: 'gold',
     Stone: 'stone',
     Build: 'build',
