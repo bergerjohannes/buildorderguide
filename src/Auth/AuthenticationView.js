@@ -8,6 +8,7 @@ import { useUserAuth } from './Auth'
 import Button from '../UI/Button'
 import Heading1 from '../UI/Heading1'
 import Menu from '../UI/Menu'
+import ErrorView from '../UI/ErrorView'
 
 const AuthenticationView = (props) => {
 
@@ -41,9 +42,26 @@ const AuthenticationView = (props) => {
             else await signUp(email, password)
             setStatus(Constants.AuthStatus.AccountCreated)
         } catch (error) {
-            console.log("Error logging in or signing up: " + error)
+            console.log(`Error: ${error}`)
+            if (error.code === 'auth/email-already-in-use') {
+                try {
+                    await logIn(email, password)
+                    setStatus(Constants.AuthStatus.AccountCreated)
+                } catch (error) {
+                    setError(Constants.Error.ErrorSigningUpOrLoggingIn)
+                }
+            } else {
+                setError(Constants.Error.ErrorSigningUpOrLoggingIn)
+            }
         }
     }
+
+    if (error === Constants.Error.ErrorSigningUpOrLoggingIn) return (
+        <div class='text-center'>
+            <Menu />
+            <ErrorView title={'Error authenticating'} description={'Not able to log you in / sign you up.'} />
+        </div>
+    )
 
     if (status === Constants.AuthStatus.AccountCreated || status === Constants.AuthStatus.LoggedIn) {
         return <Navigate to={'/profile'} />
