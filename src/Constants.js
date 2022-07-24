@@ -123,7 +123,9 @@ export const MatchType = {
 export const Error = {
     ProfileIdMissing: 0,
     LoadingDataUnsuccessful: 1,
-    BuildNotExistent: 2
+    BuildNotExistent: 2,
+    SignupNotPossibleEmailAlreadyInUse: 3,
+    ErrorSigningUpOrLoggingIn: 4
 }
 
 export const Sorting = {
