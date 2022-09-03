@@ -18,7 +18,7 @@ const BuildsOverview = (props) => {
     const [ratings, setRatings] = useState([])
     const [searchQuery, setSearchQuery] = useState(null)
     const [civilization, setCivilization] = useState(Constants.Civ.Generic)
-    const [type, setType] = useState('All')
+    const [buildOrderType, setBuildOrderType] = useState('All')
     const [sorting, setSorting] = useState(Constants.Sorting.Alphabetically)
     const [favorites, setFavorites] = useState([])
     const [buildsAndRatingsAdded, setBuildsAndRatingsAdded] = useState(false)
@@ -92,8 +92,8 @@ const BuildsOverview = (props) => {
         buildsToDisplay = buildsToDisplay.filter(build => civilization === Constants.Civ.Generic || build.civilization.toUpperCase().indexOf(civilization.trim().toUpperCase()) !== -1)
     }
 
-    if (type !== null) {
-        buildsToDisplay = buildsToDisplay.filter(build => type === 'All' || build.attributes.filter(attribute => attribute.toUpperCase().indexOf(type.trim().toUpperCase()) !== -1).length > 0)
+    if (buildOrderType !== null) {
+        buildsToDisplay = buildsToDisplay.filter(build => buildOrderType === 'All' || build.attributes.filter(attribute => attribute.toUpperCase().indexOf(buildOrderType.trim().toUpperCase()) !== -1).length > 0)
     }
 
     if (sorting === Constants.Sorting.ByRating) {
@@ -115,7 +115,7 @@ const BuildsOverview = (props) => {
             <Menu />
             <Heading1>Builds</Heading1>
             {builds.length === 0 && <LoadingIndicator text={'Loading build orders ..'} />}
-            {builds.length > 0 && <div class='w-full flex justify-center mb-5'><FilterView civilization={civilization} setCivilization={setCivilization} type={type} setType={setType} handleSearch={handleSearch} sorting={sorting} setSorting={setSorting} /></div>}
+            {builds.length > 0 && <div class='w-full flex justify-center mb-5'><FilterView civilization={civilization} setCivilization={setCivilization} buildOrderType={buildOrderType} setBuildOrderType={setBuildOrderType} handleSearch={handleSearch} sorting={sorting} setSorting={setSorting} /></div>}
             {builds.length > 0 && <div class='w-11/12 md:w-1/2 lg:1/2 xl:w-1/3 m-auto'><Input placeholder='Search builds' onChange={event => { handleSearch(event.target.value) }} /></div>}
             <div class='w-11/12 md:w-10/12 lg:w-9/12 mx-auto mb-10 flex flex-wrap justify-center'>
                 {buildsToDisplay !== undefined && buildsToDisplay.map(build => (
