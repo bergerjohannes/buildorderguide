@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import * as Constants from '../Constants'
 
 class ImproveService {
@@ -11,24 +12,27 @@ class ImproveService {
     static getBuildOrderOptionsFromDataSet = (data) => {
         const allBuildTypes = data.map(g => g.players[Constants.OfficialAccountDemoProfileId].build)
         const dataWithoutDuplicates = [...new Set(allBuildTypes)]
-        const buildTypes = dataWithoutDuplicates.map(g => { return { value: g, label: g } })
-        buildTypes.push({ value: Constants.Build.Any, label: Constants.Build.Any })
+        let buildTypes = dataWithoutDuplicates.map(g => { return { value: g, label: g } })
+        buildTypes = _.orderBy(buildTypes, ['value'], ['asc'])
+        buildTypes.unshift({ value: Constants.Build.Any, label: Constants.Build.Any })
         return buildTypes
     }
 
     static getMapOptionsFromDataSet = (data) => {
         const allMaps = data.map(g => g.map_name)
         const dataWithoutDuplicates = [...new Set(allMaps)]
-        const maps = dataWithoutDuplicates.map(g => { return { value: g, label: g } })
-        maps.push({ value: Constants.Map.Any, label: Constants.Map.Any })
+        let maps = dataWithoutDuplicates.map(g => { return { value: g, label: g } })
+        maps = _.orderBy(maps, ['value'], ['asc'])
+        maps.unshift({ value: Constants.Map.Any, label: Constants.Map.Any })
         return maps
     }
 
     static getCivOptionsFromDataSet = (data) => {
         const allCivs = data.map(g => g.players[Constants.OfficialAccountDemoProfileId].civ)
         const dataWithoutDuplicates = [...new Set(allCivs)]
-        const civs = dataWithoutDuplicates.map(g => { return { value: g, label: g } })
-        civs.push({ value: Constants.Civ.Any, label: Constants.Civ.Any })
+        let civs = dataWithoutDuplicates.map(g => { return { value: g, label: g } })
+        civs = _.orderBy(civs, ['value'], ['asc'])
+        civs.unshift({ value: Constants.Civ.Any, label: Constants.Civ.Any })
         return civs
     }
 
