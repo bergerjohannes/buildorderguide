@@ -10,7 +10,6 @@ import ImproveService from './ImproveService'
 import Graph from '../UI/Graph'
 import ImproveFilterView from './ImproveFilterView'
 import Heading2 from '../UI/Heading2'
-import { filter } from 'lodash'
 
 
 const ImproveOverview = (props) => {
@@ -32,6 +31,7 @@ const ImproveOverview = (props) => {
     const [mapOptions, setMapOptions] = useState(undefined)
     const [civOptions, setCivOptions] = useState(undefined)
     const [gameModeOptions, setGameModeOptions] = useState(undefined) 
+    const [loaded, setLoaded] = useState(false) 
 
     useEffect(() => {
         DatabaseService.loadProfileInfo(user).then(userData => {
@@ -61,12 +61,13 @@ const ImproveOverview = (props) => {
         setFeudalUptimes(ImproveService.getFeudalAgeUptimeFromData(filteredData))
         setCastleUptimes(ImproveService.getCastleAgeUptimeFromData(filteredData))
         setImperialUptimes(ImproveService.getImperialAgeUptimeFromData(filteredData))
+        setLoaded(true)
     }, [filteredData])
 
     if (error === Constants.Error.ProfileIdMissing) return (
         <div class='text-center'>
             <Menu />
-            <Heading1>1v1 Random Map Stats</Heading1>
+            <Heading1>Improve your game</Heading1>
             <ErrorView title={'Profile Id missing'} description={'To load your stats, please enter your AoE II Profile Id.'} callToAction={'Add Id'} callToActionLink={'/profile'} />
         </div>
     )
@@ -74,7 +75,7 @@ const ImproveOverview = (props) => {
     if (error === Constants.Error.LoadingDataUnsuccessful) return (
         <div class='text-center'>
             <Menu />
-            <Heading1>1v1 Random Map Stats</Heading1>
+            <Heading1>Improve your game</Heading1>
             <ErrorView title={'Error loading data'} description={'Not able to load your data.'} />
         </div>
     )
@@ -83,7 +84,8 @@ const ImproveOverview = (props) => {
         // Before id is loaded
         <div class='text-center'>
             <Menu />
-            <Heading1>1v1 Random Map Stats</Heading1>
+            <Heading1>Improve your game</Heading1>
+            <LoadingIndicator text={'Loading match data ..'} />
         </div>
     )
 
@@ -92,7 +94,7 @@ const ImproveOverview = (props) => {
             <Menu />
             <Heading1>Improve your game</Heading1>
             <ImproveFilterView buildOrder={buildOrder} setBuildOrder={setBuildOrder} buildOrderOptions={buildOrderOptions} civ={civ} setCiv={setCiv} civOptions={civOptions} map={map} setMap={setMap} mapOptions={mapOptions} gameMode={gameMode} setGameMode={setGameMode} gameModeOptions={gameModeOptions}/>
-            {data === undefined && <LoadingIndicator text={'Loading match data ..'} />}
+            {loaded === false && <LoadingIndicator text={'Loading match data ..'} />}
             {geAPM !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><Heading2>Game-Effective APM</Heading2><Graph id={'geAPMGraph'} data={geAPM} label={'geAPM'} /></div>}
             {feudalUptimes !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><Heading2>Feudal Age Time</Heading2><Graph id={'feudalUptimesGraph'} data={feudalUptimes} label={'Feudal Age Uptime'} yAxisTicksCallback={(value) => `${Math.floor(value / 60)}:00`} /></div>}
             {castleUptimes !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><Heading2>Castle Age Time</Heading2><Graph id={'castleUptimesGraph'} data={castleUptimes} label={'Castle Age Uptime'} yAxisTicksCallback={(value) => `${Math.floor(value / 60)}:00`} /></div>}
