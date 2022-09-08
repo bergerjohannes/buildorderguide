@@ -40,6 +40,10 @@ class ImproveService {
         return [{ value: Constants.GameMode.Any, label: Constants.GameMode.Any }] // ToDo: Get game mode from data
     }
 
+    static getWinsCountFromData = (data) => {
+        return data.filter(g => g.players[Constants.OfficialAccountDemoProfileId].winner === true).length
+    }
+
     static getGEAPMFromData = (data) => {
         return data.map(g => { return { 'valueXAxis': this.toDate(g.played_at_time), 'valueYAxis': g.players[Constants.OfficialAccountDemoProfileId].mean_apm } })
     }

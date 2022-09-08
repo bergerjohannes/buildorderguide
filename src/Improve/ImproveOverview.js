@@ -32,6 +32,7 @@ const ImproveOverview = (props) => {
     const [mapOptions, setMapOptions] = useState(undefined)
     const [civOptions, setCivOptions] = useState(undefined)
     const [gameModeOptions, setGameModeOptions] = useState(undefined) 
+    const [winsCount, setWinsCount] = useState(undefined) 
     const [loaded, setLoaded] = useState(false) 
 
     useEffect(() => {
@@ -62,6 +63,7 @@ const ImproveOverview = (props) => {
         setFeudalUptimes(ImproveService.getFeudalAgeUptimeFromData(filteredData))
         setCastleUptimes(ImproveService.getCastleAgeUptimeFromData(filteredData))
         setImperialUptimes(ImproveService.getImperialAgeUptimeFromData(filteredData))
+        setWinsCount(ImproveService.getWinsCountFromData(filteredData))
         setLoaded(true)
     }, [filteredData])
 
@@ -96,7 +98,7 @@ const ImproveOverview = (props) => {
             <Heading1>Improve your game</Heading1>
             {loaded === false && <LoadingIndicator text={'Loading match data ..'} />}
             <ImproveFilterView buildOrder={buildOrder} setBuildOrder={setBuildOrder} buildOrderOptions={buildOrderOptions} civ={civ} setCiv={setCiv} civOptions={civOptions} map={map} setMap={setMap} mapOptions={mapOptions} gameMode={gameMode} setGameMode={setGameMode} gameModeOptions={gameModeOptions}/>
-            {loaded && <Centered>Found <span class='whitespace-pre font-bold'> {filteredData.length} </span> games using the filter criteria.</Centered>}
+            {loaded && <Centered>Found <span class='whitespace-pre font-bold'> {filteredData.length} </span> games ({winsCount === undefined ? '?' : winsCount}/{filteredData.length} won) using the filter criteria.</Centered>}
             {geAPM !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><Heading2>Game-Effective APM</Heading2><Graph id={'geAPMGraph'} data={geAPM} label={'geAPM'} /></div>}
             {feudalUptimes !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><Heading2>Feudal Age Time</Heading2><Graph id={'feudalUptimesGraph'} data={feudalUptimes} label={'Feudal Age Uptime'} yAxisTicksCallback={(value) => `${Math.floor(value / 60)}:00`} /></div>}
             {castleUptimes !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><Heading2>Castle Age Time</Heading2><Graph id={'castleUptimesGraph'} data={castleUptimes} label={'Castle Age Uptime'} yAxisTicksCallback={(value) => `${Math.floor(value / 60)}:00`} /></div>}
