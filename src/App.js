@@ -13,6 +13,7 @@ import BuilderOverview from './Builder/BuilderOverview'
 import BuilderDetailView from './Builder/BuilderDetailView'
 import AboutPage from './AboutPage'
 import NotFoundPage from './NotFoundPage'
+import ImproveOverview from './Improve/ImproveOverview'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path='/stats' element={<ProtectedRoute><StatsOverview /></ProtectedRoute>} />
           <Route path='/challenge' element={<ProtectedRoute><ChallengeOverview /></ProtectedRoute>} />
           <Route path='/builder' element={<ProtectedRoute><BuilderOverview /></ProtectedRoute>} />
+          <Route path='/improve' element={<ProtectedRoute><ImproveOverview /></ProtectedRoute>} />
           <Route path='/builder/build/:buildId' element={<ProtectedRoute><BuilderDetailView /></ProtectedRoute>} />
           <Route path='/404' element={<NotFoundPage />} />
           <Route path='*' element={<NotFoundPage />} />

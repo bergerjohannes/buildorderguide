@@ -138,8 +138,8 @@ const Dropdown = (props) => {
         })
     }
 
-    if (props.isMulti !== undefined && props.isMulti === true) return <Select styles={props.noSizeChange === true ? selectStyleWithoutSizeChange : selectStyleWithSizeChange} placeholder={props.placeholder} isMulti isSearchable={props.isSearchable} value={props.options.filter(element => props.value !== undefined && props.value.includes(element.value))} onChange={props.onChange} options={props.options} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
-    else return <Select styles={props.noSizeChange === true ? selectStyleWithoutSizeChange : selectStyleWithSizeChange} placeholder={props.placeholder} isSearchable={props.isSearchable} value={props.options.find(element => element.value === props.value)} onChange={props.onChange} options={props.options} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} />
+    if (props.isMulti !== undefined && props.isMulti === true) return <span class={props.isDisabled ? 'cursor-not-allowed' : 'cursor-default'}><Select styles={props.noSizeChange === true ? selectStyleWithoutSizeChange : selectStyleWithSizeChange} placeholder={props.placeholder} isMulti isSearchable={props.isSearchable} value={props.options.filter(element => props.value !== undefined && props.value.includes(element.value))} onChange={props.onChange} options={props.options} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} /></span>
+    else return <span class={props.isDisabled ? 'cursor-not-allowed' : 'cursor-default'}><Select isDisabled={props.isDisabled} styles={props.noSizeChange === true ? selectStyleWithoutSizeChange : selectStyleWithSizeChange} placeholder={props.placeholder} isSearchable={props.isSearchable} value={props.options.find(element => element.value === props.value)} onChange={props.onChange} options={props.options} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} /></span>
 }
 
 export default Dropdown

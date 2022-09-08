@@ -209,8 +209,7 @@ class DatabaseService {
     }
 
     static async loadRatings() {
-        let q = query(collection(store, 'ratings-aggregate'))
-        const querySnapshot = await getDocs(q)
+        const querySnapshot = await getDocs(collection(store, 'ratings-aggregate'))
         let data = []
         querySnapshot.forEach((doc) => {
             let ratingDoc = doc.data()
@@ -240,6 +239,19 @@ class DatabaseService {
         } else {
             throw new Error(`No rating for build with id ${buildId} and user ${userId}`)
         }
+    }
+
+    // IMPROVE GAME DATA
+
+    static async loadAllGamesForUser(userId) {
+        const querySnapshot = await getDocs(collection(store, `matches/${userId}/matches-data`))
+        let data = []
+        querySnapshot.forEach((doc) => {
+            let ratingDoc = doc.data()
+            ratingDoc.id = doc.id
+            data.push(ratingDoc)
+        })
+        return data
     }
 }
 export default DatabaseService

@@ -1,4 +1,5 @@
 export const OfficialPublisherId = 'nOuk4lquYrXt4H2xafiZpPUFvN82' // Everything that is published by this Id is a verified build currently
+export const OfficialAccountDemoProfileId = '1951283' // This account is used for Improve demo data
 
 export const ReleaseDateLordsOfTheWest = 1611680400 // Lords of the West add-on release on 01/26/2021 17:00 UTC
 export const ReleaseDateDawnOfTheDukes = 1628611200 // Dawn of the Dukes add-on release on 08/10/2021 17:00 UTC
@@ -80,6 +81,7 @@ export const Unit = {
 }
 
 export const Civ = {
+    Any: 'Any',
     All: 'All',
     Generic: 'Generic',
     Unknown: 'Unknown',
@@ -132,4 +134,22 @@ export const Sorting = {
     Alphabetically: 'Alphabetically',
     FavoritesOnly: 'Favorites only',
     ByRating: 'By rating'
+}
+
+export const GameMode = {
+    Any: 'Any',
+    RM1v1: 'RM 1v1',
+    RMTeam: 'RM Team',
+    EW1v1: 'EW 1v1',
+    EWTeam: 'EW Team',
+    DM1v1: 'DM 1v1',
+    DMTeam: 'DM Team'
+}
+
+export const Build = {
+    Any: 'Any'
+}
+
+export const Map = {
+    Any: 'Any'
 }
