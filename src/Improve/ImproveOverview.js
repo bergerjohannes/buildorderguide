@@ -11,6 +11,7 @@ import Graph from '../UI/Graph'
 import ImproveFilterView from './ImproveFilterView'
 import Heading2 from '../UI/Heading2'
 import Centered from '../UI/Centered'
+import MatchCard from '../Stats/MatchCard'
 
 
 const ImproveOverview = (props) => {
@@ -34,6 +35,7 @@ const ImproveOverview = (props) => {
     const [gameModeOptions, setGameModeOptions] = useState(undefined) 
     const [winsCount, setWinsCount] = useState(undefined) 
     const [loaded, setLoaded] = useState(false) 
+    const [matches, setMatches] = useState(undefined) 
 
     useEffect(() => {
         DatabaseService.loadProfileInfo(user).then(userData => {
@@ -44,6 +46,20 @@ const ImproveOverview = (props) => {
             setData(d)
         })
     }, [user])
+
+    useEffect(() => {
+        if (profileId !== undefined && profileId !== '') loadMatches()
+    }, [profileId])
+
+    const loadMatches = async() => {
+        try {
+            const matches = await ImproveService.loadMatchesForPlayerWithProfileId(profileId)
+            setMatches(matches)
+        } catch (error) {
+            console.log(`Couldn't load matches: ${error}`)
+            setError(error.message)
+        }
+    }
 
     useEffect(() => {
         if (data !== undefined) prepareData()
@@ -67,7 +83,7 @@ const ImproveOverview = (props) => {
         setLoaded(true)
     }, [filteredData])
 
-    if (error === Constants.Error.ProfileIdMissing) return (
+    if (error == Constants.Error.ProfileIdMissing) return (
         <div class='text-center'>
             <Menu />
             <Heading1>Improve your game</Heading1>
@@ -75,7 +91,7 @@ const ImproveOverview = (props) => {
         </div>
     )
 
-    if (error === Constants.Error.LoadingDataUnsuccessful) return (
+    if (error == Constants.Error.LoadingDataUnsuccessful) return (
         <div class='text-center'>
             <Menu />
             <Heading1>Improve your game</Heading1>
@@ -83,7 +99,7 @@ const ImproveOverview = (props) => {
         </div>
     )
 
-    if (profileId === undefined) return (
+    if (profileId == undefined) return (
         // Before id is loaded
         <div class='text-center'>
             <Menu />
@@ -103,6 +119,9 @@ const ImproveOverview = (props) => {
             {feudalUptimes !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><Heading2>Feudal Age Time</Heading2><Graph id={'feudalUptimesGraph'} data={feudalUptimes} label={'Feudal Age Uptime'} yAxisTicksCallback={(value) => `${Math.floor(value / 60)}:00`} /></div>}
             {castleUptimes !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><Heading2>Castle Age Time</Heading2><Graph id={'castleUptimesGraph'} data={castleUptimes} label={'Castle Age Uptime'} yAxisTicksCallback={(value) => `${Math.floor(value / 60)}:00`} /></div>}
             {imperialUptimes !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><Heading2>Imperial Age Time</Heading2><Graph id={'imperialUptimesGraph'} data={imperialUptimes} label={'Imperial Age Uptime'} yAxisTicksCallback={(value) => `${Math.floor(value / 60)}:00`} /></div>}
+            {matches !== undefined && matches.map(match => ( // TODO: adapt match cards for team games
+                <MatchCard match={match} profile_id={profileId} analysis={data.find(g => g.game_id === match.match_uuid)}/>
+            ))}
         </div>
     )
 }

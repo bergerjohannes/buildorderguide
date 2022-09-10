@@ -3,6 +3,19 @@ import * as Constants from '../Constants'
 
 class ImproveService {
 
+    static loadMatchesForPlayerWithProfileId = async(profileId) => {
+        return fetch('https://us-central1-build-order-guide.cloudfunctions.net/getMatches?profile_id=' + profileId)
+            .then((response) => response.json())
+            .then((responseJson) => {
+                if (responseJson.error !== undefined) {
+                    throw new Error(Constants.Error.LoadingDataUnsuccessful)
+                } else {
+                    if (responseJson.length === 0) throw new Error(Constants.Error.LoadingDataUnsuccessful)
+                    return responseJson
+                }
+            })
+    }
+
     static getFilteredDataSet = (data, gameMode, buildOrder, civ, map) => { //ToDo: Filter for game mode
         const sortedData = data.sort((a, b) => (a.played_at_time > b.played_at_time) ? 1 : -1)
         const filteredData = sortedData.filter(g => g.players[Constants.OfficialAccountDemoProfileId] !== undefined && (buildOrder === Constants.Build.Any || g.players[Constants.OfficialAccountDemoProfileId].build === buildOrder) && (civ === Constants.Civ.Any || g.players[Constants.OfficialAccountDemoProfileId].civ === civ) && (map === Constants.Map.Any || g.map_name === map))

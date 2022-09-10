@@ -1,8 +1,7 @@
-import StatsInfoService from './StatsInfoService.js'
-import MapInfoService from './MapInfoService.js'
 import CivInfoService from '../Uptime/CivInfoService.js'
 import MatchCardPlayerResultView from './MatchCardPlayerResultView.js'
 import MatchCardMapView from './MatchCardMapView.js'
+import Button from '../UI/Button.js'
 
 const MatchCard = (props) => {
 
@@ -42,6 +41,7 @@ const MatchCard = (props) => {
                 <div class='flex flex-col justify-center'><span>vs.</span></div>
                 <MatchCardPlayerResultView matchResult={matchResultPlayer1} profile_id={match.players[1].profile_id} name={match.players[1].name} civ={civPlayer1} rating={match.players[1].rating}/>
             </div>
+            {props.analysis === undefined && <div class='flex justify-center'><Button>Analyze game</Button></div>}
         </div>
     )
 }
