@@ -26,6 +26,8 @@ function getURL(call, profile_id, steam_id, ranked, type, mode) {
 }
 
 function filterGames(data, ranked, type, mode) {
+    if (ranked === undefined && type === undefined && mode === undefined) return data.data
+
     if (ranked === 'true' && type === '1v1' && mode.toUpperCase() === 'RM') {
         let ranked1v1Games = data.data.filter(game => game.ranked === true && game.num_players === 2 && (game.starting_age === 0 || game.starting_age === 2)) // Latest patch returns 2 instead of 0
         return ranked1v1Games
