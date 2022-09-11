@@ -80,6 +80,44 @@ class StatsInfoService {
         return data
     }
 
+    static toReadableTime = (seconds) => {
+        if (seconds === undefined) return
+
+        let sec = seconds % 60
+        let min = parseInt(seconds / 60)
+        let hr = 0
+
+        if (min > 60) {
+            hr = parseInt(min / 60)
+            min = min % 60
+        }
+
+        let readableTime = ''
+        if (hr > 0) {
+            if (hr < 10) {
+                readableTime += `0${hr}:`
+            } else {
+                readableTime += `${hr}:`
+            }
+        }
+        if (min > 0 || hr > 0) {
+            if (min < 10) {
+                readableTime += `0${min}:`
+            } else {
+                readableTime += `${min}:`
+            }
+        }
+        if (sec > 0 || min > 0 || hr > 0) {
+            if (sec < 10) {
+                readableTime += `0${sec}`
+            } else {
+                readableTime += `${sec}`
+            }
+        }
+
+        return readableTime
+    }
+
     static toDate = (timestamp) => {
         return new Date(timestamp * 1000).toLocaleDateString("en-US", { year: 'numeric', month: 'numeric', day: 'numeric' })
     }
