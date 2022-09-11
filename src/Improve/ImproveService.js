@@ -88,6 +88,20 @@ class ImproveService {
     static toDate = (timestamp) => {
         return new Date(timestamp * 1000).toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })
     }
+
+    static getMatchType = (match) => {
+        let type = ''
+        if (match.starting_age === 0 || match.starting_age === 2) { // Dark Age changed after some patch from 0 to 2
+            type += 'RM'
+        }
+        if (match.num_players === 2) type += ' 1v1'
+        else type += ' Team'
+        return type
+    }
+
+    static getColorForNumber = (number) => {
+        return ['Blue', 'Red', 'Green', 'Yellow', 'Cyan', 'Pink', 'Gray', 'Orange'][number-1]
+    }
 }
 
 export default ImproveService

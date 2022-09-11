@@ -11,6 +11,7 @@ class CivInfoService {
     static getCivilizationNameForIndex(index) {
         const civs = CivData.civilizations
         const civNames = civs.map(item => item.name)
+        if (civNames[index] === undefined) return 'Unknown'
         return civNames[index]
     }
 

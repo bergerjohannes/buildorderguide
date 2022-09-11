@@ -12,6 +12,7 @@ import ImproveFilterView from './ImproveFilterView'
 import Heading2 from '../UI/Heading2'
 import Centered from '../UI/Centered'
 import MatchCard from '../Stats/MatchCard'
+import CivInfoService from '../Uptime/CivInfoService'
 
 
 const ImproveOverview = (props) => {
@@ -54,6 +55,7 @@ const ImproveOverview = (props) => {
     const loadMatches = async () => {
         try {
             const matches = await ImproveService.loadMatchesForPlayerWithProfileId(profileId)
+            CivInfoService.correctCivsForOlderMatches(matches)
             setMatches(matches)
         } catch (error) {
             console.log(`Couldn't load matches: ${error}`)
