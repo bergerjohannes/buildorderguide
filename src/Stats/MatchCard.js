@@ -2,8 +2,11 @@ import CivInfoService from '../Uptime/CivInfoService.js'
 import MatchCardPlayerResultView from './MatchCardPlayerResultView.js'
 import MatchCardMapView from './MatchCardMapView.js'
 import Button from '../UI/Button.js'
+import { useState } from 'react'
 
 const MatchCard = (props) => {
+
+    const [isAnalyzing, setIsAnalzing] = useState(false)
 
     const match = props.match
     const profileId = props.profileId
@@ -41,7 +44,8 @@ const MatchCard = (props) => {
                 <div class='flex flex-col justify-center'><span>vs.</span></div>
                 <MatchCardPlayerResultView matchResult={matchResultPlayer1} profile_id={match.players[1].profile_id} name={match.players[1].name} civ={civPlayer1} rating={match.players[1].rating}/>
             </div>
-            {props.analysis === undefined && <div class='flex justify-center'><Button>Analyze game</Button></div>}
+            {(props.analysis === undefined && isAnalyzing === false) && <div class='flex justify-center'><Button onClick={() => {setIsAnalzing(true); props.analyzeGame(props.match.match_id)}}>Analyze game</Button></div>}
+            {(props.analysis === undefined && isAnalyzing === true) && <div class='flex justify-center'>Analyzing game ...</div>}
         </div>
     )
 }

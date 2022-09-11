@@ -127,7 +127,8 @@ export const Error = {
     LoadingDataUnsuccessful: 1,
     BuildNotExistent: 2,
     SignupNotPossibleEmailAlreadyInUse: 3,
-    ErrorSigningUpOrLoggingIn: 4
+    ErrorSigningUpOrLoggingIn: 4,
+    ErrorAnalyzingGame: 5
 }
 
 export const Sorting = {

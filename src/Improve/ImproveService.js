@@ -3,8 +3,20 @@ import * as Constants from '../Constants'
 
 class ImproveService {
 
+    static analyzeGame = async(gameId, profileId) => {
+        return fetch(`https://build-order-guide.ew.r.appspot.com/analyze?gameId=${gameId}&profileId=${profileId}`)
+            .then((response) => response.json())
+            .then((responseJson) => {
+                if (responseJson.error !== undefined) {
+                    throw new Error(Constants.Error.ErrorAnalyzingGame)
+                } else {
+                    return responseJson
+                }
+            })
+    }
+
     static loadMatchesForPlayerWithProfileId = async(profileId) => {
-        return fetch('https://us-central1-build-order-guide.cloudfunctions.net/getMatches?profile_id=' + profileId)
+        return fetch(`https://us-central1-build-order-guide.cloudfunctions.net/getMatches?profile_id=${profileId}`)
             .then((response) => response.json())
             .then((responseJson) => {
                 if (responseJson.error !== undefined) {

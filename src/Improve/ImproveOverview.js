@@ -32,10 +32,10 @@ const ImproveOverview = (props) => {
     const [buildOrderOptions, setBuildOrderOptions] = useState(undefined)
     const [mapOptions, setMapOptions] = useState(undefined)
     const [civOptions, setCivOptions] = useState(undefined)
-    const [gameModeOptions, setGameModeOptions] = useState(undefined) 
-    const [winsCount, setWinsCount] = useState(undefined) 
-    const [loaded, setLoaded] = useState(false) 
-    const [matches, setMatches] = useState(undefined) 
+    const [gameModeOptions, setGameModeOptions] = useState(undefined)
+    const [winsCount, setWinsCount] = useState(undefined)
+    const [loaded, setLoaded] = useState(false)
+    const [matches, setMatches] = useState(undefined)
 
     useEffect(() => {
         DatabaseService.loadProfileInfo(user).then(userData => {
@@ -51,7 +51,7 @@ const ImproveOverview = (props) => {
         if (profileId !== undefined && profileId !== '') loadMatches()
     }, [profileId])
 
-    const loadMatches = async() => {
+    const loadMatches = async () => {
         try {
             const matches = await ImproveService.loadMatchesForPlayerWithProfileId(profileId)
             setMatches(matches)
@@ -83,6 +83,17 @@ const ImproveOverview = (props) => {
         setLoaded(true)
     }, [filteredData])
 
+    const analyzeGame = async (gameId) => {
+        try {
+            const analysis = await ImproveService.analyzeGame(gameId, profileId)
+            console.log(`Game successful analyzed: ${JSON.stringify(analysis)}`)
+            setData(data => [...data, analysis])
+        } catch (error) { //ToDo: Proper error handling
+            console.log(`Error analyzing game with id ${gameId}: ${error}`)
+            setError(error.message)
+        }
+    }
+
     if (error == Constants.Error.ProfileIdMissing) return (
         <div class='text-center'>
             <Menu />
@@ -113,14 +124,14 @@ const ImproveOverview = (props) => {
             <Menu />
             <Heading1>Improve your game</Heading1>
             {loaded === false && <LoadingIndicator text={'Loading match data ..'} />}
-            <ImproveFilterView buildOrder={buildOrder} setBuildOrder={setBuildOrder} buildOrderOptions={buildOrderOptions} civ={civ} setCiv={setCiv} civOptions={civOptions} map={map} setMap={setMap} mapOptions={mapOptions} gameMode={gameMode} setGameMode={setGameMode} gameModeOptions={gameModeOptions}/>
+            <ImproveFilterView buildOrder={buildOrder} setBuildOrder={setBuildOrder} buildOrderOptions={buildOrderOptions} civ={civ} setCiv={setCiv} civOptions={civOptions} map={map} setMap={setMap} mapOptions={mapOptions} gameMode={gameMode} setGameMode={setGameMode} gameModeOptions={gameModeOptions} />
             {loaded && <Centered>Found <span class='whitespace-pre font-bold'> {filteredData.length} </span> games ({winsCount === undefined ? '?' : winsCount}/{filteredData.length} won) using the filter criteria.</Centered>}
             {geAPM !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><Heading2>Game-Effective APM</Heading2><Graph id={'geAPMGraph'} data={geAPM} label={'geAPM'} /></div>}
             {feudalUptimes !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><Heading2>Feudal Age Time</Heading2><Graph id={'feudalUptimesGraph'} data={feudalUptimes} label={'Feudal Age Uptime'} yAxisTicksCallback={(value) => `${Math.floor(value / 60)}:00`} /></div>}
             {castleUptimes !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><Heading2>Castle Age Time</Heading2><Graph id={'castleUptimesGraph'} data={castleUptimes} label={'Castle Age Uptime'} yAxisTicksCallback={(value) => `${Math.floor(value / 60)}:00`} /></div>}
             {imperialUptimes !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><Heading2>Imperial Age Time</Heading2><Graph id={'imperialUptimesGraph'} data={imperialUptimes} label={'Imperial Age Uptime'} yAxisTicksCallback={(value) => `${Math.floor(value / 60)}:00`} /></div>}
             {matches !== undefined && matches.map(match => ( // TODO: adapt match cards for team games
-                <MatchCard match={match} profile_id={profileId} analysis={data.find(g => g.game_id === match.match_uuid)}/>
+                <MatchCard match={match} profile_id={profileId} analysis={data.find(g => g.game_id === match.match_uuid)} analyzeGame={analyzeGame} />
             ))}
         </div>
     )
