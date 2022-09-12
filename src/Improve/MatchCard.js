@@ -1,9 +1,8 @@
 import CivInfoService from '../Uptime/CivInfoService.js'
 import Button from '../UI/Button.js'
 import { useState } from 'react'
-import StatsInfoService from './StatsInfoService.js'
 import MapInfoService from './MapInfoService.js'
-import ImproveService from '../Improve/ImproveService.js'
+import ImproveService from './ImproveService.js'
 
 const MatchColorIndicator = (props) => {
     const color = ImproveService.getColorForNumber(props.number)
@@ -24,7 +23,7 @@ const MatchCardPlayerResultView = (props) => {
                 <div class='flex flex-col justify-center'><img class='w-5 h-5' src={require('../Images/Civilizations/' + props.civ + '.png')} alt={props.civ} /></div>
                 <p class='flex items-center text-xs'>{(props.rating === null) ? '?' : props.rating}</p>
                 {props.showMatchResultPerPlayer && <p>{props.won === true ? '👑' : '☠️'}</p>}
-                <a class='font-semibold' target='_blank' href={'https://aoe2.net/#profile-' + props.profile_id}>{StatsInfoService.getDisplayName(props.name)}</a>
+                <a class='font-semibold' target='_blank' href={'https://aoe2.net/#profile-' + props.profile_id}>{ImproveService.getDisplayName(props.name)}</a>
             </div>
         </div>
     )
@@ -38,7 +37,7 @@ const MatchCardPlayersView = (props) => {
     }
 
     return (
-        <div class='flex flex-col space-y-4'>
+        <div class='md:ml-8 flex flex-col space-y-4'>
             {teams.filter(t => t.length).map((team, teamIndex) => (
                 <div>
                     {(team.length > 0 && props.match.players.length > 2) && <p class='text-center md:text-left md:ml-4 text-lg md:font-bold'>Team {teamIndex + 1} {team.find(p => p.won === true) !== undefined ? '👑' : '☠️'}</p>}
@@ -56,12 +55,12 @@ const MatchCardPlayersView = (props) => {
 
 const MatchCardMapView = (props) => {
     return (
-        <div class='w-full md:w-4/12 pl-4 flex flex-row'>
+        <div class='md:ml-8 w-full md:w-4/12 pl-4 flex flex-row'>
             <img class='w-20 h-20' src={require('../Images/Maps/' + MapInfoService.getMapImageForId(props.match.map_type))} alt={MapInfoService.getMapNameForId(props.match.map_type)} />
             <div class='flex flex-col justify-center text-left pl-4'>
                 <p class='font-semibold'>{MapInfoService.getMapNameForId(props.match.map_type)}</p>
                 <p>{props.matchType}</p>
-                <p>{StatsInfoService.toDate(props.match.finished)}</p>
+                <p>{ImproveService.toDate(props.match.finished)}</p>
             </div>
         </div>
     )
@@ -79,9 +78,9 @@ const MatchCardAnalysisView = (props) => {
                 <div class='flex flex-col justify-center items-center'><span>{dataForPlayer.mean_apm}</span><span class='text-xs'>geAPM</span></div>
             </div>
             {dataForPlayer.age_up_times !== undefined && <div class='flex justify-around col-start-1 col-end-5'>
-                {dataForPlayer.age_up_times.feudal !== undefined && <p class='flex justify-center items-center flex-col'><span >{StatsInfoService.toReadableTime(dataForPlayer.age_up_times.feudal)}</span><span class='text-xs'>Feudal</span></p>}
-                {dataForPlayer.age_up_times.castle !== undefined && <p class='flex justify-center items-center flex-col'><span>{StatsInfoService.toReadableTime(dataForPlayer.age_up_times.castle)}</span><span class='text-xs'>Castle</span></p>}
-                {dataForPlayer.age_up_times.imperial !== undefined && <p class='flex justify-center items-center flex-col'><span>{StatsInfoService.toReadableTime(dataForPlayer.age_up_times.imperial)}</span><span class='text-xs'>Imperial</span></p>}
+                {dataForPlayer.age_up_times.feudal !== undefined && <p class='flex justify-center items-center flex-col'><span >{ImproveService.toReadableTime(dataForPlayer.age_up_times.feudal)}</span><span class='text-xs'>Feudal</span></p>}
+                {dataForPlayer.age_up_times.castle !== undefined && <p class='flex justify-center items-center flex-col'><span>{ImproveService.toReadableTime(dataForPlayer.age_up_times.castle)}</span><span class='text-xs'>Castle</span></p>}
+                {dataForPlayer.age_up_times.imperial !== undefined && <p class='flex justify-center items-center flex-col'><span>{ImproveService.toReadableTime(dataForPlayer.age_up_times.imperial)}</span><span class='text-xs'>Imperial</span></p>}
             </div>}
         </div>
     )

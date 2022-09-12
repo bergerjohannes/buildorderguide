@@ -7,7 +7,6 @@ import AuthenticationView from './Auth/AuthenticationView'
 import * as Constants from './Constants'
 import { UserAuthContextProvider } from './Auth/Auth.js'
 import ProfileView from './Auth/ProfileView'
-import StatsOverview from './Stats/StatsOverview'
 import ChallengeOverview from './Leagues/ChallengeOverview'
 import BuilderOverview from './Builder/BuilderOverview'
 import BuilderDetailView from './Builder/BuilderDetailView'
@@ -27,7 +26,6 @@ function App() {
           <Route path='/sign-up' element={<AuthenticationView auth={Constants.AuthType.SignUp} />} />
           <Route path='/log-in' element={<AuthenticationView auth={Constants.AuthType.LogIn} />} />
           <Route path='/profile' element={<ProtectedRoute><ProfileView /></ProtectedRoute>} />
-          <Route path='/stats' element={<ProtectedRoute><StatsOverview /></ProtectedRoute>} />
           <Route path='/challenge' element={<ProtectedRoute><ChallengeOverview /></ProtectedRoute>} />
           <Route path='/builder' element={<ProtectedRoute><BuilderOverview /></ProtectedRoute>} />
           <Route path='/improve' element={<ProtectedRoute><ImproveOverview /></ProtectedRoute>} />

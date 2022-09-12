@@ -11,8 +11,11 @@ import Graph from '../UI/Graph'
 import ImproveFilterView from './ImproveFilterView'
 import Heading2 from '../UI/Heading2'
 import Centered from '../UI/Centered'
-import MatchCard from '../Stats/MatchCard'
+import MatchCard from './MatchCard'
 import CivInfoService from '../Uptime/CivInfoService'
+import GameDurationsView from './GameDurationView'
+import CivPerformanceChart from './CivPerformanceChart'
+import CivPerformanceTable from './CivPerformanceTable'
 
 
 const ImproveOverview = (props) => {
@@ -37,6 +40,9 @@ const ImproveOverview = (props) => {
     const [winsCount, setWinsCount] = useState(undefined)
     const [loaded, setLoaded] = useState(false)
     const [matches, setMatches] = useState(undefined)
+    const [ratings, setRatings] = useState(undefined)
+    const [civStats, setCivStats] = useState(undefined)
+    const [durationStats, setDurationStats] = useState(undefined)
 
     useEffect(() => {
         DatabaseService.loadProfileInfo(user).then(userData => {
@@ -54,9 +60,20 @@ const ImproveOverview = (props) => {
 
     const loadMatches = async () => {
         try {
+            const ratings = await ImproveService.loadRatingsDataForPlayer(profileId, Constants.MatchType.OneVersusOne) // ToDo: Make user choose
+            setRatings(ratings)
+        } catch (error) {
+            console.log(`Couldn't load matches: ${error}`)
+            setError(error.message)
+        }
+
+        try {
             const matches = await ImproveService.loadMatchesForPlayerWithProfileId(profileId)
             CivInfoService.correctCivsForOlderMatches(matches)
+            const stats = ImproveService.getStatsForPlayer(matches, profileId)
             setMatches(matches)
+            setCivStats(stats.civs)
+            setDurationStats(stats.durations)
         } catch (error) {
             console.log(`Couldn't load matches: ${error}`)
             setError(error.message)
@@ -127,6 +144,10 @@ const ImproveOverview = (props) => {
             <Heading1>Improve your game</Heading1>
             {loaded === false && <LoadingIndicator text={'Loading match data ..'} />}
             <ImproveFilterView buildOrder={buildOrder} setBuildOrder={setBuildOrder} buildOrderOptions={buildOrderOptions} civ={civ} setCiv={setCiv} civOptions={civOptions} map={map} setMap={setMap} mapOptions={mapOptions} gameMode={gameMode} setGameMode={setGameMode} gameModeOptions={gameModeOptions} />
+            {ratings !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><Heading2>Elo</Heading2><Graph id={'ratingsGraph'} data={ratings} label={'Elo'} beginAtZero={false} yAxisTicksCallback={(value) => value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} /></div>}
+            {durationStats !== undefined && <GameDurationsView data={durationStats} />}
+            {civStats !== undefined && <div class='w-full md:w-1/2 h-56 md:h-96 mx-auto my-12'><CivPerformanceChart data={civStats} /></div>}
+            {civStats !== undefined && <div class='w-full md:w-1/2 mx-auto my-12'><CivPerformanceTable data={civStats} /></div>}
             {loaded && <Centered>Found <span class='whitespace-pre font-bold'> {filteredData.length} </span> games ({winsCount === undefined ? '?' : winsCount}/{filteredData.length} won) using the filter criteria.</Centered>}
             {geAPM !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><Heading2>Game-Effective APM</Heading2><Graph id={'geAPMGraph'} data={geAPM} label={'geAPM'} /></div>}
             {feudalUptimes !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><Heading2>Feudal Age Time</Heading2><Graph id={'feudalUptimesGraph'} data={feudalUptimes} label={'Feudal Age Uptime'} yAxisTicksCallback={(value) => `${Math.floor(value / 60)}:00`} /></div>}
@@ -140,3 +161,5 @@ const ImproveOverview = (props) => {
 }
 
 export default ImproveOverview
+
+//             {ratings !== undefined && <div class='w-11/12 md:w-1/2 h-56 md:h-96 mx-auto my-12'><RatingsGraph data={ratings} /></div>}

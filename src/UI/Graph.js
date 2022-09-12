@@ -33,7 +33,7 @@ const Graph = (props) => {
                     color: "#134e4a",
                     callback: props.yAxisTicksCallback
                 },
-                beginAtZero: true
+                beginAtZero: props.beginAtZero !== undefined ? props.beginAtZero : true
             }
         }
     }
