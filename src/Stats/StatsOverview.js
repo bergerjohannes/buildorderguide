@@ -83,6 +83,16 @@ const StatsOverview = (props) => {
         </div>
     )
 
+    if (true) { // Display error because aoe2.net is down
+        return (
+            <div class='text-center'>
+                <Menu />
+                <Heading1>1v1 Random Map Stats</Heading1>
+                <ErrorView title={'Aoe2.net is down'} description={'Aoe2.net is currently down. Hence, no data can be displayed.'} />
+            </div>
+        )
+    }
+
     if (error === Constants.Error.LoadingDataUnsuccessful) return (
         <div class='text-center'>
             <Menu />
