@@ -37,8 +37,6 @@ const FilterView = (props) => {
 
     let sortOptions = [{ value: Constants.Sorting.Alphabetically, label: Constants.Sorting.Alphabetically }, { value: Constants.Sorting.ByRating, label: Constants.Sorting.ByRating }, { value: Constants.Sorting.FavoritesOnly, label: Constants.Sorting.FavoritesOnly }]
 
-    let gameModeOptions = [{value: Constants.GameMode.RM1v1, label: Constants.GameMode.RM1v1 }] 
-
     return (
         <div class='w-full flex justify-center text-main-dark' onClick={(event) => { setShowFilters(!showFilters); event.preventDefault() }}>
             <div class='flex justify-center w-11/12 md:w-1/2 lg:1/2 xl:w-1/3 border-2 rounded-sm text-center border-secondary-light'>
@@ -52,10 +50,6 @@ const FilterView = (props) => {
                 {props.sorting && <>
                     <FilterViewSeparator />
                     <FilterSubView name={'Display'} value={props.sorting} isSearchable={false} options={sortOptions} placeholder={'Alphabetically'} onChange={event => props.setSorting(event.value)} />
-                </>}
-                {props.gameMode && <>
-                    <FilterViewSeparator />
-                    <FilterSubView name={'Mode'} isDisabled={true} value={props.gameMode} isSearchable={false} options={gameModeOptions} placeholder={'RM 1v1'} onChange={event => props.setGameMode(event.value)} />
                 </>}
             </div>
         </div>
