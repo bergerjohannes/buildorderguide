@@ -19,7 +19,6 @@ const Menu = (props) => {
                     <MenuItem linkTo='/'>Builds</MenuItem>
                     <MenuItem linkTo='/uptime'>Uptime</MenuItem>
                     <MenuItem linkTo='/stats'>Stats</MenuItem>
-                    <MenuItem linkTo='/challenge'>Challenge</MenuItem>
                     <MenuItem linkTo='/builder'>Builder</MenuItem>
                     <MenuItem linkTo='/about'>About</MenuItem>
                     {user !== null && <MenuItem linkTo='/profile'>Profile</MenuItem>}
