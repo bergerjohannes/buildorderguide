@@ -86,49 +86,6 @@ exports.getRatings = functions.https.onRequest((request, response) => {
 
 })
 
-
-function calculateCivChallengeProgress(data, profile_id, year, month) {
-    const start = Math.floor(new Date(year, month, 1) / 1000)
-    const end = Math.floor(new Date(year, month + 1, 1) / 1000) - 1
-
-    let matches = data.filter(match => match.finished >= start && match.finished <= end).sort((a, b) => (a.finished > b.finished) ? 1 : -1)
-
-    let relevantMatches = []
-    let usedCivs = new Set()
-
-    matches.forEach(match => {
-        let playerData = match.players.filter(player => parseInt(player['profile_id']) === parseInt(profile_id))[0]
-        if (usedCivs.has(playerData.civ_alpha) === false) {
-            usedCivs.add(playerData.civ_alpha)
-            relevantMatches.push(match)
-        }
-    })
-
-    return relevantMatches
-}
-
-exports.getCivChallengeProgress = functions.https.onRequest((request, response) => {
-    const profile_id = request.query.profile_id
-    const year = request.query.year
-    const month = request.query.month
-
-    let query = getURL('matches', profile_id)
-    if (query === null) return response.status(400).json({ error: 'Profile id needed' })
-
-    cors(request, response, () => {
-        axios.get(query)
-            .then(result => {
-                const filtered = filterGames(result, 'true', '1v1', 'RM')
-                if (filtered === 'Not implemented') return response.status(501).json({ error: 'Not implemented' })
-                const civChallengeProgress = calculateCivChallengeProgress(filtered, profile_id, year, month)
-                return response.send(civChallengeProgress)
-            })
-            .catch(error => {
-                return response.status(404).json({ error: 'Error calling aoe2.net API' })
-            })
-    })
-})
-
 exports.aggregateRatings = functions.firestore
     .document('ratings/{docId}')
     .onWrite(async (change, context) => {
