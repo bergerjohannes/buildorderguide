@@ -51,7 +51,7 @@ const BuilderStepBuild = (props) => {
 
     const update = (buildings) => {
         props.update(props.index, {
-            type: Constants.StepType.Build,
+            type: props.step.type,
             buildings: buildings
         })
     }
@@ -63,7 +63,7 @@ const BuilderStepBuild = (props) => {
                 <>
                     <BuilderDropdownSmall value={props.step.buildings[index].count} options={BuilderInfoService.getNumericOptions()} onChange={(event) => handleClickOnCountWithIndex(event, index)} />
                     <BuilderDropdownMedium value={props.step.buildings[index].type} options={BuilderInfoService.getBuildingsOptions()} onChange={(event) => handleClickOnBuildingWithIndex(event, index)} />
-                    {(index > 0 || props.step.type === Constants.StepType.NewVillagers) && <RemoveOptionButton onClick={() => removeBuildingWithIndex(index)} />}
+                    {(index > 0 || props.step.type === Constants.StepType.NewVillagers || props.step.type === Constants.StepType.MoveVillagers) && <RemoveOptionButton onClick={() => removeBuildingWithIndex(index)} />}
                     {props.step.buildings.length - 1 > index && <BuilderText>&</BuilderText>}
                 </>
             ))}
