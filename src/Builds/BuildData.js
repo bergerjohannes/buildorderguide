@@ -100,6 +100,7 @@ class BuildData {
                     if (step.count > 1) to += 's'
                 }
                 title += step.count + ' ' + from + ' → ' + step.count + ' ' + to
+                if (step.buildings !== undefined && step.buildings.length > 0) title += ' + ' + BuildData.getBuildingsText(step)
             }
         } else if (step.type === Constants.StepType.AgeUp || step.type === Constants.StepType.NewAge) {
             title = ' '
