@@ -47,8 +47,8 @@ const BuildView = (props) => {
             {build.difficulty !== undefined && <div class='flex justify-center'><DifficultyIndicator difficulty={build.difficulty} /></div>}
             <div class='flex justify-center ml-20 pl-2'><RatingView rating={props.rating} /></div>
             {props.live && <div class='flex justify-center pt-10'><RatingPrompt currentRating={props.userRating} rateBuild={props.rateBuild} /></div>}
-            {props.live && <Button onClick={() => exportForRTSOverlay()}>Export for RTS Overlay</Button>}
-            {<div class='flex justify-center'><div class='flex space-x-2 text-main-dark'>{<a href="https://github.com/CraftySalamander/RTS_Overlay"><div class='flex bg-secondary-light pl-1 pr-2 rounded-md'><img class='w-12 h-12' src={require('../Images/rts_overlay-icon-250x250.png')} alt='RTS_Overlay' /><span className='RTS_Overlay'>{"What is RTS Overlay"}</span></div></a>}</div></div>}
+            {props.live && <Button onClick={() => exportForRTSOverlay(build)}>Copy to clipboard for RTS Overlay</Button>}
+            {<div class='flex justify-center'><div class='flex space-x-2 text-main-dark'>{<a href='https://github.com/CraftySalamander/RTS_Overlay' target='_blank'><div class='flex bg-secondary-light pl-1 pr-2 rounded-md'><img class='w-12 h-12' src={require('../Images/rts_overlay-icon-250x250.png')} alt='RTS_Overlay' /><span className='RTS_Overlay'>{'What is RTS Overlay'}</span></div></a>}</div></div>}
             {props.live && <Button onClick={() => setShowFocusMode(true)}>Start Focus Mode</Button>}
             <BuildOrderStepsView build={build.build} />
         </div>
