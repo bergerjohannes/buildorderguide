@@ -1,3 +1,6 @@
+import BuildData from './BuildData'
+import * as Constants from '../Constants'
+
 /** Convert JSON string to text output.
  *
  * @param input    JSON string input to convert
@@ -37,6 +40,28 @@ const resourceContribution = (resources, name) => {
     }
 }
 
+/** Update the age ID (1:Dark, 2:Feudal, 3:Castle, 4:Imperial).
+ * 
+ * @param currentAge    current age ID
+ * @param step          current BO step
+ *
+ * @returns    updated age ID
+ */
+const updateAge = (currentAge, step) => {
+    if (step.hasOwnProperty('age')) {
+        var age = step.age;
+
+        if (age === Constants.Age.DarkAge) return 1;
+        if (age === Constants.Age.FeudalAge) return 2;
+        if (age === Constants.Age.CastleAge) return 3;
+        if (age === Constants.Age.ImperialAge) return 4;
+        else return currentAge;
+    }
+    else { // no age update
+        return currentAge;
+    }
+}
+
 /** Copy build order to clipboard for RTS Overlay.
  * https://github.com/CraftySalamander/RTS_Overlay
  * 
@@ -58,9 +83,14 @@ const exportForRTSOverlay = (build) => {
     var steps = build.build;
     var stepsCount = steps.length;
 
+    var currentAge = 1; // start in first Age (Dark Age)
+
     // loop on all the steps
     for (var i = 0; i < stepsCount; i++) {
         var step = steps[i];
+
+        // update current age
+        currentAge = updateAge(currentAge, step);
 
         // resources
         var resources = step.hasOwnProperty('resources') ? step.resources : {
@@ -79,7 +109,7 @@ const exportForRTSOverlay = (build) => {
                 resourceContribution(resources, 'gold') +
                 resourceContribution(resources, 'stone') +
                 resourceContribution(resources, 'builder'),
-            age: -1 // unknown
+            age: currentAge
         };
         
         // store resources
@@ -93,8 +123,7 @@ const exportForRTSOverlay = (build) => {
 
         // notes
         var notes = []
-        notes.push('Build 2 @other/House_aoe2DE.png@.')
-        notes.push('Send the first 6 @resource/MaleVillDE.jpg@ to @animal/Sheep_aoe2DE.png@.')
+        notes.push(BuildData.getTitleForStep(step))
         
         newStepJson['notes'] = notes;
 
