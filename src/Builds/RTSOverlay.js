@@ -12,6 +12,17 @@ export const htmlDecode = (input) => {
     return doc.documentElement.textContent;
 }
 
+/** Trim the white spaces at the beginning and end of string.
+ *  Note: re-implemented to be compatible with old browsers.
+ * 
+ * @param x     input string
+ *
+ * @returns    string with initial and last spaces trimmed
+ */
+function trim(x) {
+    return x.replace(/^\s+|\s+$/gm, '');
+}
+
 /** Get an object element, checking if it exists (and providing a default value if it does not exist).
  * 
  * @param item             item object to check
@@ -62,6 +73,21 @@ const updateAge = (currentAge, step) => {
     }
 }
 
+/** Check if 2 sets of resources are identical.
+ * 
+ * @param resourcesA    first set of resources to compare
+ * @param resourcesB    second set of resources to compare
+ *
+ * @returns    true if identical resources
+ */
+const isIdenticalResources = (resourcesA, resourcesB) => {
+    return (resourcesA.wood == resourcesB.wood) &&
+        (resourcesA.food == resourcesB.food) &&
+        (resourcesA.gold == resourcesB.gold) &&
+        (resourcesA.stone == resourcesB.stone) &&
+        (resourcesA.builder == resourcesB.builder);
+}
+
 /** Copy build order to clipboard for RTS Overlay.
  * https://github.com/CraftySalamander/RTS_Overlay
  * 
@@ -74,8 +100,8 @@ const exportForRTSOverlay = (build) => {
     var jsonObj = {
         name: getElemSafe(build, 'title', 'Unkown title'),
         civilization: getElemSafe(build, 'civilization', 'Any'),
-        author: getElemSafe(build, 'author', 'Unspecified'),
-        source: getElemSafe(build, 'reference', 'Unspecified'),
+        author: getElemSafe(build, 'author', 'Build Order Guide'),
+        source: getElemSafe(build, 'reference', 'https://buildorderguide.com'),
         build_order: []
     };
 
@@ -84,6 +110,15 @@ const exportForRTSOverlay = (build) => {
     var stepsCount = steps.length;
 
     var currentAge = 1; // start in first Age (Dark Age)
+
+    // store previous resources
+    var previousResources = {
+        wood: -1,
+        food: -1,
+        gold: -1,
+        stone: -1,
+        builder: -1
+    };
 
     // loop on all the steps
     for (var i = 0; i < stepsCount; i++) {
@@ -100,35 +135,50 @@ const exportForRTSOverlay = (build) => {
             stone: -1,
             builder: -1
         };
-
-        // new step element for the JSON format
-        var newStepJson = {
-            villager_count:
-                resourceContribution(resources, 'wood') +
-                resourceContribution(resources, 'food') +
-                resourceContribution(resources, 'gold') +
-                resourceContribution(resources, 'stone') +
-                resourceContribution(resources, 'builder'),
-            age: currentAge
-        };
         
         // store resources
-        newStepJson['resources'] = {
+        var newResources = {
             wood: getElemSafe(resources, 'wood', -1),
             food: getElemSafe(resources, 'food', -1),
             gold: getElemSafe(resources, 'gold', -1),
             stone: getElemSafe(resources, 'stone', -1),
             builder: getElemSafe(resources, 'build', -1)
         };
+        // do not display builder if no builder for this step
+        if (newResources['builder'] == 0) {
+            newResources['builder'] = -1;
+        }
 
-        // notes
-        var notes = []
-        notes.push(BuildData.getTitleForStep(step))
-        
-        newStepJson['notes'] = notes;
+        // check if we should still use the previous step (i.e. no resource count change)
+        var usePreviousStep = ((jsonObj['build_order'].length >= 1) &&
+            isIdenticalResources(newResources, previousResources));
 
-        // add new step
-        jsonObj['build_order'].push(newStepJson);
+        if (usePreviousStep) {
+            var previousID = jsonObj['build_order'].length - 1; // ID of the previous BO step
+
+            jsonObj['build_order'][previousID].age = currentAge;
+            jsonObj['build_order'][previousID].notes.push(trim(BuildData.getTitleForStep(step)));
+        }
+        else { // new BO step
+            // new step element for the JSON format
+            var newStepJson = {
+                villager_count:
+                    resourceContribution(resources, 'wood') +
+                    resourceContribution(resources, 'food') +
+                    resourceContribution(resources, 'gold') +
+                    resourceContribution(resources, 'stone') +
+                    resourceContribution(resources, 'builder'),
+                age: currentAge,
+                resources: newResources,
+                notes: [trim(BuildData.getTitleForStep(step))]
+            };
+
+            // add new step
+            jsonObj['build_order'].push(newStepJson);
+
+            // store previous resources
+            previousResources = newResources;
+        }
     }
 
     var str = JSON.stringify(jsonObj, null, 4); // JSON to output string
