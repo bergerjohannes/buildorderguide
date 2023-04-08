@@ -12,6 +12,7 @@ function getImagesDictionary() {
         'Boar': 'animal/Boar_aoe2DE.png',
         'Deer': 'animal/Deer_aoe2DE.png',
         'Farm': 'mill/FarmDE.png',
+        'Farms': 'mill/FarmDE.png',
 
         'Wood': 'resrouce/Aoe2de_wood.png',
         'Stone': 'resource/Aoe2de_stone.png',
@@ -22,6 +23,7 @@ function getImagesDictionary() {
 
         'Folwark': 'mill/Aoe2-icon--folwark.png',
         'House': 'other/House_aoe2DE.png',
+        'Houses': 'other/House_aoe2DE.png',
         'Mill': 'mill/Mill_aoe2de.png',
         'Lumber Camp': 'lumber_camp/Lumber_camp_aoe2de.png',
         'Mining Camp': 'mining_camp/Mining_camp_aoe2de.png',
@@ -110,6 +112,8 @@ function getImagesDictionary() {
         'Heavy Camel Rider': 'stable/HeavyCamelUpgDE.png',
         'Imperial Camel Rider': 'unique_unit/ImperialCamelRiderIcon-DE.png',
 
+        'Villager': 'resource/MaleVillDE.jpg',
+        'Villagers': 'resource/MaleVillDE.jpg',
         'Petard': 'castle/Petard_aoe2DE.png',
         'Bombard Cannon': 'siege_workshop/Bombard_cannon_aoe2DE.png',
         'Hand Cannoneer': 'archery_range/Hand_cannoneer_aoe2DE.png',
@@ -131,6 +135,7 @@ function getImagesDictionary() {
         'Fire Galley': 'dock/Fire_galley_aoe2DE.png',
         'Elephant Archer': 'archery_range/ElephantArcherIcon-DE.png',
         'Armored Elephant': 'siege_workshop/AoE2DE_Armored_Elephant_icon.png',
+        'Steppe Lancer': 'stable/Steppelancericon.png',
 
         'JaguarWarrior': 'unique_unit/JaguarWarriorIcon-DE.png',
         'Ratha': 'unique_unit/Aoe2de_ratha_ranged.png',
@@ -219,6 +224,122 @@ export const htmlDecode = (input) => {
  */
 function trim(x) {
     return x.replace(/^\s+|\s+$/gm, '');
+}
+
+/** Trim the white spaces at the beginning of string.
+ *  Note: re-implemented to be compatible with old browsers.
+ * 
+ * @param x     input string
+ *
+ * @returns    string with initial spaces trimmed
+ */
+function ltrim(x) {
+    return x.replace(/^\s+/gm, '');
+}
+
+/** Convert a note written as only TXT to a note with illustrated format, looking initially for
+ *  patterns of maximal size, and then decreasing progressively the size of the checked patterns. 
+ * 
+ * @param note              note in raw TXT
+ * @param convert_dict      dictionary for conversions
+ * @param max_size          maximal size of the split note pattern, less than 1 to take the full split length
+ * @param ignore_in_dict    list of symbols to ignore when checking if it is in the dictionary
+ * @param to_lower          true to look in the dictionary with key set in lower case
+ *
+ * @returns    note updated (potentially with illustration)
+ */
+export const convertTxtToIllustrated = (note, convert_dict, max_size = -1, ignore_in_dict = [], to_lower = false) => {
+
+    let note_split = note.split(' ');  // note split based on spaces
+    let split_count = note_split.length;  // number of elements in the split
+
+    if (split_count < 1) {  // safety if no element
+        return '';
+    }
+
+    // initial gather count size
+    let init_gather_count = (max_size < 1) ? split_count : max_size;
+
+    for (let gather_count = init_gather_count; gather_count > 0; gather_count--) {  // number of elements to gather for dictionary check
+
+        let set_count = split_count - gather_count + 1;  // number of gather sets that can be made
+        
+        for (let first_id = 0; first_id < set_count; first_id++) {  // ID of the first element
+
+            let check_note = note_split[first_id];
+            for (let next_elem_id = first_id + 1; next_elem_id < first_id + gather_count; next_elem_id++) {  // gather the next elements
+                check_note += ' ' + note_split[next_elem_id];
+            }
+
+            let updated_check_note = check_note;  // update based on requests
+
+            for (const ignore_elem of ignore_in_dict) {  // ignore parts in dictionary
+                updated_check_note = updated_check_note.replace(ignore_elem, '');
+            }
+
+            if (to_lower) {  // to lower case
+                updated_check_note = updated_check_note.toLowerCase();
+            }
+
+            if (updated_check_note in convert_dict) {  // note to check if available in dictionary
+
+                // get back ignored parts (before dictionary replace)
+                let check_note_len = check_note.length;
+                let ignore_before = '';
+                for (let character_id = 0; character_id < check_note_len; character_id++) {
+                    if (ignore_in_dict.includes(check_note[character_id])) {
+                        ignore_before += check_note[character_id];
+                    }
+                    else {
+                        break;
+                    }
+                }
+
+                // get back ignored parts (after dictionary replace)
+                let ignore_after = '';
+                for (let character_id = check_note_len - 1; character_id >=0; character_id--) {
+                    if (ignore_in_dict.includes(check_note[character_id])) {
+                        ignore_after += check_note[character_id]
+                    }
+                    else {
+                        break;
+                    }
+                }
+                if (ignore_after != '') {  // reverse order
+                    ignore_after = ignore_after.split('').reverse().join('');
+                }
+
+                let before_note = '';  // gather note parts before the found sub-note
+                for (let before_id = 0; before_id < first_id; before_id++) {
+                    before_note += ' ' + note_split[before_id];
+                }
+                before_note = ltrim(before_note);
+
+                let after_note = '';  // gather note parts after the found sub-note
+                for (let after_id = first_id + gather_count; after_id < split_count; after_id++) {
+                    after_note += ' ' + note_split[after_id];
+                }
+                after_note = ltrim(after_note);
+
+                // compose final note with part before, sub-note found and part after
+                let final_note = '';
+                if (before_note != '') {
+                    final_note += convertTxtToIllustrated(before_note, convert_dict, max_size, ignore_in_dict, to_lower) + ' ';
+                }
+
+                final_note += ignore_before + '@' + convert_dict[updated_check_note] + '@' + ignore_after;
+
+                if (after_note != '') {
+                    final_note += ' ' + convertTxtToIllustrated(after_note, convert_dict, max_size, ignore_in_dict, to_lower);
+                }
+
+                return final_note;
+            }
+        }
+    }
+
+    // note (and sub-notes parts) not found, returning the initial TXT note
+    return note;
 }
 
 /** Get an object element, checking if it exists (and providing a default value if it does not exist).
@@ -318,6 +439,9 @@ const exportForRTSOverlay = (build) => {
         builder: -1
     };
 
+    // get the conversion dictionary
+    let convert_dict = getImagesDictionary();
+
     // loop on all the steps
     for (var i = 0; i < stepsCount; i++) {
         var step = steps[i];
@@ -355,7 +479,7 @@ const exportForRTSOverlay = (build) => {
             var previousID = jsonObj['build_order'].length - 1; // ID of the previous BO step
 
             jsonObj['build_order'][previousID].age = currentAge;
-            jsonObj['build_order'][previousID].notes.push(trim(BuildData.getTitleForStep(step)));
+            jsonObj['build_order'][previousID].notes.push(convertTxtToIllustrated(trim(BuildData.getTitleForStep(step)), convert_dict));
         }
         else { // new BO step
             // new step element for the JSON format
@@ -368,7 +492,7 @@ const exportForRTSOverlay = (build) => {
                     resourceContribution(resources, 'builder'),
                 age: currentAge,
                 resources: newResources,
-                notes: [trim(BuildData.getTitleForStep(step))]
+                notes: [convertTxtToIllustrated(trim(BuildData.getTitleForStep(step)), convert_dict)]
             };
 
             // add new step
