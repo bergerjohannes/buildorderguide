@@ -518,22 +518,13 @@ const exportForRTSOverlay = (build) => {
     // get the conversion dictionary
     let convert_dict = getImagesDictionary();
 
-    let age_up_flag = false; // true when previous step type was 'ageUp'
-    let new_age_flag = false; // true when previous step type was 'newAge'
+    let ageUpFlag = false; // true when step type is 'ageUp' (starting next step, until 'newAge')
+    let newAgeFlag = false; // true when step type is 'newAge' (only used for next step)
+    let newStepAge = false; // true to use a new step following 'ageUp' or 'newAge'
 
     // loop on all the steps
     for (var i = 0; i < stepsCount; i++) {
         var step = steps[i];
-
-        // update current age
-        currentAge = updateAge(currentAge, step);
-
-        // skip step for new age, but use it to start a new step for next notes
-        if (getElemSafe(step, 'type', 'noNewAge') === 'newAge')
-        {
-            new_age_flag = true;
-            continue;
-        }
 
         // resources
         var resources = step.hasOwnProperty('resources') ? step.resources : {
@@ -544,7 +535,7 @@ const exportForRTSOverlay = (build) => {
             builder: -1
         };
         
-        // store resources
+        // store new resources
         var newResources = {
             wood: getElemSafe(resources, 'wood', -1),
             food: getElemSafe(resources, 'food', -1),
@@ -557,34 +548,61 @@ const exportForRTSOverlay = (build) => {
             newResources['builder'] = -1;
         }
 
-        // check if we should still use the previous step (i.e. no resource count change, no new age)
-        var usePreviousStep = ((jsonObj['build_order'].length >= 1) &&
-            isIdenticalResources(newResources, previousResources) && !new_age_flag);
-        new_age_flag = false;
+        // count the number of villagers
+        let new_villager_count =
+            resourceContribution(newResources, 'wood') +
+            resourceContribution(newResources, 'food') +
+            resourceContribution(newResources, 'gold') +
+            resourceContribution(newResources, 'stone') +
+            resourceContribution(newResources, 'builder');
+
+        // naw age started
+        if (getElemSafe(step, 'type', 'noNewAge') === 'newAge') {
+            ageUpFlag = false;
+            newAgeFlag = true;
+            newStepAge = true;
+            continue; // skip (nothing to add)
+        }
 
         // convert note to Overlay format
-        let newNote = age_up_flag ? 'Before ' + getAgeIcon(currentAge) + ': ' : ''; // instruction while aging
-        newNote += convertTxtToIllustrated(trim(BuildData.getTitleForStep(step)), convert_dict, true, 3, []);
+        let newNote = convertTxtToIllustrated(trim(BuildData.getTitleForStep(step)), convert_dict, true, 3, []);
 
-        if (usePreviousStep) {
+        // check if we should still use the previous step
+        let usePreviousStep = false;
+
+        let ageUpNote = '';
+        if (ageUpFlag || newAgeFlag) { // going to next age or reaching it
+            usePreviousStep =  (jsonObj['build_order'].length >= 1) && !newStepAge;
+            ageUpNote = (ageUpFlag ? 'Before ' : 'In ') + getAgeIcon(currentAge);
+            newStepAge = false;
+        }
+        else { // normal step
+            usePreviousStep = ((jsonObj['build_order'].length >= 1) &&
+                isIdenticalResources(newResources, previousResources)); // no resource count change
+        }
+
+        if (usePreviousStep) { // use previous BO step
             var previousID = jsonObj['build_order'].length - 1; // ID of the previous BO step
 
+            jsonObj['build_order'][previousID].villager_count = new_villager_count;
             jsonObj['build_order'][previousID].age = currentAge;
+            jsonObj['build_order'][previousID].resources = newResources;
             jsonObj['build_order'][previousID].notes.push(newNote);
         }
         else { // new BO step
             // new step element for the JSON format
             var newStepJson = {
-                villager_count:
-                    resourceContribution(resources, 'wood') +
-                    resourceContribution(resources, 'food') +
-                    resourceContribution(resources, 'gold') +
-                    resourceContribution(resources, 'stone') +
-                    resourceContribution(resources, 'builder'),
+                villager_count: new_villager_count,
                 age: currentAge,
                 resources: newResources,
-                notes: [newNote]
+                notes: []
             };
+            if (ageUpNote !== '') {
+                newStepJson['notes'].push(ageUpNote);
+            }
+            if (newNote !== '') {
+                newStepJson['notes'].push(newNote);
+            }
 
             // add new step
             jsonObj['build_order'].push(newStepJson);
@@ -593,8 +611,18 @@ const exportForRTSOverlay = (build) => {
             previousResources = newResources;
         }
 
-        // check if age up flag (to use for next step)
-        age_up_flag = getElemSafe(step, 'type', 'noAgeUp') === 'ageUp';
+        // check if age up flag (to use from next step until 'newAge')
+        if (getElemSafe(step, 'type', 'noAgeUp') === 'ageUp') {
+            ageUpFlag = true;
+            newAgeFlag = false;
+            newStepAge = true;
+
+            // update current age (starting next step)
+            currentAge = updateAge(currentAge, step);
+        }
+
+        // new age flag disappears at the end of the step following its rise
+        newAgeFlag = false;
     }
 
     var str = JSON.stringify(jsonObj, null, 4); // JSON to output string
