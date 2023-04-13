@@ -17,7 +17,7 @@ function getImagesDictionary() {
         'farm': 'mill/FarmDE.png',
         'farms': 'mill/FarmDE.png',
 
-        'wood': 'resrouce/Aoe2de_wood.png',
+        'wood': 'resource/Aoe2de_wood.png',
         'stone': 'resource/Aoe2de_stone.png',
         'gold': 'resource/Aoe2de_gold.png',
         'berry': 'resource/BerryBushDE.png',
@@ -444,14 +444,28 @@ const updateAge = (currentAge, step) => {
         var age = step.age;
 
         if (age === Constants.Age.DarkAge) return 1;
-        if (age === Constants.Age.FeudalAge) return 2;
-        if (age === Constants.Age.CastleAge) return 3;
-        if (age === Constants.Age.ImperialAge) return 4;
+        else if (age === Constants.Age.FeudalAge) return 2;
+        else if (age === Constants.Age.CastleAge) return 3;
+        else if (age === Constants.Age.ImperialAge) return 4;
         else return currentAge;
     }
     else { // no age update
         return currentAge;
     }
+}
+
+/** Get the age icon string sequence for each age ID
+ * 
+ * @param ageID    age ID (1:Dark, 2:Feudal, 3:Castle, 4:Imperial)
+ *
+ * @returns    string to add image of age ('Unknown age' if wrong ID)
+ */
+const getAgeIcon = (ageID) => {
+    if (ageID === 1) return '@age/DarkAgeIconDE_alpha.png@';
+    else if (ageID === 2) return '@age/FeudalAgeIconDE_alpha.png@';
+    else if (ageID === 3) return '@age/CastleAgeIconDE_alpha.png@';
+    else if (ageID === 4) return '@age/ImperialAgeIconDE_alpha.png@';
+    else return 'Unknown age';
 }
 
 /** Check if 2 sets of resources are identical.
@@ -504,12 +518,22 @@ const exportForRTSOverlay = (build) => {
     // get the conversion dictionary
     let convert_dict = getImagesDictionary();
 
+    let age_up_flag = false; // true when previous step type was 'ageUp'
+    let new_age_flag = false; // true when previous step type was 'newAge'
+
     // loop on all the steps
     for (var i = 0; i < stepsCount; i++) {
         var step = steps[i];
 
         // update current age
         currentAge = updateAge(currentAge, step);
+
+        // skip step for new age, but use it to start a new step for next notes
+        if (getElemSafe(step, 'type', 'noNewAge') === 'newAge')
+        {
+            new_age_flag = true;
+            continue;
+        }
 
         // resources
         var resources = step.hasOwnProperty('resources') ? step.resources : {
@@ -533,15 +557,20 @@ const exportForRTSOverlay = (build) => {
             newResources['builder'] = -1;
         }
 
-        // check if we should still use the previous step (i.e. no resource count change)
+        // check if we should still use the previous step (i.e. no resource count change, no new age)
         var usePreviousStep = ((jsonObj['build_order'].length >= 1) &&
-            isIdenticalResources(newResources, previousResources));
+            isIdenticalResources(newResources, previousResources) && !new_age_flag);
+        new_age_flag = false;
+
+        // convert note to Overlay format
+        let newNote = age_up_flag ? 'Before ' + getAgeIcon(currentAge) + ': ' : ''; // instruction while aging
+        newNote += convertTxtToIllustrated(trim(BuildData.getTitleForStep(step)), convert_dict, true, 3, []);
 
         if (usePreviousStep) {
             var previousID = jsonObj['build_order'].length - 1; // ID of the previous BO step
 
             jsonObj['build_order'][previousID].age = currentAge;
-            jsonObj['build_order'][previousID].notes.push(convertTxtToIllustrated(trim(BuildData.getTitleForStep(step)), convert_dict, true, 3, []));
+            jsonObj['build_order'][previousID].notes.push(newNote);
         }
         else { // new BO step
             // new step element for the JSON format
@@ -554,7 +583,7 @@ const exportForRTSOverlay = (build) => {
                     resourceContribution(resources, 'builder'),
                 age: currentAge,
                 resources: newResources,
-                notes: [convertTxtToIllustrated(trim(BuildData.getTitleForStep(step)), convert_dict, true, 3, [])]
+                notes: [newNote]
             };
 
             // add new step
@@ -563,6 +592,9 @@ const exportForRTSOverlay = (build) => {
             // store previous resources
             previousResources = newResources;
         }
+
+        // check if age up flag (to use for next step)
+        age_up_flag = getElemSafe(step, 'type', 'noAgeUp') === 'ageUp';
     }
 
     var str = JSON.stringify(jsonObj, null, 4); // JSON to output string
