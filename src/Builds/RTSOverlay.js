@@ -403,100 +403,105 @@ function ltrim(x) {
 /** Convert a note written as only TXT to a note with illustrated format, looking initially for
  *  patterns of maximal size, and then decreasing progressively the size of the checked patterns. 
  * 
- * @param note              note in raw TXT
- * @param convert_dict      dictionary for conversions
- * @param to_lower          true to look in the dictionary with key set in lower case
- * @param max_size          maximal size of the split note pattern, less than 1 to take the full split length
- * @param ignore_in_dict    list of symbols to ignore when checking if it is in the dictionary
+ * @param note            note in raw TXT
+ * @param convertDict     dictionary for conversions
+ * @param toLower         true to look in the dictionary with key set in lower case
+ * @param maxSize         maximal size of the split note pattern, less than 1 to take the full split length
+ * @param ignoreInDict    list of symbols to ignore when checking if it is in the dictionary
  *
  * @returns    note updated (potentially with illustration)
  */
-export const convertTxtToIllustrated = (note, convert_dict, to_lower = false, max_size = -1, ignore_in_dict = []) => {
+export const convertTxtToIllustrated = (note, convertDict, toLower = false, maxSize = -1, ignoreInDict = []) => {
 
-    let note_split = note.split(' ');  // note split based on spaces
-    let split_count = note_split.length;  // number of elements in the split
+    let noteSplit = note.split(' ');  // note split based on spaces
+    let splitCount = noteSplit.length;  // number of elements in the split
 
-    if (split_count < 1) {  // safety if no element
+    if (splitCount < 1) {  // safety if no element
         return '';
     }
 
     // initial gather count size
-    let init_gather_count = (max_size < 1) ? split_count : max_size;
+    let initGatherCount = (maxSize < 1) ? splitCount : maxSize;
 
-    for (let gather_count = init_gather_count; gather_count > 0; gather_count--) {  // number of elements to gather for dictionary check
+    for (let gatherCount = initGatherCount; gatherCount > 0; gatherCount--) {  // number of elements to gather for dictionary check
 
-        let set_count = split_count - gather_count + 1;  // number of gather sets that can be made
+        let setCount = splitCount - gatherCount + 1;  // number of gather sets that can be made
         
-        for (let first_id = 0; first_id < set_count; first_id++) {  // ID of the first element
+        for (let firstID = 0; firstID < setCount; firstID++) {  // ID of the first element
 
-            let check_note = note_split[first_id];
-            for (let next_elem_id = first_id + 1; next_elem_id < first_id + gather_count; next_elem_id++) {  // gather the next elements
-                check_note += ' ' + note_split[next_elem_id];
+            let checkNote = noteSplit[firstID];
+            for (let nextElemID = firstID + 1; nextElemID < firstID + gatherCount; nextElemID++) {  // gather the next elements
+                checkNote += ' ' + noteSplit[nextElemID];
             }
 
-            let updated_check_note = check_note;  // update based on requests
+            let updatedCheckNote = checkNote;  // update based on requests
 
-            for (const ignore_elem of ignore_in_dict) {  // ignore parts in dictionary
-                updated_check_note = updated_check_note.replace(ignore_elem, '');
+            for (const ignoreElem of ignoreInDict) {  // ignore parts in dictionary
+                updatedCheckNote = updatedCheckNote.replace(ignoreElem, '');
             }
 
-            if (to_lower) {  // to lower case
-                updated_check_note = updated_check_note.toLowerCase();
+            if (toLower) {  // to lower case
+                updatedCheckNote = updatedCheckNote.toLowerCase();
             }
 
-            if (updated_check_note in convert_dict) {  // note to check if available in dictionary
+            if (updatedCheckNote in convertDict) {  // note to check is available in dictionary
 
-                // get back ignored parts (before dictionary replace)
-                let check_note_len = check_note.length;
-                let ignore_before = '';
-                for (let character_id = 0; character_id < check_note_len; character_id++) {
-                    if (ignore_in_dict.includes(check_note[character_id])) {
-                        ignore_before += check_note[character_id];
+                // used to retrieve ignored parts
+                let ignoreBefore = '';
+                let ignoreAfter = '';
+
+                if (ignoreInDict.length > 0) {
+                    let checkNoteLen = checkNote.length;
+
+                    // get back ignored parts (before dictionary replace)
+                    for (let characterID = 0; characterID < checkNoteLen; characterID++) {
+                        if (ignoreInDict.includes(checkNote[characterID])) {
+                            ignoreBefore += checkNote[characterID];
+                        }
+                        else {
+                            break;
+                        }
                     }
-                    else {
-                        break;
+
+                    // get back ignored parts (after dictionary replace)
+                    for (let characterID = checkNoteLen - 1; characterID >=0; characterID--) {
+                        if (ignoreInDict.includes(checkNote[characterID])) {
+                            ignoreAfter += checkNote[characterID]
+                        }
+                        else {
+                            break;
+                        }
+                    }
+                    if (ignoreAfter !== '') {  // reverse order
+                        ignoreAfter = ignoreAfter.split('').reverse().join('');
                     }
                 }
 
-                // get back ignored parts (after dictionary replace)
-                let ignore_after = '';
-                for (let character_id = check_note_len - 1; character_id >=0; character_id--) {
-                    if (ignore_in_dict.includes(check_note[character_id])) {
-                        ignore_after += check_note[character_id]
-                    }
-                    else {
-                        break;
-                    }
+                let beforeNote = '';  // gather note parts before the found sub-note
+                for (let beforeID = 0; beforeID < firstID; beforeID++) {
+                    beforeNote += ' ' + noteSplit[beforeID];
                 }
-                if (ignore_after !== '') {  // reverse order
-                    ignore_after = ignore_after.split('').reverse().join('');
-                }
+                beforeNote = ltrim(beforeNote);
 
-                let before_note = '';  // gather note parts before the found sub-note
-                for (let before_id = 0; before_id < first_id; before_id++) {
-                    before_note += ' ' + note_split[before_id];
+                let afterNote = '';  // gather note parts after the found sub-note
+                for (let afterID = firstID + gatherCount; afterID < splitCount; afterID++) {
+                    afterNote += ' ' + noteSplit[afterID];
                 }
-                before_note = ltrim(before_note);
-
-                let after_note = '';  // gather note parts after the found sub-note
-                for (let after_id = first_id + gather_count; after_id < split_count; after_id++) {
-                    after_note += ' ' + note_split[after_id];
-                }
-                after_note = ltrim(after_note);
+                afterNote = ltrim(afterNote);
 
                 // compose final note with part before, sub-note found and part after
-                let final_note = '';
-                if (before_note !== '') {
-                    final_note += convertTxtToIllustrated(before_note, convert_dict, to_lower, max_size, ignore_in_dict) + ' ';
+                let finalNote = '';
+                if (beforeNote !== '') {
+                    finalNote += convertTxtToIllustrated(beforeNote, convertDict, toLower, maxSize, ignoreInDict) + ' ';
                 }
 
-                final_note += ignore_before + '@' + convert_dict[updated_check_note] + '@' + ignore_after;
+                finalNote += ignoreBefore + '@' + convertDict[updatedCheckNote] + '@' + ignoreAfter;
 
-                if (after_note !== '') {
-                    final_note += ' ' + convertTxtToIllustrated(after_note, convert_dict, to_lower, max_size, ignore_in_dict);
+                if (afterNote !== '') {
+                    finalNote += ' ' + convertTxtToIllustrated(afterNote, convertDict, toLower, maxSize, ignoreInDict);
                 }
 
-                return final_note;
+                return finalNote;
             }
         }
     }
@@ -507,14 +512,14 @@ export const convertTxtToIllustrated = (note, convert_dict, to_lower = false, ma
 
 /** Get an object element, checking if it exists (and providing a default value if it does not exist).
  * 
- * @param item             item object to check
- * @param name             name of the requested property of the item object 
- * @param default_value    default value to return in case the requested name is not found
+ * @param item            item object to check
+ * @param name            name of the requested property of the item object 
+ * @param defaultValue    default value to return in case the requested name is not found
  *
  * @returns    value of the requested item, defaut value if not found
  */
-const getElemSafe = (item, name, default_value) => {
-    return item.hasOwnProperty(name) ? item[name] : default_value;
+const getElemSafe = (item, name, defaultValue) => {
+    return item.hasOwnProperty(name) ? item[name] : defaultValue;
 }
 
 /** Compute the contribution of a requested resource, even if it does not exist.
@@ -618,7 +623,7 @@ const exportForRTSOverlay = (build) => {
     };
 
     // get the conversion dictionary
-    let convert_dict = getImagesDictionary();
+    let convertDict = getImagesDictionary();
 
     let ageUpFlag = false; // true when step type is 'ageUp' (starting next step, until 'newAge')
     let newAgeFlag = false; // true when step type is 'newAge' (only used for next step)
@@ -651,7 +656,7 @@ const exportForRTSOverlay = (build) => {
         }
 
         // count the number of villagers
-        let new_villager_count =
+        let newVillagerCount =
             resourceContribution(newResources, 'wood') +
             resourceContribution(newResources, 'food') +
             resourceContribution(newResources, 'gold') +
@@ -667,7 +672,7 @@ const exportForRTSOverlay = (build) => {
         }
 
         // convert note to Overlay format
-        let newNote = convertTxtToIllustrated(trim(BuildData.getTitleForStep(step)), convert_dict, true, 3, []);
+        let newNote = convertTxtToIllustrated(trim(BuildData.getTitleForStep(step)), convertDict, true, 3, []);
 
         // check if we should still use the previous step
         let usePreviousStep = false;
@@ -692,7 +697,7 @@ const exportForRTSOverlay = (build) => {
         if (usePreviousStep) { // use previous BO step
             var previousID = jsonObj['build_order'].length - 1; // ID of the previous BO step
 
-            jsonObj['build_order'][previousID].villager_count = new_villager_count;
+            jsonObj['build_order'][previousID].villager_count = newVillagerCount;
             jsonObj['build_order'][previousID].age = currentAge;
             jsonObj['build_order'][previousID].resources = storeResources;
             jsonObj['build_order'][previousID].notes.push(newNote);
@@ -700,7 +705,7 @@ const exportForRTSOverlay = (build) => {
         else { // new BO step
             // new step element for the JSON format
             var newStepJson = {
-                villager_count: new_villager_count,
+                villager_count: newVillagerCount,
                 age: currentAge,
                 resources: storeResources,
                 notes: []
@@ -714,10 +719,10 @@ const exportForRTSOverlay = (build) => {
 
             // add new step
             jsonObj['build_order'].push(newStepJson);
-
-            // store previous resources
-            previousResources = newResources;
         }
+
+        // store previous resources
+        previousResources = newResources;
 
         // check if age up flag (to use from next step until 'newAge')
         if (getElemSafe(step, 'type', 'noAgeUp') === 'ageUp') {
