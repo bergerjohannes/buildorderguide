@@ -129,6 +129,8 @@ function getImagesDictionary() {
         'pikeman': 'barracks/PikemanUpDE.png',
         'redemption': 'monastery/RedemptionDE.png',
         'arson': 'barracks/ArsonDE.png',
+        'gambeson': 'barracks/GambesonsDE.png',
+        'gambesons': 'barracks/GambesonsDE.png',
         'siege elephant': 'siege_workshop/AoE2DE_Siege_Elephant_icon.png',
         'heavy camel rider': 'stable/HeavyCamelUpgDE.png',
 
