@@ -609,6 +609,14 @@ const exportForRTSOverlay = (build) => {
         build_order: []
     };
 
+    // update civilizations for RTS Overlay
+    if (jsonObj['civilization'] === 'Generic') {
+        jsonObj['civilization'] = 'Any';
+    }
+    else if (jsonObj['civilization'] === 'Meso') {
+        jsonObj['civilization'] = ['Aztecs', 'Incas', 'Mayans'];
+    }
+
     // obtain the BO steps
     var steps = build.build;
     var stepsCount = steps.length;
