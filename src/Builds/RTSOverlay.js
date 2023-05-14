@@ -684,7 +684,11 @@ const exportForRTSOverlay = (build) => {
         }
 
         // convert note to Overlay format
-        let newNote = convertTxtToIllustrated(trim(BuildData.getTitleForStep(step)), convertDict, true, 3, []);
+        let rawNote = trim(BuildData.getTitleForStep(step));
+        if (rawNote === 'Choice') { // special case for choice
+            rawNote = getElemSafe(step, 'text', 'Choice');
+        }
+        let newNote = convertTxtToIllustrated(rawNote, convertDict, true, 3, []);
 
         // check if we should still use the previous step
         let usePreviousStep = false;
