@@ -13,6 +13,7 @@ import { useState } from 'react'
 import FocusView from './FocusView'
 import A from '../UI/A'
 import ParagraphCentered from '../UI/ParagraphCentered'
+import exportForRTSOverlay from './RTSOverlay'
 
 const BuildView = (props) => {
     const [showFocusMode, setShowFocusMode] = useState(false)
@@ -46,7 +47,12 @@ const BuildView = (props) => {
             {build.difficulty !== undefined && <div class='flex justify-center'><DifficultyIndicator difficulty={build.difficulty} /></div>}
             <div class='flex justify-center ml-20 pl-2'><RatingView rating={props.rating} /></div>
             {props.live && <div class='flex justify-center pt-10'><RatingPrompt currentRating={props.userRating} rateBuild={props.rateBuild} /></div>}
-            {props.live && <Button onClick={() => setShowFocusMode(true)}>Start Focus Mode</Button>}
+            {props.live &&
+                <div class='flex flex-col justify-center'>
+                    <Button onClick={() => exportForRTSOverlay(build)}><div class='flex'><span>Copy to clipboard for RTS Overlay</span><img class='w-12 h-12' src={require('../Images/rts_overlay-icon-250x250.png')} alt='RTS_Overlay' /></div></Button>
+                    <Button onClick={() => setShowFocusMode(true)}>Start Focus Mode</Button>
+                </div>
+            }
             <BuildOrderStepsView build={build.build} />
         </div>
     )
