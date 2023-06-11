@@ -36,7 +36,7 @@ const BuildPreviewCard = (props) => {
                         <DifficultyIndicator difficulty={props.build.difficulty} />
                     </div>
                     <div class='col-start-2 col-span-3 ml-4 pr-4 flex justify-end'>
-                        <RatingView rating={props.build.rating} />
+                        <RatingView rating={props.build.avg_rating} />
                     </div>
                 </div>
             </div>

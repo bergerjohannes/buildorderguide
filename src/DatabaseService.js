@@ -208,29 +208,6 @@ class DatabaseService {
         return docRef.id
     }
 
-    static async loadRatings() {
-        let q = query(collection(store, 'ratings-aggregate'))
-        const querySnapshot = await getDocs(q)
-        let data = []
-        querySnapshot.forEach((doc) => {
-            let ratingDoc = doc.data()
-            ratingDoc.id = doc.id
-            data.push(ratingDoc)
-        })
-        return data
-    }
-
-    static async loadAverageRatingForBuild(id) {
-        const docRef = doc(store, 'ratings-aggregate', id)
-        const docSnap = await getDoc(docRef)
-
-        if (docSnap.exists()) {
-            return docSnap.data()
-        } else {
-            throw new Error(`No build with id ${id}`)
-        }
-    }
-
     static async loadUserRatingForBuild(buildId, userId) {
         const docRef = doc(store, 'ratings', `rating-${buildId}-${userId}`)
         const docSnap = await getDoc(docRef)
