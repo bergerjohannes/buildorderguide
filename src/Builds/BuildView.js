@@ -45,7 +45,7 @@ const BuildView = (props) => {
             {build.uptime !== undefined && Object.keys(build.uptime).length > 0 && <div class='flex justify-center'><UptimeIndicator uptime={build.uptime} /></div>}
             {build.attributes !== undefined && <div class='flex justify-center'><AttributesView attributes={build.attributes} /></div>}
             {build.difficulty !== undefined && <div class='flex justify-center'><DifficultyIndicator difficulty={build.difficulty} /></div>}
-            <div class='flex justify-center ml-20 pl-2'><RatingView rating={props.rating} /></div>
+            <div class='flex justify-center ml-20 pl-2'><RatingView rating={build.avg_rating} /></div>
             {props.live && <div class='flex justify-center pt-10'><RatingPrompt currentRating={props.userRating} rateBuild={props.rateBuild} /></div>}
             {props.live &&
                 <div class='flex flex-col justify-center'>

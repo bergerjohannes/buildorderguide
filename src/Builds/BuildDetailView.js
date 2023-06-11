@@ -11,7 +11,6 @@ const BuildDetailView = (props) => {
     const { user } = useUserAuth()
     let { buildId } = useParams()
     const [build, setBuild] = useState(undefined)
-    const [rating, setRating] = useState(undefined)
     const [userRating, setUserRating] = useState(undefined)
     const [error, setError] = useState(undefined)
 
@@ -21,14 +20,10 @@ const BuildDetailView = (props) => {
         }).catch(e => {
             setError(Constants.Error.BuildNotExistent)
         })
-        DatabaseService.loadAverageRatingForBuild(buildId).then(r => {
-            setRating(r)
-        })
     }, [])
 
     useEffect(() => {
         if (user === undefined || user === null) return
-
         DatabaseService.loadUserRatingForBuild(buildId, user.uid).then(r => {
             setUserRating(r.rating)
         })
@@ -57,7 +52,7 @@ const BuildDetailView = (props) => {
     return (
         <div>
             <Menu />
-            {build && <BuildView live={true} build={build} rating={rating?.avg_rating} userRating={userRating} rateBuild={rateBuild} />}
+            {build && <BuildView live={true} build={build} userRating={userRating} rateBuild={rateBuild} />}
         </div>
     )
 }

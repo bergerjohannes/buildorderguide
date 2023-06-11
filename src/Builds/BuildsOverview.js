@@ -11,24 +11,21 @@ import { useUserAuth } from '../Auth/Auth'
 import _ from 'lodash'
 import EmptyState from '../UI/EmptyState'
 import debounce from 'lodash/debounce'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowTrendUp } from '@fortawesome/free-solid-svg-icons'
 
 const BuildsOverview = (props) => {
     const { user } = useUserAuth()
     const [builds, setBuilds] = useState([])
-    const [ratings, setRatings] = useState([])
     const [searchQuery, setSearchQuery] = useState(null)
     const [civilization, setCivilization] = useState(Constants.Civ.Generic)
     const [buildOrderType, setBuildOrderType] = useState('All')
     const [sorting, setSorting] = useState(Constants.Sorting.Alphabetically)
     const [favorites, setFavorites] = useState([])
-    const [buildsAndRatingsAdded, setBuildsAndRatingsAdded] = useState(false)
 
     useEffect(() => {
         DatabaseService.loadAllPublishedBuilds().then(b => {
             setBuilds(b)
-        })
-        DatabaseService.loadRatings().then(r => {
-            setRatings(r)
         })
     }, [])
 
@@ -38,31 +35,6 @@ const BuildsOverview = (props) => {
             if (userData.favorites !== undefined) setFavorites(userData.favorites)
         })
     }, [user])
-
-    useEffect(() => {
-        combineRatingsAndBuilds()
-    }, [builds])
-
-    useEffect(() => {
-        combineRatingsAndBuilds()
-    }, [ratings])
-
-    const combineRatingsAndBuilds = () => {
-        if (buildsAndRatingsAdded) return
-
-        if (builds.length > 0 && ratings.length > 0) {
-            let buildsWithRating = builds.map(build => ({
-                ...build,
-                rating: ratings.filter(rating => rating.id === build.id)[0]?.avg_rating
-            }))
-            buildsWithRating = buildsWithRating.map(b => {
-                if (b.rating === undefined) return { ...b, rating: 0 }
-                else return b
-            })
-            setBuildsAndRatingsAdded(true)
-            setBuilds(buildsWithRating)
-        }
-    }
 
     const favBuildWithId = (id) => {
         if (user === null) {
