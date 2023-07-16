@@ -127,7 +127,7 @@ const AddBuildStepOptionsView = (props) => {
             <Heading2>Add a new step</Heading2>
             <div class='flex flex-wrap'>
                 {options.map(option => (
-                    <div class='bg-primary-light text-main-dark p-2 m-2 rounded-md'>{option}</div>
+                    <div class='bg-accent-dark text-main-dark p-2 m-2 rounded-md'>{option}</div>
                 ))}
             </div>
 

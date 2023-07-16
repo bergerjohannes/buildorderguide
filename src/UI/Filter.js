@@ -6,9 +6,9 @@ const Filter = (props) => {
             ...provided,
             height: 42,
             fontSize: '16px',
-            color: state.isFocused ? '#134e4a' : state.isSelected ? '#0f172a' : '#134e4a',
+            color: state.isFocused ? 'var(--main-dark)' : state.isSelected ? 'var(--main-dark)' : 'var(--main-dark)',
             cursor: 'pointer',
-            backgroundColor: '#ffffff',
+            backgroundColor: 'var(--surface-dark)',
             "@media only screen and (max-width: 767px)": {
                 ...provided["@media only screen and (max-width: 767px)"],
                 fontSize: '12px',
@@ -16,10 +16,9 @@ const Filter = (props) => {
         }),
         menu: base => ({
             ...base,
-            height: 42,
             fontSize: '16px',
-            color: '#134e4a',
-            backgroundColor: '#ffffff',
+            color: 'var(--main-dark)',
+            backgroundColor: 'var(--surface-dark)',
             "@media only screen and (max-width: 767px)": {
                 ...base["@media only screen and (max-width: 767px)"],
                 fontSize: '12px',
@@ -27,8 +26,8 @@ const Filter = (props) => {
         }),
         control: base => ({
             height: 42,
-            color: '#134e4a',
-            backgroundColor: '#ffffff',
+            color: 'var(--main-dark)',
+            backgroundColor: 'var(--surface-dark)',
             fontSize: '16px',
             border: 'transparent',
             justifyContent: 'center',
@@ -43,7 +42,7 @@ const Filter = (props) => {
         singleValue: base => ({
             ...base,
             transition: 'opacity 300ms',
-            color: '#134e4a',
+            color: 'var(--main-dark)',
             margin: 'auto',
             "@media only screen and (max-width: 767px)": {
                 ...base["@media only screen and (max-width: 767px)"],

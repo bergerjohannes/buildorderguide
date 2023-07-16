@@ -1,30 +1,46 @@
 module.exports = {
+    future: {
+        hoverOnlyWhenSupported: true,
+    },
     content: [
         "./src/**/*.{js,jsx,ts,tsx}",
+        "./public/index.html",
     ],
     theme: {
         extend: {
             colors: {
                 'main': {
-                    dark: '#134e4a',
-                    light: '#64748b'
+                    dark: 'var(--main-dark)',
+                    light: 'var(--main-light)',
                 },
                 'primary': {
-                    dark: '#0f172a',
-                    light: '#2dd4bf'
+                    dark: 'var(--primary-dark)',
+                    light: 'var(--primary-light)',
                 },
                 'secondary': {
-                    dark: '#cbd5e1',
-                    light: '#f1f5f9'
+                    dark: 'var(--secondary-dark)',
+                    light: 'var(--secondary-light)',
                 },
                 'danger': {
-                    dark: '#ef4444',
-                    light: '#fb7185'
+                    dark: 'var(--danger-dark)',
+                    light: 'var(--danger-light)',
                 },
                 'highlight': {
-                    dark: '#f59e0b',
-                    light: '#fde047'
-                }
+                    dark: 'var(--highlight-dark)',
+                    light: 'var(--highlight-light)',
+                },
+                'surface': {
+                    dark: 'var(--surface-dark)',
+                    light: 'var(--surface-light)',
+                },
+                'border': {
+                    dark: 'var(--border-dark)',
+                    light: 'var(--border-light)',
+                },
+                'accent': {
+                    dark: 'var(--accent-dark)',
+                    // light: 'var(--accent-light)',
+                },
             },
             minWidth: {
                 'sm': '2.5rem',

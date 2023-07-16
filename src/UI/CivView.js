@@ -1,6 +1,10 @@
 const CivView = (props) => {
+    const imageClasses = props.compact ? 'w-6 h-6 md:w-8 md:h-8' : 'w-6 h-6 md:w-8 md:h-8 mr-1';
     return(
-        <div class='flex space-x-1 text-main-dark'><img class='w-6 h-6 md:w-8 md:h-8' src={require('../Images/Civilizations/' + props.civ + '.png')} alt={props.civ} /><span class='pt-1'>{props.civ}</span></div>
+        <div className='flex items-center space-x-1 text-main-dark'>
+            <img className={imageClasses} src={require('../Images/Civilizations/' + props.civ + '.png')} alt={props.civ} />
+            <span>{props.civ}</span>
+        </div>
     )
 }
 
