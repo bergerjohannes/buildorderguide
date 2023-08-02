@@ -166,6 +166,11 @@ const CivData = {
           uniqueTechs: ['Carrack', 'Arquebus']
       },
       {
+        name: 'Romans',
+        uniqueUnits: ['Legionary', 'Centurion'],
+        uniqueTechs: ['Ballistas', 'Comitatenses']
+      },
+      {
           name: 'Saracens',
           uniqueUnits: ['Mameluke'],
           uniqueTechs: ['Madrasah', 'Zealotry']
