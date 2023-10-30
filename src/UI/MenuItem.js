@@ -1,11 +1,24 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation } from "react-router-dom";
 
 const MenuItem = (props) => {
-    const location = useLocation()
+  const location = useLocation();
 
-    return(
-        <Link class='uppercase font-semibold tracking-wider text-lg md:text-sm' to={props.linkTo}><div class={location.pathname === props.linkTo ? 'md:bg-secondary-dark md:py-1 md:px-3 p-4 hover:bg-primary-light hover:text-main-dark rounded-sm' : 'md:py-1 md:px-3 p-4 hover:bg-primary-light hover:text-primary-dark rounded-sm'}>{props.children}</div></Link>
-    )
-}
+  return (
+    <Link
+      class="uppercase font-semibold tracking-wider text-lg md:text-sm"
+      to={props.linkTo}
+    >
+      <div
+        class={
+          location.pathname === props.linkTo
+            ? " md:py-1 md:px-3 p-4 bg-primary-light text-main-dark rounded-sm"
+            : "md:py-1 md:px-3 p-4 text-slate-300  hover:text-primary-light rounded-sm"
+        }
+      >
+        {props.children}
+      </div>
+    </Link>
+  );
+};
 
-export default MenuItem
+export default MenuItem;
