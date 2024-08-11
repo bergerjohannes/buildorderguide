@@ -1,5 +1,10 @@
 const CivData = {
-    'civilizations': [
+    'civilizations': [  
+        {
+            name: 'Armenians',
+            uniqueUnits: ['CompositeBowman', 'WarriorPriest'],
+            uniqueTechs: ['CilicianFleet', 'Fereters']
+        },  
       {
           name: 'Aztecs',
           uniqueUnits: ['JaguarWarrior'],
@@ -74,6 +79,11 @@ const CivData = {
           name: 'Franks',
           uniqueUnits: ['ThrowingAxeman'],
           uniqueTechs: ['Chivalry', 'BeardedAxe']
+      },
+      {
+          name: 'Georgians',
+          uniqueUnits: ['Monaspa'],
+          uniqueTechs: ['SvanTowers', 'AznauriCavalry']
       },
       {
           name: 'Goths',
@@ -164,6 +174,11 @@ const CivData = {
           name: 'Portuguese',
           uniqueUnits: ['OrganGun', 'Caravel'],
           uniqueTechs: ['Carrack', 'Arquebus']
+      },
+      {
+          name: 'Romans',
+          uniqueUnits: ['Centurion', 'Legionary'],
+          uniqueTechs: ['Ballistas', 'Comitatenses']
       },
       {
           name: 'Saracens',
