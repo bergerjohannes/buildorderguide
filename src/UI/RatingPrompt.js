@@ -8,7 +8,7 @@ const RatingPrompt = (props) => {
 
     return (
         <div class='flex flex-col bg-secondary-light justify-center shadow-sm rounded-sm w-10/12 max-w-lg mt-10 mb-14' onMouseLeave={() => setRating(undefined)}>
-            <div class='flex justify-center bg-primary-light w-full rounded-t-sm pt-1'><Heading2>Rate build</Heading2></div>
+            <div class='flex justify-center bg-accent-dark w-full rounded-t-sm pt-1'><Heading2>Rate build</Heading2></div>
             <div class='flex justify-center space-x-2 text-3xl my-4'>
                 <button onClick={() => props.rateBuild(1)} class='transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110' onMouseOver={() => setRating(1)}><Star color={rating === undefined && props.currentRating > 0 || rating > 0 ? true : false} full={true} /></button>
                 <button onClick={() => props.rateBuild(2)} class='transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110' onMouseOver={() => setRating(2)}><Star color={rating === undefined && props.currentRating > 1 || rating > 1 ? true : false} full={true} /></button>

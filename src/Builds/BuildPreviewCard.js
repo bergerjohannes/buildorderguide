@@ -16,7 +16,7 @@ const BuildPreviewCard = (props) => {
 
     return (
         <Link to={{ pathname: `/build/${props.build.id}` }}>
-            <div class='overflow-hidden transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-105 relative w-11/12 max-w-sm mt-10 mx-auto bg-white shadow-xl cursor-pointer rounded-2xl'>
+            <div class='overflow-hidden transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-105 relative w-11/12 max-w-sm mt-10 mx-auto bg-surface-light shadow-xl dark:shadow-sm shadow-border-light cursor-pointer rounded-2xl'>
                 <div class='mt-2 scale-90 flex justify-between'><CivView civ={props.build.civilization} /><FavView fav={props.fav} onClick={(event) => { favBuild(event) }} /></div>
                 <div class='mb-4 ml-5'><Heading2>{props.build.title}</Heading2></div>
                 <h3 class='ml-5 pb-8 -mt-5 text-md text-main-light'>{props.build.author}</h3>

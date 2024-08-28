@@ -25,11 +25,11 @@ const FilterView = (props) => {
     const [showFilters, setShowFilters] = useState(true)
 
     let civOptions = [
-        { value: Constants.Civ.Generic, label: <CivView civ={Constants.Civ.All} /> },
-        { value: Constants.Civ.Meso, label: <CivView civ={Constants.Civ.Meso} /> }
+        { value: Constants.Civ.Generic, label: <CivView civ={Constants.Civ.All} compact={true} /> },
+        { value: Constants.Civ.Meso, label: <CivView civ={Constants.Civ.Meso} compact={true} /> }
     ]
     CivInfoService.getCivilizations().forEach(civ => {
-        civOptions.push({ value: civ, label: <CivView civ={civ} /> })
+        civOptions.push({ value: civ, label: <CivView civ={civ} compact={true} /> })
     })
 
     let buildOrderTypeOptions = [{ value: 'All', label: 'All' }]
