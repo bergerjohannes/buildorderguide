@@ -121,6 +121,16 @@ const CivData = {
           uniqueTechs: ['Yasama', 'Kataparuto']
       },
       {
+          name: 'Jurchens',
+          uniqueUnits: ['IronPagoda', 'Grenadier'],
+          uniqueTechs: ['FortifiedBastions', 'ThunderclapBombs']
+      },
+      {
+          name: 'Khitans',
+          uniqueUnits: ['LiaoDao', 'MountedTrebuchet'],
+          uniqueTechs: ['LamellarArmor', 'OrdoCavalry']
+      },
+      {
           name: 'Khmer',
           uniqueUnits: ['BallistaElephant'],
           uniqueTechs: ['TuskSwords', 'DoubleCrossbow']
@@ -186,6 +196,11 @@ const CivData = {
           uniqueTechs: ['Madrasah', 'Zealotry']
       },
       {
+          name: 'Shu',
+          uniqueUnits: ['WhiteFeatherGuard', 'WarChariot', 'LiuBei'],
+          uniqueTechs: ['CoiledSerpentArray', 'BoltMagazine']
+      },
+      {
           name: 'Sicilians',
           uniqueUnits: ['Serjeant'],
           uniqueTechs: ['FirstCrusade', 'Hauberk']
@@ -224,6 +239,16 @@ const CivData = {
           name: 'Vikings',
           uniqueUnits: ['Berserk', 'Longboat'],
           uniqueTechs: ['Chieftains', 'Berserkergang']
+      },
+      {
+          name: 'Wei',
+          uniqueUnits: ['TigerCavalry', 'XianbeiRaider', 'CaoCao'],
+          uniqueTechs: ['Tuntian', 'MingGuangArmor']
+      },
+      {
+          name: 'Wu',
+          uniqueUnits: ['FireArcher', 'JianSwordsman', 'SunJian'],
+          uniqueTechs: ['RedCliffsTactics', 'SittingTiger']
       }
     ]
   }
