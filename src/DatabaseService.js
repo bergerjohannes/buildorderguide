@@ -1,7 +1,6 @@
 import { store, storage } from './FirebaseService.js'
 import { doc, getDoc, getDocs, updateDoc, addDoc, setDoc, query, collection, where, deleteDoc, arrayUnion, arrayRemove } from 'firebase/firestore'
 import { ref, listAll, getDownloadURL } from 'firebase/storage'
-import * as Constants from './Constants'
 import BuildData from './Builds/BuildData.js'
 
 class DatabaseService {
@@ -14,6 +13,7 @@ class DatabaseService {
         querySnapshot.forEach((doc) => {
             let build = doc.data()
             build.id = doc.id
+            build.avg_rating = build.avg_rating === null || build.avg_rating === undefined ? 0 : build.avg_rating
             data.push(build)
         })
         return data

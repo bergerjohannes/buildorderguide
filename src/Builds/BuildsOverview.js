@@ -11,8 +11,6 @@ import { useUserAuth } from '../Auth/Auth'
 import _ from 'lodash'
 import EmptyState from '../UI/EmptyState'
 import debounce from 'lodash/debounce'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowTrendUp } from '@fortawesome/free-solid-svg-icons'
 
 const BuildsOverview = (props) => {
     const { user } = useUserAuth()
@@ -69,7 +67,11 @@ const BuildsOverview = (props) => {
     }
 
     if (sorting === Constants.Sorting.ByRating) {
-        buildsToDisplay = _.orderBy(buildsToDisplay, ['rating', 'title'], ['desc', 'asc'])
+        buildsToDisplay = _.orderBy(buildsToDisplay, ['avg_rating', 'title'], ['desc', 'asc'])
+    }
+
+    if (sorting === Constants.Sorting.ByDifficulty) {
+        buildsToDisplay = _.orderBy(buildsToDisplay, ['difficulty', 'title'], ['desc', 'asc'])
     }
 
     if (sorting === Constants.Sorting.Alphabetically || sorting === Constants.Sorting.FavoritesOnly) {

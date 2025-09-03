@@ -35,7 +35,7 @@ const FilterView = (props) => {
     let buildOrderTypeOptions = [{ value: 'All', label: 'All' }]
     buildOrderTypeOptions = buildOrderTypeOptions.concat(BuildData.getBuildAttributes())
 
-    let sortOptions = [{ value: Constants.Sorting.Alphabetically, label: Constants.Sorting.Alphabetically }, { value: Constants.Sorting.ByRating, label: Constants.Sorting.ByRating }, { value: Constants.Sorting.FavoritesOnly, label: Constants.Sorting.FavoritesOnly }]
+    let sortOptions = Object.values(Constants.Sorting).map(sort => ({value: sort, label: sort}))
 
     return (
         <div class='w-full flex justify-center text-main-dark' onClick={(event) => { setShowFilters(!showFilters); event.preventDefault() }}>
@@ -49,7 +49,7 @@ const FilterView = (props) => {
                 </>}
                 {props.sorting && <>
                     <FilterViewSeparator />
-                    <FilterSubView name={'Display'} value={props.sorting} isSearchable={false} options={sortOptions} placeholder={'Alphabetically'} onChange={event => props.setSorting(event.value)} />
+                    <FilterSubView name={'Display'} value={props.sorting} isSearchable={false} options={sortOptions} placeholder={Constants.Sorting.Alphabetically} onChange={event => props.setSorting(event.value)} />
                 </>}
             </div>
         </div>
