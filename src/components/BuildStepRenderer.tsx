@@ -28,7 +28,8 @@ export default function BuildStepRenderer({
     return null;
   }
 
-  const displayText = step.optional ? `Optional: ${description}` : description;
+  // describeBuildStep already handles the "Optional:" prefix, so we don't need to add it again
+  const displayText = description;
 
   return (
     <tr
