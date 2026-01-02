@@ -1,0 +1,2440 @@
+{
+  "technologies": [
+    {
+      "value": "loom",
+      "label": "Loom"
+    },
+    {
+      "value": "wheelbarrow",
+      "label": "Wheelbarrow"
+    },
+    {
+      "value": "handCart",
+      "label": "Hand Cart"
+    },
+    {
+      "value": "horseCollar",
+      "label": "Horse Collar"
+    },
+    {
+      "value": "heavyPlow",
+      "label": "Heavy Plow"
+    },
+    {
+      "value": "cropRotation",
+      "label": "Crop Rotation"
+    },
+    {
+      "value": "doubleBitAxe",
+      "label": "Double-Bit Axe"
+    },
+    {
+      "value": "bowSaw",
+      "label": "Bow Saw"
+    },
+    {
+      "value": "twoManSaw",
+      "label": "Two-Man Saw"
+    },
+    {
+      "value": "goldMining",
+      "label": "Gold Mining"
+    },
+    {
+      "value": "goldShaftMining",
+      "label": "Gold Shaft Mining"
+    },
+    {
+      "value": "stoneMining",
+      "label": "Stone Mining"
+    },
+    {
+      "value": "stoneShaftMining",
+      "label": "Stone Shaft Mining"
+    },
+    {
+      "value": "townWatch",
+      "label": "Town Watch"
+    },
+    {
+      "value": "townPatrol",
+      "label": "Town Patrol"
+    },
+    {
+      "value": "feudalAge",
+      "label": "Feudal Age"
+    },
+    {
+      "value": "castleAge",
+      "label": "Castle Age"
+    },
+    {
+      "value": "imperialAge",
+      "label": "Imperial Age"
+    },
+    {
+      "value": "paddedArcherArmor",
+      "label": "Padded Archer Armor"
+    },
+    {
+      "value": "leatherArcherArmor",
+      "label": "Leather Archer Armor"
+    },
+    {
+      "value": "ringArcherArmor",
+      "label": "Ring Archer Armor"
+    },
+    {
+      "value": "forging",
+      "label": "Forging"
+    },
+    {
+      "value": "ironCasting",
+      "label": "Iron Casting"
+    },
+    {
+      "value": "blastFurnace",
+      "label": "Blast Furnace"
+    },
+    {
+      "value": "scaleMailArmor",
+      "label": "Scale Mail Armor"
+    },
+    {
+      "value": "chainMailArmor",
+      "label": "Chain Mail Armor"
+    },
+    {
+      "value": "plateMailArmor",
+      "label": "Plate Mail Armor"
+    },
+    {
+      "value": "scaleBardingArmor",
+      "label": "Scale Barding Armor"
+    },
+    {
+      "value": "chainBardingArmor",
+      "label": "Chain Barding Armor"
+    },
+    {
+      "value": "plateBardingArmor",
+      "label": "Plate Barding Armor"
+    },
+    {
+      "value": "fletching",
+      "label": "Fletching"
+    },
+    {
+      "value": "bodkinArrow",
+      "label": "Bodkin Arrow"
+    },
+    {
+      "value": "bracer",
+      "label": "Bracer"
+    },
+    {
+      "value": "bloodlines",
+      "label": "Bloodlines"
+    },
+    {
+      "value": "husbandry",
+      "label": "Husbandry"
+    },
+    {
+      "value": "thumbRing",
+      "label": "Thumb Ring"
+    },
+    {
+      "value": "parthianTactics",
+      "label": "Parthian Tactics"
+    },
+    {
+      "value": "ballistics",
+      "label": "Ballistics"
+    },
+    {
+      "value": "chemistry",
+      "label": "Chemistry"
+    },
+    {
+      "value": "siegeEngineers",
+      "label": "Siege Engineers"
+    },
+    {
+      "value": "masonry",
+      "label": "Masonry"
+    },
+    {
+      "value": "architecture",
+      "label": "Architecture"
+    },
+    {
+      "value": "treadmillCrane",
+      "label": "Treadmill Crane"
+    },
+    {
+      "value": "guardTower",
+      "label": "Guard Tower"
+    },
+    {
+      "value": "keep",
+      "label": "Keep"
+    },
+    {
+      "value": "bombardTower",
+      "label": "Bombard Tower"
+    },
+    {
+      "value": "heatedShot",
+      "label": "Heated Shot"
+    },
+    {
+      "value": "murderHoles",
+      "label": "Murder Holes"
+    },
+    {
+      "value": "herbalMedicine",
+      "label": "Herbal Medicine"
+    },
+    {
+      "value": "heresy",
+      "label": "Heresy"
+    },
+    {
+      "value": "sanctity",
+      "label": "Sanctity"
+    },
+    {
+      "value": "fervor",
+      "label": "Fervor"
+    },
+    {
+      "value": "faith",
+      "label": "Faith"
+    },
+    {
+      "value": "illumination",
+      "label": "Illumination"
+    },
+    {
+      "value": "blockPrinting",
+      "label": "Block Printing"
+    },
+    {
+      "value": "theocracy",
+      "label": "Theocracy"
+    },
+    {
+      "value": "atonement",
+      "label": "Atonement"
+    },
+    {
+      "value": "redemption",
+      "label": "Redemption"
+    },
+    {
+      "value": "careening",
+      "label": "Careening"
+    },
+    {
+      "value": "dryDock",
+      "label": "Dry Dock"
+    },
+    {
+      "value": "shipwright",
+      "label": "Shipwright"
+    },
+    {
+      "value": "conscription",
+      "label": "Conscription"
+    },
+    {
+      "value": "spies",
+      "label": "Spies"
+    },
+    {
+      "value": "coinage",
+      "label": "Coinage"
+    },
+    {
+      "value": "banking",
+      "label": "Banking"
+    },
+    {
+      "value": "guilds",
+      "label": "Guilds"
+    },
+    {
+      "value": "caravan",
+      "label": "Caravan"
+    },
+    {
+      "value": "squires",
+      "label": "Squires"
+    },
+    {
+      "value": "arson",
+      "label": "Arson"
+    },
+    {
+      "value": "supplyLines",
+      "label": "Supply Lines"
+    },
+    {
+      "value": "gambesons",
+      "label": "Gambesons"
+    },
+    {
+      "value": "tracking",
+      "label": "Tracking"
+    },
+    {
+      "value": "torsionEngines",
+      "label": "Torsion Engines"
+    },
+    {
+      "value": "tigui",
+      "label": "Tigui"
+    },
+    {
+      "value": "farimba",
+      "label": "Farimba"
+    },
+    {
+      "value": "kasbah",
+      "label": "Kasbah"
+    },
+    {
+      "value": "maghrebiCamels",
+      "label": "Maghrebi Camels"
+    },
+    {
+      "value": "andeanSling",
+      "label": "Andean Sling"
+    },
+    {
+      "value": "fabricShields",
+      "label": "Fabric Shields"
+    },
+    {
+      "value": "druzhina",
+      "label": "Druzhina"
+    },
+    {
+      "value": "grandTrunkRoad",
+      "label": "Grand Trunk Road"
+    },
+    {
+      "value": "shatagni",
+      "label": "Shatagni"
+    },
+    {
+      "value": "silkRoad",
+      "label": "Silk Road"
+    },
+    {
+      "value": "recurveBow",
+      "label": "Recurve Bow"
+    },
+    {
+      "value": "corvinianArmy",
+      "label": "Corvinian Army"
+    },
+    {
+      "value": "arrowslits",
+      "label": "Arrowslits"
+    },
+    {
+      "value": "nomads",
+      "label": "Nomads"
+    },
+    {
+      "value": "kamandaran",
+      "label": "Kamandaran"
+    },
+    {
+      "value": "ironclad",
+      "label": "Ironclad"
+    },
+    {
+      "value": "sipahi",
+      "label": "Sipahi"
+    },
+    {
+      "value": "inquisition",
+      "label": "Inquisition"
+    },
+    {
+      "value": "chivalry",
+      "label": "Chivalry"
+    },
+    {
+      "value": "tuskSwords",
+      "label": "Tusk Swords"
+    },
+    {
+      "value": "doubleCrossbow",
+      "label": "Double Crossbow"
+    },
+    {
+      "value": "thalassocracy",
+      "label": "Thalassocracy"
+    },
+    {
+      "value": "forcedLevy",
+      "label": "Forced Levy"
+    },
+    {
+      "value": "howdah",
+      "label": "Howdah"
+    },
+    {
+      "value": "manipurCavalry",
+      "label": "Manipur Cavalry"
+    },
+    {
+      "value": "chatras",
+      "label": "Chatras"
+    },
+    {
+      "value": "paperMoney",
+      "label": "Paper Money"
+    },
+    {
+      "value": "stirrups",
+      "label": "Stirrups"
+    },
+    {
+      "value": "bagains",
+      "label": "Bagains"
+    },
+    {
+      "value": "silkArmor",
+      "label": "Silk Armor"
+    },
+    {
+      "value": "timuridSiegecraft",
+      "label": "Timurid Siegecraft"
+    },
+    {
+      "value": "steppeHusbandry",
+      "label": "Steppe Husbandry"
+    },
+    {
+      "value": "chieftains",
+      "label": "Chieftains"
+    },
+    {
+      "value": "greekFire",
+      "label": "Greek Fire"
+    },
+    {
+      "value": "gillnets",
+      "label": "Gillnets"
+    },
+    {
+      "value": "logistica",
+      "label": "Logistica"
+    },
+    {
+      "value": "sappers",
+      "label": "Sappers"
+    },
+    {
+      "value": "beardedAxe",
+      "label": "Bearded Axe"
+    },
+    {
+      "value": "supremacy",
+      "label": "Supremacy"
+    },
+    {
+      "value": "atlatl",
+      "label": "Atlatl"
+    },
+    {
+      "value": "warwolf",
+      "label": "Warwolf"
+    },
+    {
+      "value": "burgundianVineyards",
+      "label": "Burgundian Vineyards"
+    },
+    {
+      "value": "flemishRevolution",
+      "label": "Flemish Revolution"
+    },
+    {
+      "value": "firstCrusade",
+      "label": "First Crusade"
+    },
+    {
+      "value": "hauberk",
+      "label": "Hauberk"
+    },
+    {
+      "value": "szlachtaPrivileges",
+      "label": "Szlachta Privileges"
+    },
+    {
+      "value": "lechiticLegacy",
+      "label": "Lechitic Legacy"
+    },
+    {
+      "value": "wagenburgTactics",
+      "label": "Wagenburg Tactics"
+    },
+    {
+      "value": "hussiteReforms",
+      "label": "Hussite Reforms"
+    },
+    {
+      "value": "medicalCorps",
+      "label": "Medical Corps"
+    },
+    {
+      "value": "wootzSteel",
+      "label": "Wootz Steel"
+    },
+    {
+      "value": "paiks",
+      "label": "Paiks"
+    },
+    {
+      "value": "mahayana",
+      "label": "Mahayana"
+    },
+    {
+      "value": "kshatriyas",
+      "label": "Kshatriyas"
+    },
+    {
+      "value": "frontierGuards",
+      "label": "Frontier Guards"
+    },
+    {
+      "value": "greatWall",
+      "label": "Great Wall"
+    },
+    {
+      "value": "stronghold",
+      "label": "Stronghold"
+    },
+    {
+      "value": "marauders",
+      "label": "Marauders"
+    },
+    {
+      "value": "yasama",
+      "label": "Yasama"
+    },
+    {
+      "value": "hoardings",
+      "label": "Hoardings"
+    },
+    {
+      "value": "hulCheJavelineers",
+      "label": "Hul'che Javelineers"
+    },
+    {
+      "value": "eupseong",
+      "label": "Eupseong"
+    },
+    {
+      "value": "cumanMercenaries",
+      "label": "Cuman Mercenaries"
+    },
+    {
+      "value": "hillForts",
+      "label": "Hill Forts"
+    },
+    {
+      "value": "towerShields",
+      "label": "Tower Shields"
+    },
+    {
+      "value": "fereters",
+      "label": "Fereters"
+    },
+    {
+      "value": "cilicianFleet",
+      "label": "Cilician Fleet"
+    },
+    {
+      "value": "spiesTreason",
+      "label": "Spies/Treason"
+    },
+    {
+      "value": "yeomen",
+      "label": "Yeomen"
+    },
+    {
+      "value": "elDorado",
+      "label": "El Dorado"
+    },
+    {
+      "value": "furorCeltica",
+      "label": "Furor Celtica"
+    },
+    {
+      "value": "drill",
+      "label": "Drill"
+    },
+    {
+      "value": "citadels",
+      "label": "Citadels"
+    },
+    {
+      "value": "artillery",
+      "label": "Artillery"
+    },
+    {
+      "value": "crenellations",
+      "label": "Crenellations"
+    },
+    {
+      "value": "anarchy",
+      "label": "Anarchy"
+    },
+    {
+      "value": "atheism",
+      "label": "Atheism"
+    },
+    {
+      "value": "garlandWars",
+      "label": "Garland Wars"
+    },
+    {
+      "value": "bogsveigar",
+      "label": "Bogsveigar"
+    },
+    {
+      "value": "rocketry",
+      "label": "Rocketry"
+    },
+    {
+      "value": "shinkichon",
+      "label": "Shinkichon"
+    },
+    {
+      "value": "perfusion",
+      "label": "Perfusion"
+    },
+    {
+      "value": "svanTowers",
+      "label": "Svan Towers"
+    },
+    {
+      "value": "aznauriCavalry",
+      "label": "Aznauri Cavalry"
+    },
+    {
+      "value": "ballistas",
+      "label": "Ballistas"
+    },
+    {
+      "value": "comitatenses",
+      "label": "Comitatenses"
+    },
+    {
+      "value": "counterweights",
+      "label": "Counterweights"
+    },
+    {
+      "value": "detinets",
+      "label": "Detinets"
+    },
+    {
+      "value": "bimaristan",
+      "label": "Bimaristan"
+    },
+    {
+      "value": "devotion",
+      "label": "Devotion"
+    },
+    {
+      "value": "fortifiedBastions",
+      "label": "Fortified Bastions"
+    },
+    {
+      "value": "thunderclapBombs",
+      "label": "Thunderclap Bombs"
+    },
+    {
+      "value": "lamellarArmor",
+      "label": "Lamellar Armor"
+    },
+    {
+      "value": "ordoCavalry",
+      "label": "Ordo Cavalry"
+    },
+    {
+      "value": "tuntian",
+      "label": "Tuntian"
+    },
+    {
+      "value": "mingGuangArmor",
+      "label": "Ming Guang Armor"
+    },
+    {
+      "value": "boltMagazine",
+      "label": "Bolt Magazine"
+    },
+    {
+      "value": "coiledSerpentArray",
+      "label": "Coiled Serpent Array"
+    },
+    {
+      "value": "redCliffsTactics",
+      "label": "Red Cliffs Tactics"
+    },
+    {
+      "value": "sittingTiger",
+      "label": "Sitting Tiger"
+    },
+    {
+      "value": "domestication",
+      "label": "Domestication"
+    },
+    {
+      "value": "pastoralism",
+      "label": "Pastoralism"
+    },
+    {
+      "value": "transhumance",
+      "label": "Transhumance"
+    },
+    {
+      "value": "cartography",
+      "label": "Cartography"
+    },
+    {
+      "value": "arquebus",
+      "label": "Arquebus"
+    },
+    {
+      "value": "carrack",
+      "label": "Carrack"
+    },
+    {
+      "value": "royalHeirs",
+      "label": "Royal Heirs"
+    },
+    {
+      "value": "pirotechnia",
+      "label": "Pirotechnia"
+    },
+    {
+      "value": "kataparuto",
+      "label": "Kataparuto"
+    },
+    {
+      "value": "eliteSteppeLancer",
+      "label": "Elite Steppe Lancer"
+    },
+    {
+      "value": "eliteCompositeBowman",
+      "label": "Elite Composite Bowman"
+    },
+    {
+      "value": "eliteMonaspa",
+      "label": "Elite Monaspa"
+    },
+    {
+      "value": "eliteCenturion",
+      "label": "Elite Centurion"
+    },
+    {
+      "value": "heavyRocketCart",
+      "label": "Heavy Rocket Cart"
+    },
+    {
+      "value": "cavalier",
+      "label": "Cavalier"
+    },
+    {
+      "value": "manAtArms",
+      "label": "Man-at-Arms"
+    },
+    {
+      "value": "longSwordsman",
+      "label": "Long Swordsman"
+    },
+    {
+      "value": "crossbowman",
+      "label": "Crossbowman"
+    },
+    {
+      "value": "eliteSkirmisher",
+      "label": "Elite Skirmisher"
+    },
+    {
+      "value": "warGalley",
+      "label": "War Galley"
+    },
+    {
+      "value": "eliteOrganGun",
+      "label": "Elite Organ Gun"
+    },
+    {
+      "value": "eliteCaravel",
+      "label": "Elite Caravel"
+    },
+    {
+      "value": "eliteCamelArcher",
+      "label": "Elite Camel Archer"
+    },
+    {
+      "value": "eliteGenitour",
+      "label": "Elite Genitour"
+    },
+    {
+      "value": "eliteGbeto",
+      "label": "Elite Gbeto"
+    },
+    {
+      "value": "eliteShotelWarrior",
+      "label": "Elite Shotel Warrior"
+    },
+    {
+      "value": "eliteBallistaElephant",
+      "label": "Elite Ballista Elephant"
+    },
+    {
+      "value": "eliteKarambitWarrior",
+      "label": "Elite Karambit Warrior"
+    },
+    {
+      "value": "eliteArambai",
+      "label": "Elite Arambai"
+    },
+    {
+      "value": "eliteTigerCavalry",
+      "label": "Elite Tiger Cavalry"
+    },
+    {
+      "value": "techDemolitionRaft",
+      "label": "Demolition Raft"
+    },
+    {
+      "value": "eliteRattanArcher",
+      "label": "Elite Rattan Archer"
+    },
+    {
+      "value": "eliteBattleElephant",
+      "label": "Elite Battle Elephant"
+    },
+    {
+      "value": "techImperialSkirmisher",
+      "label": "Imperial Skirmisher"
+    },
+    {
+      "value": "cappedRam",
+      "label": "Capped Ram"
+    },
+    {
+      "value": "eliteKonnik",
+      "label": "Elite Konnik"
+    },
+    {
+      "value": "galleon",
+      "label": "Galleon"
+    },
+    {
+      "value": "eliteKeshik",
+      "label": "Elite Keshik"
+    },
+    {
+      "value": "eliteKipchak",
+      "label": "Elite Kipchak"
+    },
+    {
+      "value": "eliteLeitis",
+      "label": "Elite Leitis"
+    },
+    {
+      "value": "eliteWhiteFeatherGuard",
+      "label": "Elite White Feather Guard"
+    },
+    {
+      "value": "eliteFireArcher",
+      "label": "Elite Fire Archer"
+    },
+    {
+      "value": "pikeman",
+      "label": "Pikeman"
+    },
+    {
+      "value": "halberdier",
+      "label": "Halberdier"
+    },
+    {
+      "value": "twoHandedSwordsman",
+      "label": "Two-Handed Swordsman"
+    },
+    {
+      "value": "heavyCavalryArcher",
+      "label": "Heavy Cavalry Archer"
+    },
+    {
+      "value": "eliteUrumiSwordsman",
+      "label": "Elite Urumi Swordsman"
+    },
+    {
+      "value": "heavyCamelRider",
+      "label": "Heavy Camel Rider"
+    },
+    {
+      "value": "arbalester",
+      "label": "Arbalester"
+    },
+    {
+      "value": "imperialCamelRider",
+      "label": "Imperial Camel Rider"
+    },
+    {
+      "value": "heavyDemolitionShip",
+      "label": "Heavy Demolition Ship"
+    },
+    {
+      "value": "eliteChakramThrower",
+      "label": "Elite Chakram Thrower"
+    },
+    {
+      "value": "fastFireShip",
+      "label": "Fast Fire Ship"
+    },
+    {
+      "value": "siegeElephant",
+      "label": "Siege Elephant"
+    },
+    {
+      "value": "eliteGhulam",
+      "label": "Elite Ghulam"
+    },
+    {
+      "value": "eliteShrivamshaRider",
+      "label": "Elite Shrivamsha Rider"
+    },
+    {
+      "value": "heavyScorpion",
+      "label": "Heavy Scorpion"
+    },
+    {
+      "value": "lightCavalry",
+      "label": "Light Cavalry"
+    },
+    {
+      "value": "siegeRam",
+      "label": "Siege Ram"
+    },
+    {
+      "value": "onager",
+      "label": "Onager"
+    },
+    {
+      "value": "eliteBoyar",
+      "label": "Elite Boyar"
+    },
+    {
+      "value": "eliteCataphract",
+      "label": "Elite Cataphract"
+    },
+    {
+      "value": "eliteChuKoNu",
+      "label": "Elite Chu Ko Nu"
+    },
+    {
+      "value": "eliteMameluke",
+      "label": "Elite Mameluke"
+    },
+    {
+      "value": "eliteHuskarl",
+      "label": "Elite Huskarl"
+    },
+    {
+      "value": "eliteJanissary",
+      "label": "Elite Janissary"
+    },
+    {
+      "value": "eliteLongbowman",
+      "label": "Elite Longbowman"
+    },
+    {
+      "value": "eliteLongboat",
+      "label": "Elite Longboat"
+    },
+    {
+      "value": "eliteMangudai",
+      "label": "Elite Mangudai"
+    },
+    {
+      "value": "eliteWarElephant",
+      "label": "Elite War Elephant"
+    },
+    {
+      "value": "eliteSamurai",
+      "label": "Elite Samurai"
+    },
+    {
+      "value": "eliteThrowingAxeman",
+      "label": "Elite Throwing Axeman"
+    },
+    {
+      "value": "eliteTeutonicKnight",
+      "label": "Elite Teutonic Knight"
+    },
+    {
+      "value": "eliteWoadRaider",
+      "label": "Elite Woad Raider"
+    },
+    {
+      "value": "champion",
+      "label": "Champion"
+    },
+    {
+      "value": "paladin",
+      "label": "Paladin"
+    },
+    {
+      "value": "siegeOnager",
+      "label": "Siege Onager"
+    },
+    {
+      "value": "eliteCoustillier",
+      "label": "Elite Coustillier"
+    },
+    {
+      "value": "eliteSerjeant",
+      "label": "Elite Serjeant"
+    },
+    {
+      "value": "eliteObuch",
+      "label": "Elite Obuch"
+    },
+    {
+      "value": "eliteHussiteWagon",
+      "label": "Elite Hussite Wagon"
+    },
+    {
+      "value": "eliteCannonGalleon",
+      "label": "Elite Cannon Galleon"
+    },
+    {
+      "value": "eliteBerserk",
+      "label": "Elite Berserk"
+    },
+    {
+      "value": "techWingedHussar",
+      "label": "Winged Hussar"
+    },
+    {
+      "value": "techHoufnice",
+      "label": "Houfnice"
+    },
+    {
+      "value": "eliteIronPagoda",
+      "label": "Elite Iron Pagoda"
+    },
+    {
+      "value": "heavyHeiGuangCavalry",
+      "label": "Heavy Hei Guang Cavalry"
+    },
+    {
+      "value": "hussar",
+      "label": "Hussar"
+    },
+    {
+      "value": "eliteJaguarWarrior",
+      "label": "Elite Jaguar Warrior"
+    },
+    {
+      "value": "eagleWarrior",
+      "label": "Eagle Warrior"
+    },
+    {
+      "value": "eliteEagleWarrior",
+      "label": "Elite Eagle Warrior"
+    },
+    {
+      "value": "eliteTarkan",
+      "label": "Elite Tarkan"
+    },
+    {
+      "value": "eliteElephantArcher",
+      "label": "Elite Elephant Archer"
+    },
+    {
+      "value": "elitePlumedArcher",
+      "label": "Elite Plumed Archer"
+    },
+    {
+      "value": "eliteKamayuk",
+      "label": "Elite Kamayuk"
+    },
+    {
+      "value": "eliteConquistador",
+      "label": "Elite Conquistador"
+    },
+    {
+      "value": "eliteLiaoDao",
+      "label": "Elite Liao Dao"
+    },
+    {
+      "value": "eliteFireLancer",
+      "label": "Elite Fire Lancer"
+    },
+    {
+      "value": "eliteGenoeseCrossbowman",
+      "label": "Elite Genoese Crossbowman"
+    },
+    {
+      "value": "eliteWarWagon",
+      "label": "Elite War Wagon"
+    },
+    {
+      "value": "eliteMagyarHuszar",
+      "label": "Elite Magyar Huszar"
+    },
+    {
+      "value": "eliteTurtleShip",
+      "label": "Elite Turtle Ship"
+    },
+    {
+      "value": "techDragonShip",
+      "label": "Dragon Ship"
+    },
+    {
+      "value": "fortifiedWall",
+      "label": "Fortified Wall"
+    },
+    {
+      "value": "eliteRatha",
+      "label": "Elite Ratha"
+    }
+  ],
+  "buildings": [
+    {
+      "value": "house",
+      "label": "House"
+    },
+    {
+      "value": "mill",
+      "label": "Mill"
+    },
+    {
+      "value": "lumberCamp",
+      "label": "Lumber Camp"
+    },
+    {
+      "value": "miningCamp",
+      "label": "Mining Camp"
+    },
+    {
+      "value": "muleCart",
+      "label": "Mule Cart"
+    },
+    {
+      "value": "barracks",
+      "label": "Barracks"
+    },
+    {
+      "value": "archeryRange",
+      "label": "Archery Range"
+    },
+    {
+      "value": "stable",
+      "label": "Stable"
+    },
+    {
+      "value": "siegeWorkshop",
+      "label": "Siege Workshop"
+    },
+    {
+      "value": "blacksmith",
+      "label": "Blacksmith"
+    },
+    {
+      "value": "monastery",
+      "label": "Monastery"
+    },
+    {
+      "value": "university",
+      "label": "University"
+    },
+    {
+      "value": "townCenter",
+      "label": "Town Center"
+    },
+    {
+      "value": "castle",
+      "label": "Castle"
+    },
+    {
+      "value": "market",
+      "label": "Market"
+    },
+    {
+      "value": "dock",
+      "label": "Dock"
+    },
+    {
+      "value": "farm",
+      "label": "Farm"
+    },
+    {
+      "value": "fishTrap",
+      "label": "Fish Trap"
+    },
+    {
+      "value": "palisadeWall",
+      "label": "Palisade Wall"
+    },
+    {
+      "value": "stoneWall",
+      "label": "Stone Wall"
+    },
+    {
+      "value": "fortifiedWall",
+      "label": "Fortified Wall"
+    },
+    {
+      "value": "palisadeGate",
+      "label": "Palisade Gate"
+    },
+    {
+      "value": "gate",
+      "label": "Gate"
+    },
+    {
+      "value": "watchTower",
+      "label": "Watch Tower"
+    },
+    {
+      "value": "guardTower",
+      "label": "Guard Tower"
+    },
+    {
+      "value": "keep",
+      "label": "Keep"
+    },
+    {
+      "value": "bombardTower",
+      "label": "Bombard Tower"
+    },
+    {
+      "value": "outpost",
+      "label": "Outpost"
+    },
+    {
+      "value": "wonder",
+      "label": "Wonder"
+    },
+    {
+      "value": "feitoria",
+      "label": "Feitoria"
+    },
+    {
+      "value": "krepost",
+      "label": "Krepost"
+    },
+    {
+      "value": "donjon",
+      "label": "Donjon"
+    },
+    {
+      "value": "harbor",
+      "label": "Harbor"
+    },
+    {
+      "value": "pasture",
+      "label": "Pasture"
+    },
+    {
+      "value": "caravanserai",
+      "label": "Caravanserai"
+    },
+    {
+      "value": "folwark",
+      "label": "Folwark"
+    },
+    {
+      "value": "fortifiedChurch",
+      "label": "Fortified Church"
+    }
+  ],
+  "units": [
+    {
+      "value": "villager",
+      "label": "Villager"
+    },
+    {
+      "value": "militia",
+      "label": "Militia"
+    },
+    {
+      "value": "spearman",
+      "label": "Spearman"
+    },
+    {
+      "value": "eagleScout",
+      "label": "Eagle Scout"
+    },
+    {
+      "value": "archer",
+      "label": "Archer"
+    },
+    {
+      "value": "skirmisher",
+      "label": "Skirmisher"
+    },
+    {
+      "value": "cavalryArcher",
+      "label": "Cavalry Archer"
+    },
+    {
+      "value": "handCannoneer",
+      "label": "Hand Cannoneer"
+    },
+    {
+      "value": "scout",
+      "label": "Scout"
+    },
+    {
+      "value": "knight",
+      "label": "Knight"
+    },
+    {
+      "value": "camelRider",
+      "label": "Camel Rider"
+    },
+    {
+      "value": "battleElephant",
+      "label": "Battle Elephant"
+    },
+    {
+      "value": "steppeLancer",
+      "label": "Steppe Lancer"
+    },
+    {
+      "value": "batteringRam",
+      "label": "Battering Ram"
+    },
+    {
+      "value": "mangonel",
+      "label": "Mangonel"
+    },
+    {
+      "value": "scorpion",
+      "label": "Scorpion"
+    },
+    {
+      "value": "bombardCannon",
+      "label": "Bombard Cannon"
+    },
+    {
+      "value": "monk",
+      "label": "Monk"
+    },
+    {
+      "value": "missionary",
+      "label": "Missionary"
+    },
+    {
+      "value": "fishingShip",
+      "label": "Fishing Ship"
+    },
+    {
+      "value": "transportShip",
+      "label": "Transport Ship"
+    },
+    {
+      "value": "tradeCart",
+      "label": "Trade Cart"
+    },
+    {
+      "value": "tradeCog",
+      "label": "Trade Cog"
+    },
+    {
+      "value": "galley",
+      "label": "Galley"
+    },
+    {
+      "value": "fireShip",
+      "label": "Fire Ship"
+    },
+    {
+      "value": "cannonGalleon",
+      "label": "Cannon Galleon"
+    },
+    {
+      "value": "petard",
+      "label": "Petard"
+    },
+    {
+      "value": "trebuchet",
+      "label": "Trebuchet"
+    },
+    {
+      "value": "king",
+      "label": "King"
+    },
+    {
+      "value": "compositeBowman",
+      "label": "Composite Bowman"
+    },
+    {
+      "value": "monaspa",
+      "label": "Monaspa"
+    },
+    {
+      "value": "warriorPriest",
+      "label": "Warrior Priest"
+    },
+    {
+      "value": "xolotlWarrior",
+      "label": "Xolotl Warrior"
+    },
+    {
+      "value": "centurion",
+      "label": "Centurion"
+    },
+    {
+      "value": "dromon",
+      "label": "Dromon"
+    },
+    {
+      "value": "rocketCart",
+      "label": "Rocket Cart"
+    },
+    {
+      "value": "fireLancer",
+      "label": "Fire Lancer"
+    },
+    {
+      "value": "tigerCavalry",
+      "label": "Tiger Cavalry"
+    },
+    {
+      "value": "organGun",
+      "label": "Organ Gun"
+    },
+    {
+      "value": "caravel",
+      "label": "Caravel"
+    },
+    {
+      "value": "camelArcher",
+      "label": "Camel Archer"
+    },
+    {
+      "value": "genitour",
+      "label": "Genitour"
+    },
+    {
+      "value": "gbeto",
+      "label": "Gbeto"
+    },
+    {
+      "value": "shotelWarrior",
+      "label": "Shotel Warrior"
+    },
+    {
+      "value": "ballistaElephant",
+      "label": "Ballista Elephant"
+    },
+    {
+      "value": "karambitWarrior",
+      "label": "Karambit Warrior"
+    },
+    {
+      "value": "arambai",
+      "label": "Arambai"
+    },
+    {
+      "value": "fireGalley",
+      "label": "Fire Galley"
+    },
+    {
+      "value": "demolitionRaft",
+      "label": "Demolition Raft"
+    },
+    {
+      "value": "rattanArcher",
+      "label": "Rattan Archer"
+    },
+    {
+      "value": "imperialSkirmisher",
+      "label": "Imperial Skirmisher"
+    },
+    {
+      "value": "xianbeiRaider",
+      "label": "Xianbei Raider"
+    },
+    {
+      "value": "konnik",
+      "label": "Konnik"
+    },
+    {
+      "value": "konnikDismounted",
+      "label": "Konnik (Dismounted)"
+    },
+    {
+      "value": "keshik",
+      "label": "Keshik"
+    },
+    {
+      "value": "kipchak",
+      "label": "Kipchak"
+    },
+    {
+      "value": "leitis",
+      "label": "Leitis"
+    },
+    {
+      "value": "whiteFeatherGuard",
+      "label": "White Feather Guard"
+    },
+    {
+      "value": "warChariot",
+      "label": "War Chariot"
+    },
+    {
+      "value": "fireArcher",
+      "label": "Fire Archer"
+    },
+    {
+      "value": "jianSwordsman",
+      "label": "Jian Swordsman"
+    },
+    {
+      "value": "flamingCamel",
+      "label": "Flaming Camel"
+    },
+    {
+      "value": "urumiSwordsman",
+      "label": "Urumi Swordsman"
+    },
+    {
+      "value": "chakramThrower",
+      "label": "Chakram Thrower"
+    },
+    {
+      "value": "armoredElephant",
+      "label": "Armored Elephant"
+    },
+    {
+      "value": "ghulam",
+      "label": "Ghulam"
+    },
+    {
+      "value": "thirisadai",
+      "label": "Thirisadai"
+    },
+    {
+      "value": "shrivamshaRider",
+      "label": "Shrivamsha Rider"
+    },
+    {
+      "value": "camelScout",
+      "label": "Camel Scout"
+    },
+    {
+      "value": "siegeTower",
+      "label": "Siege Tower"
+    },
+    {
+      "value": "boyar",
+      "label": "Boyar"
+    },
+    {
+      "value": "coustillier",
+      "label": "Coustillier"
+    },
+    {
+      "value": "serjeant",
+      "label": "Serjeant"
+    },
+    {
+      "value": "flemishMilitia",
+      "label": "Flemish Militia"
+    },
+    {
+      "value": "obuch",
+      "label": "Obuch"
+    },
+    {
+      "value": "hussiteWagon",
+      "label": "Hussite Wagon"
+    },
+    {
+      "value": "berserk",
+      "label": "Berserk"
+    },
+    {
+      "value": "wingedHussar",
+      "label": "Winged Hussar"
+    },
+    {
+      "value": "houfnice",
+      "label": "Houfnice"
+    },
+    {
+      "value": "ironPagoda",
+      "label": "Iron Pagoda"
+    },
+    {
+      "value": "grenadier",
+      "label": "Grenadier"
+    },
+    {
+      "value": "tractionTrebuchet",
+      "label": "Traction Trebuchet"
+    },
+    {
+      "value": "heiGuangCavalry",
+      "label": "Hei Guang Cavalry"
+    },
+    {
+      "value": "louChuan",
+      "label": "Lou Chuan"
+    },
+    {
+      "value": "jaguarWarrior",
+      "label": "Jaguar Warrior"
+    },
+    {
+      "value": "tarkan",
+      "label": "Tarkan"
+    },
+    {
+      "value": "elephantArcher",
+      "label": "Elephant Archer"
+    },
+    {
+      "value": "plumedArcher",
+      "label": "Plumed Archer"
+    },
+    {
+      "value": "kamayuk",
+      "label": "Kamayuk"
+    },
+    {
+      "value": "conquistador",
+      "label": "Conquistador"
+    },
+    {
+      "value": "slinger",
+      "label": "Slinger"
+    },
+    {
+      "value": "liaoDao",
+      "label": "Liao Dao"
+    },
+    {
+      "value": "mountedTrebuchet",
+      "label": "Mounted Trebuchet"
+    },
+    {
+      "value": "savar",
+      "label": "Savar"
+    },
+    {
+      "value": "genoeseCrossbowman",
+      "label": "Genoese Crossbowman"
+    },
+    {
+      "value": "warWagon",
+      "label": "War Wagon"
+    },
+    {
+      "value": "magyarHuszar",
+      "label": "Magyar Huszar"
+    },
+    {
+      "value": "turtleShip",
+      "label": "Turtle Ship"
+    },
+    {
+      "value": "dragonShip",
+      "label": "Dragon Ship"
+    },
+    {
+      "value": "cataphract",
+      "label": "Cataphract"
+    },
+    {
+      "value": "chuKoNu",
+      "label": "Chu Ko Nu"
+    },
+    {
+      "value": "mameluke",
+      "label": "Mameluke"
+    },
+    {
+      "value": "huskarl",
+      "label": "Huskarl"
+    },
+    {
+      "value": "janissary",
+      "label": "Janissary"
+    },
+    {
+      "value": "longboat",
+      "label": "Longboat"
+    },
+    {
+      "value": "longbowman",
+      "label": "Longbowman"
+    },
+    {
+      "value": "mangudai",
+      "label": "Mangudai"
+    },
+    {
+      "value": "warElephant",
+      "label": "War Elephant"
+    },
+    {
+      "value": "samurai",
+      "label": "Samurai"
+    },
+    {
+      "value": "throwingAxeman",
+      "label": "Throwing Axeman"
+    },
+    {
+      "value": "teutonicKnight",
+      "label": "Teutonic Knight"
+    },
+    {
+      "value": "woadRaider",
+      "label": "Woad Raider"
+    },
+    {
+      "value": "condottiero",
+      "label": "Condottiero"
+    },
+    {
+      "value": "ratha",
+      "label": "Ratha"
+    },
+    {
+      "value": "caoCao",
+      "label": "Cao Cao"
+    },
+    {
+      "value": "liuBei",
+      "label": "Liu Bei"
+    },
+    {
+      "value": "sunJian",
+      "label": "Sun Jian"
+    },
+    {
+      "value": "eliteSteppeLancer",
+      "label": "Elite Steppe Lancer"
+    },
+    {
+      "value": "eliteCompositeBowman",
+      "label": "Elite Composite Bowman"
+    },
+    {
+      "value": "eliteMonaspa",
+      "label": "Elite Monaspa"
+    },
+    {
+      "value": "eliteCenturion",
+      "label": "Elite Centurion"
+    },
+    {
+      "value": "legionary",
+      "label": "Legionary"
+    },
+    {
+      "value": "heavyRocketCart",
+      "label": "Heavy Rocket Cart"
+    },
+    {
+      "value": "cavalier",
+      "label": "Cavalier"
+    },
+    {
+      "value": "manAtArms",
+      "label": "Man-at-Arms"
+    },
+    {
+      "value": "longSwordsman",
+      "label": "Long Swordsman"
+    },
+    {
+      "value": "crossbowman",
+      "label": "Crossbowman"
+    },
+    {
+      "value": "eliteSkirmisher",
+      "label": "Elite Skirmisher"
+    },
+    {
+      "value": "warGalley",
+      "label": "War Galley"
+    },
+    {
+      "value": "eliteOrganGun",
+      "label": "Elite Organ Gun"
+    },
+    {
+      "value": "eliteCaravel",
+      "label": "Elite Caravel"
+    },
+    {
+      "value": "eliteCamelArcher",
+      "label": "Elite Camel Archer"
+    },
+    {
+      "value": "eliteGenitour",
+      "label": "Elite Genitour"
+    },
+    {
+      "value": "eliteGbeto",
+      "label": "Elite Gbeto"
+    },
+    {
+      "value": "eliteShotelWarrior",
+      "label": "Elite Shotel Warrior"
+    },
+    {
+      "value": "eliteBallistaElephant",
+      "label": "Elite Ballista Elephant"
+    },
+    {
+      "value": "eliteKarambitWarrior",
+      "label": "Elite Karambit Warrior"
+    },
+    {
+      "value": "eliteArambai",
+      "label": "Elite Arambai"
+    },
+    {
+      "value": "eliteTigerCavalry",
+      "label": "Elite Tiger Cavalry"
+    },
+    {
+      "value": "eliteRattanArcher",
+      "label": "Elite Rattan Archer"
+    },
+    {
+      "value": "eliteBattleElephant",
+      "label": "Elite Battle Elephant"
+    },
+    {
+      "value": "cappedRam",
+      "label": "Capped Ram"
+    },
+    {
+      "value": "eliteKonnik",
+      "label": "Elite Konnik"
+    },
+    {
+      "value": "galleon",
+      "label": "Galleon"
+    },
+    {
+      "value": "eliteKeshik",
+      "label": "Elite Keshik"
+    },
+    {
+      "value": "scoutCavalry",
+      "label": "Scout Cavalry"
+    },
+    {
+      "value": "eliteKipchak",
+      "label": "Elite Kipchak"
+    },
+    {
+      "value": "eliteLeitis",
+      "label": "Elite Leitis"
+    },
+    {
+      "value": "eliteWhiteFeatherGuard",
+      "label": "Elite White Feather Guard"
+    },
+    {
+      "value": "eliteFireArcher",
+      "label": "Elite Fire Archer"
+    },
+    {
+      "value": "pikeman",
+      "label": "Pikeman"
+    },
+    {
+      "value": "halberdier",
+      "label": "Halberdier"
+    },
+    {
+      "value": "twoHandedSwordsman",
+      "label": "Two-Handed Swordsman"
+    },
+    {
+      "value": "heavyCavalryArcher",
+      "label": "Heavy Cavalry Archer"
+    },
+    {
+      "value": "eliteUrumiSwordsman",
+      "label": "Elite Urumi Swordsman"
+    },
+    {
+      "value": "heavyCamelRider",
+      "label": "Heavy Camel Rider"
+    },
+    {
+      "value": "arbalester",
+      "label": "Arbalester"
+    },
+    {
+      "value": "imperialCamelRider",
+      "label": "Imperial Camel Rider"
+    },
+    {
+      "value": "heavyDemolitionShip",
+      "label": "Heavy Demolition Ship"
+    },
+    {
+      "value": "eliteChakramThrower",
+      "label": "Elite Chakram Thrower"
+    },
+    {
+      "value": "fastFireShip",
+      "label": "Fast Fire Ship"
+    },
+    {
+      "value": "siegeElephant",
+      "label": "Siege Elephant"
+    },
+    {
+      "value": "eliteGhulam",
+      "label": "Elite Ghulam"
+    },
+    {
+      "value": "eliteShrivamshaRider",
+      "label": "Elite Shrivamsha Rider"
+    },
+    {
+      "value": "heavyScorpion",
+      "label": "Heavy Scorpion"
+    },
+    {
+      "value": "lightCavalry",
+      "label": "Light Cavalry"
+    },
+    {
+      "value": "siegeRam",
+      "label": "Siege Ram"
+    },
+    {
+      "value": "onager",
+      "label": "Onager"
+    },
+    {
+      "value": "eliteBoyar",
+      "label": "Elite Boyar"
+    },
+    {
+      "value": "eliteCataphract",
+      "label": "Elite Cataphract"
+    },
+    {
+      "value": "eliteChuKoNu",
+      "label": "Elite Chu Ko Nu"
+    },
+    {
+      "value": "eliteMameluke",
+      "label": "Elite Mameluke"
+    },
+    {
+      "value": "eliteHuskarl",
+      "label": "Elite Huskarl"
+    },
+    {
+      "value": "eliteJanissary",
+      "label": "Elite Janissary"
+    },
+    {
+      "value": "eliteLongbowman",
+      "label": "Elite Longbowman"
+    },
+    {
+      "value": "eliteLongboat",
+      "label": "Elite Longboat"
+    },
+    {
+      "value": "eliteMangudai",
+      "label": "Elite Mangudai"
+    },
+    {
+      "value": "eliteWarElephant",
+      "label": "Elite War Elephant"
+    },
+    {
+      "value": "eliteSamurai",
+      "label": "Elite Samurai"
+    },
+    {
+      "value": "eliteThrowingAxeman",
+      "label": "Elite Throwing Axeman"
+    },
+    {
+      "value": "eliteTeutonicKnight",
+      "label": "Elite Teutonic Knight"
+    },
+    {
+      "value": "eliteWoadRaider",
+      "label": "Elite Woad Raider"
+    },
+    {
+      "value": "champion",
+      "label": "Champion"
+    },
+    {
+      "value": "paladin",
+      "label": "Paladin"
+    },
+    {
+      "value": "siegeOnager",
+      "label": "Siege Onager"
+    },
+    {
+      "value": "eliteCoustillier",
+      "label": "Elite Coustillier"
+    },
+    {
+      "value": "eliteSerjeant",
+      "label": "Elite Serjeant"
+    },
+    {
+      "value": "eliteObuch",
+      "label": "Elite Obuch"
+    },
+    {
+      "value": "eliteHussiteWagon",
+      "label": "Elite Hussite Wagon"
+    },
+    {
+      "value": "eliteCannonGalleon",
+      "label": "Elite Cannon Galleon"
+    },
+    {
+      "value": "eliteBerserk",
+      "label": "Elite Berserk"
+    },
+    {
+      "value": "eliteIronPagoda",
+      "label": "Elite Iron Pagoda"
+    },
+    {
+      "value": "heavyHeiGuangCavalry",
+      "label": "Heavy Hei Guang Cavalry"
+    },
+    {
+      "value": "hussar",
+      "label": "Hussar"
+    },
+    {
+      "value": "eliteJaguarWarrior",
+      "label": "Elite Jaguar Warrior"
+    },
+    {
+      "value": "eagleWarrior",
+      "label": "Eagle Warrior"
+    },
+    {
+      "value": "eliteEagleWarrior",
+      "label": "Elite Eagle Warrior"
+    },
+    {
+      "value": "eliteTarkan",
+      "label": "Elite Tarkan"
+    },
+    {
+      "value": "eliteElephantArcher",
+      "label": "Elite Elephant Archer"
+    },
+    {
+      "value": "elitePlumedArcher",
+      "label": "Elite Plumed Archer"
+    },
+    {
+      "value": "eliteKamayuk",
+      "label": "Elite Kamayuk"
+    },
+    {
+      "value": "eliteConquistador",
+      "label": "Elite Conquistador"
+    },
+    {
+      "value": "eliteLiaoDao",
+      "label": "Elite Liao Dao"
+    },
+    {
+      "value": "eliteFireLancer",
+      "label": "Elite Fire Lancer"
+    },
+    {
+      "value": "eliteGenoeseCrossbowman",
+      "label": "Elite Genoese Crossbowman"
+    },
+    {
+      "value": "eliteWarWagon",
+      "label": "Elite War Wagon"
+    },
+    {
+      "value": "eliteMagyarHuszar",
+      "label": "Elite Magyar Huszar"
+    },
+    {
+      "value": "eliteTurtleShip",
+      "label": "Elite Turtle Ship"
+    },
+    {
+      "value": "eliteRatha",
+      "label": "Elite Ratha"
+    }
+  ],
+  "resources": [
+    {
+      "value": "food",
+      "label": "Food"
+    },
+    {
+      "value": "wood",
+      "label": "Wood"
+    },
+    {
+      "value": "gold",
+      "label": "Gold"
+    },
+    {
+      "value": "stone",
+      "label": "Stone"
+    },
+    {
+      "value": "population",
+      "label": "Population"
+    },
+    {
+      "value": "builders",
+      "label": "Builders"
+    },
+    {
+      "value": "fishingShips",
+      "label": "Fishing Ships"
+    }
+  ],
+  "ages": [
+    {
+      "value": "darkAge",
+      "label": "Dark Age"
+    },
+    {
+      "value": "feudalAge",
+      "label": "Feudal Age"
+    },
+    {
+      "value": "castleAge",
+      "label": "Castle Age"
+    },
+    {
+      "value": "imperialAge",
+      "label": "Imperial Age"
+    }
+  ],
+  "tasks": [
+    {
+      "value": "sheep",
+      "label": "Sheep"
+    },
+    {
+      "value": "boar",
+      "label": "Boar"
+    },
+    {
+      "value": "deer",
+      "label": "Deer"
+    },
+    {
+      "value": "berries",
+      "label": "Berries"
+    },
+    {
+      "value": "farms",
+      "label": "Farms"
+    },
+    {
+      "value": "wood",
+      "label": "Wood"
+    },
+    {
+      "value": "gold",
+      "label": "Gold"
+    },
+    {
+      "value": "stone",
+      "label": "Stone"
+    },
+    {
+      "value": "build",
+      "label": "Build"
+    },
+    {
+      "value": "fish",
+      "label": "Fish"
+    },
+    {
+      "value": "forage",
+      "label": "Forage"
+    },
+    {
+      "value": "hunt",
+      "label": "Hunt"
+    },
+    {
+      "value": "lumber",
+      "label": "Lumber"
+    },
+    {
+      "value": "mine",
+      "label": "Mine"
+    }
+  ],
+  "tradeActions": [
+    {
+      "value": "buy",
+      "label": "Buy"
+    },
+    {
+      "value": "sell",
+      "label": "Sell"
+    }
+  ],
+  "animals": [
+    {
+      "value": "boar",
+      "label": "Boar"
+    },
+    {
+      "value": "deer",
+      "label": "Deer"
+    },
+    {
+      "value": "sheep",
+      "label": "Sheep"
+    },
+    {
+      "value": "wolf",
+      "label": "Wolf"
+    }
+  ],
+  "civilizations": [
+    {
+      "value": "britons",
+      "label": "Britons"
+    },
+    {
+      "value": "franks",
+      "label": "Franks"
+    },
+    {
+      "value": "goths",
+      "label": "Goths"
+    },
+    {
+      "value": "teutons",
+      "label": "Teutons"
+    },
+    {
+      "value": "japanese",
+      "label": "Japanese"
+    },
+    {
+      "value": "chinese",
+      "label": "Chinese"
+    },
+    {
+      "value": "byzantines",
+      "label": "Byzantines"
+    },
+    {
+      "value": "persians",
+      "label": "Persians"
+    },
+    {
+      "value": "saracens",
+      "label": "Saracens"
+    },
+    {
+      "value": "turks",
+      "label": "Turks"
+    },
+    {
+      "value": "vikings",
+      "label": "Vikings"
+    },
+    {
+      "value": "mongols",
+      "label": "Mongols"
+    },
+    {
+      "value": "celts",
+      "label": "Celts"
+    },
+    {
+      "value": "spanish",
+      "label": "Spanish"
+    },
+    {
+      "value": "aztecs",
+      "label": "Aztecs"
+    },
+    {
+      "value": "maya",
+      "label": "Maya"
+    },
+    {
+      "value": "huns",
+      "label": "Huns"
+    },
+    {
+      "value": "koreans",
+      "label": "Koreans"
+    },
+    {
+      "value": "italians",
+      "label": "Italians"
+    },
+    {
+      "value": "hindustanis",
+      "label": "Hindustanis"
+    },
+    {
+      "value": "inca",
+      "label": "Inca"
+    },
+    {
+      "value": "magyars",
+      "label": "Magyars"
+    },
+    {
+      "value": "slavs",
+      "label": "Slavs"
+    },
+    {
+      "value": "portuguese",
+      "label": "Portuguese"
+    },
+    {
+      "value": "ethiopians",
+      "label": "Ethiopians"
+    },
+    {
+      "value": "malians",
+      "label": "Malians"
+    },
+    {
+      "value": "berbers",
+      "label": "Berbers"
+    },
+    {
+      "value": "khmer",
+      "label": "Khmer"
+    },
+    {
+      "value": "malay",
+      "label": "Malay"
+    },
+    {
+      "value": "burmese",
+      "label": "Burmese"
+    },
+    {
+      "value": "vietnamese",
+      "label": "Vietnamese"
+    },
+    {
+      "value": "bulgarians",
+      "label": "Bulgarians"
+    },
+    {
+      "value": "tatars",
+      "label": "Tatars"
+    },
+    {
+      "value": "cumans",
+      "label": "Cumans"
+    },
+    {
+      "value": "lithuanians",
+      "label": "Lithuanians"
+    },
+    {
+      "value": "burgundians",
+      "label": "Burgundians"
+    },
+    {
+      "value": "sicilians",
+      "label": "Sicilians"
+    },
+    {
+      "value": "poles",
+      "label": "Poles"
+    },
+    {
+      "value": "bohemians",
+      "label": "Bohemians"
+    },
+    {
+      "value": "dravidians",
+      "label": "Dravidians"
+    },
+    {
+      "value": "bengalis",
+      "label": "Bengalis"
+    },
+    {
+      "value": "gurjaras",
+      "label": "Gurjaras"
+    },
+    {
+      "value": "romans",
+      "label": "Romans"
+    },
+    {
+      "value": "armenians",
+      "label": "Armenians"
+    },
+    {
+      "value": "georgians",
+      "label": "Georgians"
+    },
+    {
+      "value": "shu",
+      "label": "Shu"
+    },
+    {
+      "value": "wu",
+      "label": "Wu"
+    },
+    {
+      "value": "wei",
+      "label": "Wei"
+    },
+    {
+      "value": "jurchens",
+      "label": "Jurchens"
+    },
+    {
+      "value": "khitans",
+      "label": "Khitans"
+    }
+  ]
+}
