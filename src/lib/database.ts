@@ -239,8 +239,6 @@ interface Rating {
 }
 
 class DatabaseService {
-
-
   static async loadAllPublishedBuilds(): Promise<Build[]> {
     // Query for only builds with status 'published' or 'changed'
     const q = query(
@@ -294,22 +292,54 @@ class DatabaseService {
 
     // Validate the build before publishing
     if (draftBuild.build && Array.isArray(draftBuild.build)) {
-      const validationResult = validateBuildOrder(draftBuild.build, draftBuild.civilization);
+      const validationResult = validateBuildOrder(
+        draftBuild.build,
+        draftBuild.civilization
+      );
       if (!validationResult.isValid) {
         const errorMessages = validationResult.errors
-          .filter(e => e.severity === "error")
-          .map(e => e.message)
+          .filter((e) => e.severity === "error")
+          .map((e) => e.message)
           .join("\n");
-        throw new Error(`Cannot publish build with validation errors:\n${errorMessages}`);
+        throw new Error(
+          `Cannot publish build with validation errors:\n${errorMessages}`
+        );
       }
     }
 
     // Copy to published-builds collection with published status
     const publishedRef = doc(store, "published-builds", id);
-    await setDoc(publishedRef, {
+
+    // Check if published build already exists to preserve rating fields
+    const publishedSnap = await getDoc(publishedRef);
+    const existingPublishedBuild = publishedSnap.exists()
+      ? (publishedSnap.data() as Build)
+      : null;
+
+    // Prepare the published build data
+    const publishedBuildData: Partial<Build> = {
       ...draftBuild,
       status: "published",
-    });
+    };
+
+    // Preserve avg_rating and number_of_ratings if they exist in the existing published build
+    if (existingPublishedBuild) {
+      if (
+        existingPublishedBuild.avg_rating !== undefined &&
+        existingPublishedBuild.avg_rating !== null
+      ) {
+        publishedBuildData.avg_rating = existingPublishedBuild.avg_rating;
+      }
+      if (
+        existingPublishedBuild.number_of_ratings !== undefined &&
+        existingPublishedBuild.number_of_ratings !== null
+      ) {
+        publishedBuildData.number_of_ratings =
+          existingPublishedBuild.number_of_ratings;
+      }
+    }
+
+    await setDoc(publishedRef, publishedBuildData);
 
     // Update draft status to published
     await updateDoc(draftRef, { status: "published" });
