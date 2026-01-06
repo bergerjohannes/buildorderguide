@@ -18,6 +18,7 @@ import { Build } from "@/types/build";
 import Image from "next/image";
 import BuildView from "@/components/BuildView";
 import AuthPromptModal from "@/components/AuthPromptModal";
+import ErrorModal from "@/components/ErrorModal";
 import ExportButton from "@/components/ExportButton";
 import RatingModal from "@/components/RatingModal";
 import FavoriteButton from "@/components/FavoriteButton";
@@ -103,13 +104,7 @@ const BuildHeader = ({
         height={112}
         className="mb-4 mx-auto object-cover"
         onError={(e) => {
-          console.error("Image failed to load:", build.imageURL);
           e.currentTarget.src = placeholderImage;
-        }}
-        onLoad={() => {
-          if (build.imageURL) {
-            console.log("Image loaded successfully:", build.imageURL);
-          }
         }}
       />
 
@@ -179,6 +174,10 @@ export default function BuildDetailPage() {
   const [isRatingModalOpen, setIsRatingModalOpen] = useState(false);
   const [isAuthPromptOpen, setIsAuthPromptOpen] = useState(false);
   const [favorites, setFavorites] = useState<string[]>([]);
+  const [errorModal, setErrorModal] = useState<{ isOpen: boolean; message: string }>({
+    isOpen: false,
+    message: "",
+  });
 
   const handleOpenRatingModal = () => {
     if (!currentUser) {
@@ -217,7 +216,6 @@ export default function BuildDetailPage() {
         setFavorites([]);
       }
     } catch (error) {
-      console.error("Failed to load user favorites:", error);
       // User profile doesn't exist yet - this is normal for new users
       setFavorites([]);
     }
@@ -278,8 +276,7 @@ export default function BuildDetailPage() {
       // Reload build to get updated average rating
       await loadBuild(build.id);
     } catch (error) {
-      console.error("Failed to submit rating:", error);
-      alert("Failed to submit rating. Please try again.");
+      setErrorModal({ isOpen: true, message: "Failed to submit rating. Please try again." });
     } finally {
       setSubmittingRating(false);
     }
@@ -315,9 +312,8 @@ export default function BuildDetailPage() {
         });
       }
     } catch (error) {
-      console.error("Failed to toggle favorite:", error);
       // Show user-friendly error message
-      alert("Failed to update favorites. Please try again.");
+      setErrorModal({ isOpen: true, message: "Failed to update favorites. Please try again." });
       // Revert the local state change on error
       await loadUserFavorites();
     }
@@ -330,8 +326,6 @@ export default function BuildDetailPage() {
   if (error || !build) {
     return <ErrorView error={error} />;
   }
-
-  console.log("Build:", build);
 
   return (
     <div className="min-h-screen bg-background">
@@ -369,6 +363,12 @@ export default function BuildDetailPage() {
           onRegister={() => router.push("/register")}
         />
       )}
+
+      <ErrorModal
+        isOpen={errorModal.isOpen}
+        message={errorModal.message}
+        onClose={() => setErrorModal({ isOpen: false, message: "" })}
+      />
     </div>
   );
 }

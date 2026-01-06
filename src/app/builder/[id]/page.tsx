@@ -10,6 +10,7 @@ import EmptyState from "@/components/EmptyState";
 import Header from "@/components/Header";
 import ImageSelector from "@/components/ImageSelector";
 import ConfirmationDialog from "@/components/ConfirmationDialog";
+import ErrorModal from "@/components/ErrorModal";
 import BuildView from "@/components/BuildView";
 import { useAuth } from "@/contexts/AuthContext";
 import DatabaseService from "@/lib/database";
@@ -676,6 +677,10 @@ export default function BuilderEditorPage() {
   const [isChoosingStepType, setIsChoosingStepType] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [focusedDecisionIndex, setFocusedDecisionIndex] = useState<number | null>(null);
+  const [errorModal, setErrorModal] = useState<{ isOpen: boolean; message: string }>({
+    isOpen: false,
+    message: "",
+  });
   const normalizedSelectedBuildStatus = selectedBuild
     ? normalizeBuildStatus(selectedBuild.status)
     : null;
@@ -787,7 +792,6 @@ export default function BuilderEditorPage() {
           }
           matchingBuild = fallback;
         } catch (fallbackError) {
-          console.error("Failed to fetch build fallback", fallbackError);
           setSelectedBuild(null);
           setOriginalBuild(null);
           setLoadError("Build not found or you do not have access to it.");
@@ -815,7 +819,6 @@ export default function BuilderEditorPage() {
       const published = await DatabaseService.loadPublishedVersionOfBuild(id);
       setPublishedBuild(published ? ensureBuildSteps(published) : null);
     } catch (error) {
-      console.error("Failed to load build", error);
       setLoadError("Failed to load build. Please try again.");
     } finally {
       setLoading(false);
@@ -845,8 +848,7 @@ export default function BuilderEditorPage() {
     const handleVisibilityChange = () => {
       if (document.visibilityState === "hidden" && hasUnsavedChanges) {
         // This handles tab switching - we can't show a confirmation dialog here
-        // but we can at least log or store the state for recovery
-        console.warn("Tab switched with unsaved changes");
+        // but we can at least store the state for recovery
       }
     };
 
@@ -884,7 +886,7 @@ export default function BuilderEditorPage() {
       setOriginalBuild(JSON.parse(JSON.stringify(normalized)));
       setHasUnsavedChanges(false);
     } catch (error) {
-      console.error("Failed to save build", error);
+      setErrorModal({ isOpen: true, message: "Failed to save build. Please try again." });
     }
   };
 
@@ -933,11 +935,12 @@ export default function BuilderEditorPage() {
     if (selectedBuild) {
       const validationErrors = validateBuildForPublish(selectedBuild);
       if (validationErrors.length > 0) {
-        alert(
-          `Cannot publish build due to the following errors:\n\n${validationErrors.join(
+        setErrorModal({
+          isOpen: true,
+          message: `Cannot publish build due to the following errors:\n\n${validationErrors.join(
             "\n"
-          )}`
-        );
+          )}`,
+        });
         return;
       }
     }
@@ -951,9 +954,8 @@ export default function BuilderEditorPage() {
       setPublishedBuild(normalizedUpdatedBuild ? JSON.parse(JSON.stringify(normalizedUpdatedBuild)) : null);
       setHasUnsavedChanges(false);
     } catch (error) {
-      console.error("Failed to publish build", error);
       const errorMessage = error instanceof Error ? error.message : "Failed to publish build";
-      alert(errorMessage);
+      setErrorModal({ isOpen: true, message: errorMessage });
     }
   };
 
@@ -966,7 +968,7 @@ export default function BuilderEditorPage() {
       setPublishedBuild(null);
       setHasUnsavedChanges(false);
     } catch (error) {
-      console.error("Failed to unpublish build", error);
+      setErrorModal({ isOpen: true, message: "Failed to unpublish build. Please try again." });
     }
   };
 
@@ -1482,6 +1484,12 @@ export default function BuilderEditorPage() {
         onConfirm={confirmDeleteBuild}
         onCancel={cancelDeleteBuild}
         isDestructive={true}
+      />
+
+      <ErrorModal
+        isOpen={errorModal.isOpen}
+        message={errorModal.message}
+        onClose={() => setErrorModal({ isOpen: false, message: "" })}
       />
     </div>
   );

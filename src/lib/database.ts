@@ -252,9 +252,6 @@ class DatabaseService {
       build.id = doc.id;
       data.push(build);
     });
-    console.log(
-      `[DatabaseService] loadAllPublishedBuilds: found ${data.length} builds`
-    );
     return data;
   }
 
@@ -265,10 +262,6 @@ class DatabaseService {
     if (docSnap.exists()) {
       const build = docSnap.data() as Build;
       build.id = docSnap.id;
-      console.log(
-        "[DatabaseService] loadPublishedBuildWithId: ",
-        JSON.stringify(build, null, 2)
-      );
       if (build.status === "published" || build.status === "changed") {
         return build;
       } else {
@@ -387,7 +380,6 @@ class DatabaseService {
     if (docSnap.exists()) {
       const build = docSnap.data() as Build;
       build.id = docSnap.id;
-      console.log("Loaded build:", JSON.stringify(build, null, 2));
       return build;
     } else {
       throw new Error(`No build with id ${id}`);
