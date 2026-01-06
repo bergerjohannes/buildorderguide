@@ -102,15 +102,6 @@ const BuildHeader = ({
         width={150}
         height={112}
         className="mb-4 mx-auto object-cover"
-        onError={(e) => {
-          console.error("Image failed to load:", build.imageURL);
-          e.currentTarget.src = placeholderImage;
-        }}
-        onLoad={() => {
-          if (build.imageURL) {
-            console.log("Image loaded successfully:", build.imageURL);
-          }
-        }}
       />
 
       {/* Description */}

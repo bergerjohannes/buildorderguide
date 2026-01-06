@@ -23,19 +23,19 @@ export default function CivIcon({
     civilization === "Generic" ? "generic" : civilization
   );
 
+  // Fallback to generic if civilization path doesn't exist
+  const finalImagePath = civImagePath || "/images/Civs/generic.png";
+
   if (showName) {
     return (
       <div className="flex items-center space-x-2">
         <div className="rounded-full bg-muted flex items-center justify-center p-1">
           <Image
-            src={civImagePath}
+            src={finalImagePath}
             alt={civilization}
             width={imageSize}
             height={imageSize}
             className={iconClasses}
-            onError={(e) => {
-              e.currentTarget.src = "/images/Civs/generic.png";
-            }}
           />
         </div>
         <span className={`font-medium text-foreground ${textClasses}`}>
@@ -48,14 +48,11 @@ export default function CivIcon({
   return (
     <div className="rounded-full bg-muted flex items-center justify-center p-1">
       <Image
-        src={civImagePath}
+        src={finalImagePath}
         alt={civilization}
         width={imageSize}
         height={imageSize}
         className={iconClasses}
-        onError={(e) => {
-          e.currentTarget.src = "/images/Civs/generic.png";
-        }}
       />
     </div>
   );

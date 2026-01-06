@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import DatabaseService from "@/lib/database";
 import LoadingSpinner from "./LoadingSpinner";
 
@@ -92,14 +93,15 @@ export default function ImageSelector({
         className="w-full bg-background rounded-default shadow-default hover:shadow-hover p-3 cursor-pointer transition-all duration-300"
       >
         <div className="flex items-center space-x-3">
-          <img
-            src={getCurrentImageUrl()}
-            alt="Selected build image"
-            className="w-16 h-16 object-cover rounded-default"
-            onError={(e) => {
-              e.currentTarget.src = "/images/Other/BuildImagePlaceholder.png";
-            }}
-          />
+          <div className="relative w-16 h-16 rounded-default overflow-hidden flex-shrink-0">
+            <Image
+              src={getCurrentImageUrl()}
+              alt="Selected build image"
+              width={64}
+              height={64}
+              className="object-cover"
+            />
+          </div>
           <p className="text-sm font-medium text-foreground">
             {getSelectedImageName() || "No image selected"}
           </p>
@@ -117,11 +119,15 @@ export default function ImageSelector({
             }}
             className="flex items-center space-x-3 p-3 hover:bg-muted cursor-pointer"
           >
-            <img
-              src="/images/Other/BuildImagePlaceholder.png"
-              alt="No image"
-              className="w-12 h-12 object-cover rounded-default"
-            />
+            <div className="relative w-12 h-12 rounded-default overflow-hidden flex-shrink-0">
+              <Image
+                src="/images/Other/BuildImagePlaceholder.png"
+                alt="No image"
+                width={48}
+                height={48}
+                className="object-cover"
+              />
+            </div>
             <span className="text-sm text-foreground">No image</span>
           </div>
 
@@ -135,18 +141,18 @@ export default function ImageSelector({
               }}
               className="flex items-center space-x-3 p-3 hover:bg-muted cursor-pointer"
             >
-              <img
-                src={
-                  imageUrls[imageName] ||
-                  "/images/Other/BuildImagePlaceholder.png"
-                }
-                alt={imageName}
-                className="w-12 h-12 object-cover rounded-default"
-                onError={(e) => {
-                  e.currentTarget.src =
-                    "/images/Other/BuildImagePlaceholder.png";
-                }}
-              />
+              <div className="relative w-12 h-12 rounded-default overflow-hidden flex-shrink-0">
+                <Image
+                  src={
+                    imageUrls[imageName] ||
+                    "/images/Other/BuildImagePlaceholder.png"
+                  }
+                  alt={imageName}
+                  width={48}
+                  height={48}
+                  className="object-cover"
+                />
+              </div>
               <span className="text-sm text-foreground">{imageName}</span>
             </div>
           ))}
