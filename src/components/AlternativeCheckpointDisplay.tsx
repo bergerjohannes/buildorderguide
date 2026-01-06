@@ -2,7 +2,11 @@
 
 import React from "react";
 import Image from "next/image";
-import { AlternativeCheckpointPath, Checkpoint, VillagerDistribution } from "@/types/build";
+import {
+  AlternativeCheckpointPath,
+  Checkpoint,
+  VillagerDistribution,
+} from "@/types/build";
 import ResourceIcon from "@/components/ResourceIcon";
 import { getAgeImagePath } from "@/lib/imageUtils";
 
@@ -136,6 +140,23 @@ const BuildPhase = ({
     return titleMap[type] || `Step ${(index || 0) + 1}`;
   };
 
+  const getTotalVillagerCount = (checkpoint: Checkpoint): number => {
+    const v = checkpoint.villagers;
+    return (
+      (v.food || 0) +
+      (v.wood || 0) +
+      (v.gold || 0) +
+      (v.stone || 0) +
+      (v.builders || 0) +
+      (v.fishingShips || 0)
+    );
+  };
+
+  const isAgeCheckpoint = (type?: string): boolean => {
+    if (!type) return false;
+    return !type.includes("_to_");
+  };
+
   const renderAgeIcon = (type?: string) => {
     if (!type) return null;
 
@@ -161,6 +182,10 @@ const BuildPhase = ({
     return <Image src={iconSrc} alt={type} width={24} height={24} />;
   };
 
+  const totalVillagers = getTotalVillagerCount(checkpoint);
+  const showVillagerCount =
+    isAgeCheckpoint(checkpoint.type) && totalVillagers > 0;
+
   return (
     <div className="bg-background rounded-default shadow-default overflow-hidden mb-4 sm:mb-6">
       {/* Phase Header */}
@@ -173,6 +198,11 @@ const BuildPhase = ({
           )}
           <h3 className="text-sm font-semibold text-foreground text-pretty truncate">
             {getPhaseTitle(checkpoint.type, index)}
+            {showVillagerCount && (
+              <span className="text-xs sm:text-sm text-foreground/70 font-medium ml-2">
+                — {totalVillagers} Vils
+              </span>
+            )}
           </h3>
         </div>
       </div>
@@ -222,11 +252,14 @@ const BuildPhase = ({
   );
 };
 
-export default function AlternativeCheckpointDisplay({ alternatives }: AlternativeCheckpointDisplayProps) {
+export default function AlternativeCheckpointDisplay({
+  alternatives,
+}: AlternativeCheckpointDisplayProps) {
   // Get common checkpoints from the first alternative (they're the same for all)
-  const commonCheckpoints = alternatives.length > 0 && alternatives[0].commonCheckpoints 
-    ? alternatives[0].commonCheckpoints 
-    : [];
+  const commonCheckpoints =
+    alternatives.length > 0 && alternatives[0].commonCheckpoints
+      ? alternatives[0].commonCheckpoints
+      : [];
 
   return (
     <div className="space-y-6">
@@ -239,7 +272,9 @@ export default function AlternativeCheckpointDisplay({ alternatives }: Alternati
                 key={index}
                 checkpoint={checkpoint}
                 index={index}
-                previousCheckpoint={index > 0 ? commonCheckpoints[index - 1] : undefined}
+                previousCheckpoint={
+                  index > 0 ? commonCheckpoints[index - 1] : undefined
+                }
               />
             ))}
           </div>
@@ -248,14 +283,17 @@ export default function AlternativeCheckpointDisplay({ alternatives }: Alternati
 
       {/* Render alternative-specific checkpoints */}
       {alternatives.map((alternative, altIndex) => (
-        <div key={altIndex} className="bg-background rounded-default overflow-hidden">
+        <div
+          key={altIndex}
+          className="bg-background rounded-default overflow-hidden"
+        >
           {/* Decision Header */}
           {alternative.decisionText && (
             <div className="bg-primary text-foreground px-4 py-3 font-bold text-lg text-center">
               {alternative.decisionText}
             </div>
           )}
-          
+
           {/* Alternative Content */}
           <div className="space-y-4 sm:space-y-6 p-4 sm:p-6">
             {alternative.checkpoints.map((checkpoint, index) => {
@@ -266,7 +304,9 @@ export default function AlternativeCheckpointDisplay({ alternatives }: Alternati
                   return alternative.checkpoints[index - 1];
                 }
                 // For first checkpoint, use last common checkpoint if available
-                return commonCheckpoints.length > 0 ? commonCheckpoints[commonCheckpoints.length - 1] : undefined;
+                return commonCheckpoints.length > 0
+                  ? commonCheckpoints[commonCheckpoints.length - 1]
+                  : undefined;
               };
 
               return (
