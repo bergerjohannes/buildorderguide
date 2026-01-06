@@ -39,7 +39,8 @@ const resourceOrder = [
 
 const COLLECT_GOLD_TASK_METADATA: Record<
   string,
-  { subType: "newVillagers"; count: number } | { subType: "moveVillagers"; count: number; from: string; to: string }
+  | { subType: "newVillagers"; count: number }
+  | { subType: "moveVillagers"; count: number; from: string; to: string }
 > = {
   collect10GoldWithNewVillager: { subType: "newVillagers", count: 1 },
   collect40GoldWithTwoNewVillagers: { subType: "newVillagers", count: 2 },
@@ -141,16 +142,17 @@ function recalculateSegmentResources(
 }
 
 function recalculateStepResources(steps: BuildOrderStep[]): BuildOrderStep[] {
-  const firstDecisionIndex = steps.findIndex((step) => step.type === "decision");
+  const firstDecisionIndex = steps.findIndex(
+    (step) => step.type === "decision"
+  );
   if (firstDecisionIndex === -1) {
-    return recalculateSegmentResources(steps, createDefaultResources()).updatedSteps;
+    return recalculateSegmentResources(steps, createDefaultResources())
+      .updatedSteps;
   }
 
   const commonSegment = steps.slice(0, firstDecisionIndex);
-  const {
-    updatedSteps: updatedCommonSteps,
-    finalResources: baseResources,
-  } = recalculateSegmentResources(commonSegment, createDefaultResources());
+  const { updatedSteps: updatedCommonSteps, finalResources: baseResources } =
+    recalculateSegmentResources(commonSegment, createDefaultResources());
 
   const updatedSteps: BuildOrderStep[] = [...updatedCommonSteps];
   const baseSnapshot = { ...baseResources };
@@ -268,6 +270,23 @@ const getResourceDifference = (
   return currentCount - previousCount;
 };
 
+const getTotalVillagerCount = (checkpoint: Checkpoint): number => {
+  const v = checkpoint.villagers;
+  return (
+    (v.food || 0) +
+    (v.wood || 0) +
+    (v.gold || 0) +
+    (v.stone || 0) +
+    (v.builders || 0) +
+    (v.fishingShips || 0)
+  );
+};
+
+const isAgeCheckpoint = (type?: string): boolean => {
+  if (!type) return false;
+  return !type.includes("_to_");
+};
+
 const renderAgeIcon = (type?: string) => {
   if (!type) return null;
 
@@ -333,6 +352,10 @@ const BuildPhase = ({
     return null;
   }
 
+  const totalVillagers = getTotalVillagerCount(checkpoint);
+  const showVillagerCount =
+    isAgeCheckpoint(checkpoint.type) && totalVillagers > 0;
+
   return (
     <div className="bg-background rounded-default shadow-default overflow-hidden mb-4 sm:mb-6">
       <div className="bg-muted px-4 py-3 sm:px-6 sm:py-4 flex justify-between items-center">
@@ -344,6 +367,11 @@ const BuildPhase = ({
           )}
           <h3 className="text-sm font-semibold text-foreground text-pretty truncate">
             {getPhaseTitle(checkpoint.type, index)}
+            {showVillagerCount && (
+              <span className="text-xs sm:text-sm text-foreground/70 font-medium ml-2">
+                — {totalVillagers} Vils
+              </span>
+            )}
           </h3>
         </div>
       </div>
@@ -485,7 +513,8 @@ export default function BuildView({
 
   // Check for validation errors to determine if we should show the toggle
   const hasValidationErrors = React.useMemo(() => {
-    if (!normalizedBuild?.build || normalizedBuild.build.length === 0) return false;
+    if (!normalizedBuild?.build || normalizedBuild.build.length === 0)
+      return false;
     const validationResult = validateBuildOrder(
       normalizedBuild.build,
       normalizedBuild.civilization
@@ -494,7 +523,9 @@ export default function BuildView({
   }, [normalizedBuild]);
 
   const showViewToggle =
-    showToggle !== undefined ? showToggle : (supportsNewFormat && !hasValidationErrors);
+    showToggle !== undefined
+      ? showToggle
+      : supportsNewFormat && !hasValidationErrors;
 
   const checkpointsContent = React.useMemo(() => {
     if (!normalizedBuild) {
@@ -516,9 +547,7 @@ export default function BuildView({
             normalizedBuild.build,
             normalizedBuild.civilization
           );
-          return (
-            <AlternativeCheckpointDisplay alternatives={alternatives} />
-          );
+          return <AlternativeCheckpointDisplay alternatives={alternatives} />;
         }
 
         const checkpoints = convertStepsToCheckpoints(
@@ -542,14 +571,17 @@ export default function BuildView({
         );
       } catch (error) {
         // If conversion fails, show error message
-        const errorMessage = error instanceof Error ? error.message : "An unknown error occurred";
+        const errorMessage =
+          error instanceof Error ? error.message : "An unknown error occurred";
         return (
           <>
             <ValidationWarnings
               errors={[{ message: errorMessage, severity: "error" }]}
               title="Cannot Display Checkpoint View"
             />
-            <p className="text-foreground/60 text-sm text-center">Please switch to Steps view to see the build.</p>
+            <p className="text-foreground/60 text-sm text-center">
+              Please switch to Steps view to see the build.
+            </p>
           </>
         );
       }
