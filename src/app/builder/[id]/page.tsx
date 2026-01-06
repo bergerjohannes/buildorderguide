@@ -34,6 +34,7 @@ import { toTitleCaseLabel } from "@/lib/text";
 import { getBuildStatusLabel, normalizeBuildStatus } from "@/lib/buildStatus";
 import { SINGLE_UNIT_ONLY_UNITS } from "@/lib/specialUnits";
 import { OFFICIAL_PUBLISHER_ID } from "@/lib/constants";
+import { validateBuildOrder } from "@/lib/buildValidation";
 
 type StepType = BuildOrderStep["type"];
 
@@ -681,6 +682,7 @@ export default function BuilderEditorPage() {
     isOpen: false,
     message: "",
   });
+  const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const normalizedSelectedBuildStatus = selectedBuild
     ? normalizeBuildStatus(selectedBuild.status)
     : null;
@@ -861,7 +863,7 @@ export default function BuilderEditorPage() {
     };
   }, [hasUnsavedChanges]);
 
-  const saveBuild = async (build: Build) => {
+  const saveBuild = async (build: Build): Promise<boolean> => {
     const sanitizedBuild = normalizeBuildTextContent(build);
     try {
       // Check if there's a published version and if draft differs from it
@@ -885,17 +887,56 @@ export default function BuilderEditorPage() {
       setSelectedBuild(normalized);
       setOriginalBuild(JSON.parse(JSON.stringify(normalized)));
       setHasUnsavedChanges(false);
+      return true;
     } catch (error) {
       setErrorModal({ isOpen: true, message: "Failed to save build. Please try again." });
+      return false;
     }
   };
 
-  const validateBuildForPublish = (build: Build): string[] => {
+  const validateBuildForPublish = useCallback((build: Build): string[] => {
     const errors: string[] = [];
     const civ = build.civilization;
 
-    if (!build.build) return errors;
+    // Check required fields for publishing
+    if (!build.title || build.title.trim() === "") {
+      errors.push("Title is required to publish.");
+    }
 
+    if (!build.author || build.author.trim() === "") {
+      errors.push("Author is required to publish.");
+    }
+
+    if (!build.description || build.description.trim() === "") {
+      errors.push("Description is required to publish.");
+    }
+
+    if (!build.difficulty) {
+      errors.push("Difficulty is required to publish.");
+    }
+
+    if (!build.attributes || build.attributes.length === 0) {
+      errors.push("At least one attribute is required to publish.");
+    }
+
+    if (!build.imageURL || build.imageURL.trim() === "") {
+      errors.push("Image is required to publish.");
+    }
+
+    if (!build.build) {
+      return errors;
+    }
+
+    // First, run the comprehensive validation that includes duplicate tech checks
+    const validationResult = validateBuildOrder(build.build, civ);
+    if (!validationResult.isValid) {
+      const validationErrorMessages = validationResult.errors
+        .filter((e) => e.severity === "error")
+        .map((e) => e.message);
+      errors.push(...validationErrorMessages);
+    }
+
+    // Then check for building-specific errors
     build.build.forEach((step, index) => {
       const stepNum = index + 1;
 
@@ -929,22 +970,36 @@ export default function BuilderEditorPage() {
     });
 
     return errors;
-  };
+  }, []);
 
   const publishBuild = async (buildId: string) => {
-    if (selectedBuild) {
-      const validationErrors = validateBuildForPublish(selectedBuild);
-      if (validationErrors.length > 0) {
-        setErrorModal({
-          isOpen: true,
-          message: `Cannot publish build due to the following errors:\n\n${validationErrors.join(
-            "\n"
-          )}`,
-        });
-        return;
-      }
+    if (!selectedBuild) {
+      return;
     }
 
+    // Save first before validating and publishing
+    const saveSuccess = await saveBuild(selectedBuild);
+    if (!saveSuccess) {
+      // Error already shown by saveBuild
+      return;
+    }
+
+    // Get the updated build after save (it may have been normalized)
+    const buildToValidate = selectedBuild;
+
+    // Validate after saving
+    const validationErrors = validateBuildForPublish(buildToValidate);
+    if (validationErrors.length > 0) {
+      setErrorModal({
+        isOpen: true,
+        message: `Cannot publish build due to the following errors:\n\n${validationErrors.join(
+          "\n"
+        )}`,
+      });
+      return;
+    }
+
+    // Now publish
     try {
       await DatabaseService.publishBuildWithId(buildId);
       const updatedBuild = selectedBuild ? { ...selectedBuild, status: "published" } : null;
@@ -971,6 +1026,16 @@ export default function BuilderEditorPage() {
       setErrorModal({ isOpen: true, message: "Failed to unpublish build. Please try again." });
     }
   };
+
+  // Update validation errors when build changes
+  useEffect(() => {
+    if (selectedBuild) {
+      const errors = validateBuildForPublish(selectedBuild);
+      setValidationErrors(errors);
+    } else {
+      setValidationErrors([]);
+    }
+  }, [selectedBuild, validateBuildForPublish]);
 
   const handleDeleteBuild = (buildId: string) => {
     setBuildToDelete(buildId);
