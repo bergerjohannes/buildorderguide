@@ -1,4 +1,5 @@
 import { BuildOrderStep, Resources } from "@/types/buildFormat";
+import { getCollectGoldTaskMetadata } from "@/lib/collectGoldTasks";
 import { taskToResource, createEmptyResourceSnapshot } from "@/lib/taskUtils";
 
 export interface BuildValidationError {
@@ -223,36 +224,55 @@ export function validateBuildOrder(
   // Check for invalid villager movements
   for (let i = 0; i < steps.length; i++) {
     const step = steps[i];
+    let fromTask: string | undefined;
+    let toTask: string | undefined;
+    let moveCount = 0;
+
     if (step.type === "moveVillagers") {
-      // Check 1: Cannot move villagers from a task to the same task
-      if (step.from === step.to) {
-        addError({
-          message: `Step ${i + 1}: Cannot move villagers from ${step.from} to ${
-            step.to
-          }. The source and destination tasks are the same.`,
-          stepIndex: i,
-          severity: "error",
-        });
-        continue; // Skip the second check if this fails
+      fromTask = step.from;
+      toTask = step.to;
+      moveCount = Math.max(0, Number(step.count) || 0);
+    } else if (step.type === "collectGold") {
+      const metadata = getCollectGoldTaskMetadata(step.task);
+      if (metadata?.subType === "moveVillagers") {
+        fromTask = metadata.from;
+        toTask = metadata.to;
+        moveCount = Math.max(0, Number(metadata.count) || 0);
       }
+    }
 
-      // Check 2: Must have enough villagers on the source task
-      // Calculate villager distribution up to this step
-      const villagerDistribution = calculateResourceDistribution(steps, i - 1);
-      const fromResource = taskToResource(step.from);
-      const availableVillagers = villagerDistribution[fromResource] || 0;
+    if (!fromTask || !toTask || moveCount <= 0) {
+      continue;
+    }
 
-      if (availableVillagers < step.count) {
-        addError({
-          message: `Step ${i + 1}: Cannot move ${step.count} villager${
-            step.count > 1 ? "s" : ""
-          } from ${step.from}. Only ${availableVillagers} villager${
-            availableVillagers !== 1 ? "s" : ""
-          } available on this task.`,
-          stepIndex: i,
-          severity: "error",
-        });
-      }
+    // Check 1: Cannot move villagers from a task to the same task
+    if (fromTask === toTask) {
+      addError({
+        message: `Step ${i + 1}: Cannot move villagers from ${fromTask} to ${
+          toTask
+        }. The source and destination tasks are the same.`,
+        stepIndex: i,
+        severity: "error",
+      });
+      continue; // Skip the second check if this fails
+    }
+
+    // Check 2: Must have enough villagers on the source task
+    // Calculate villager distribution up to this step
+    const villagerDistribution = calculateResourceDistribution(steps, i - 1);
+    const fromResource = taskToResource(fromTask);
+    const availableVillagers = villagerDistribution[fromResource] || 0;
+
+    if (availableVillagers < moveCount) {
+      addError({
+        message: `Step ${i + 1}: Cannot move ${moveCount} villager${
+          moveCount > 1 ? "s" : ""
+        } from ${fromTask}. Only ${availableVillagers} villager${
+          availableVillagers !== 1 ? "s" : ""
+        } available on this task.`,
+        stepIndex: i,
+        severity: "error",
+      });
     }
   }
 
@@ -448,6 +468,20 @@ function calculateResourceDistribution(
 
       distribution[fromResource] = (distribution[fromResource] || 0) - count;
       distribution[toResource] = (distribution[toResource] || 0) + count;
+    } else if (step.type === "collectGold") {
+      const metadata = getCollectGoldTaskMetadata(step.task);
+      if (!metadata) {
+        continue;
+      }
+      const count = Math.max(0, Number(metadata.count) || 0);
+      if (metadata.subType === "newVillagers") {
+        distribution.gold = (distribution.gold || 0) + count;
+      } else if (metadata.subType === "moveVillagers") {
+        const fromResource = taskToResource(metadata.from);
+        const toResource = taskToResource(metadata.to);
+        distribution[fromResource] = (distribution[fromResource] || 0) - count;
+        distribution[toResource] = (distribution[toResource] || 0) + count;
+      }
     }
   }
 

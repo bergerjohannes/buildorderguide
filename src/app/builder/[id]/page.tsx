@@ -29,6 +29,12 @@ import {
   getTradeActionLabel,
 } from "@/lib/gameConstants";
 import { convertTaskToReadableText } from "@/lib/stepParser";
+import {
+  COLLECT_GOLD_TASK_METADATA,
+  COLLECT_GOLD_VARIANTS,
+  CollectGoldVariant,
+  getCollectGoldTaskMetadata,
+} from "@/lib/collectGoldTasks";
 import { taskToResource } from "@/lib/taskUtils";
 import { toTitleCaseLabel } from "@/lib/text";
 import { getBuildStatusLabel, normalizeBuildStatus } from "@/lib/buildStatus";
@@ -101,35 +107,10 @@ interface StepEditorProps {
 }
 
 
-const COLLECT_GOLD_VARIANTS = [
-  "collect10GoldWithNewVillager",
-  "collect40GoldWithTwoNewVillagers",
-  "collect30GoldWithNewVillager",
-  "collect10GoldAfterBarracksIsBuilt",
-] as const;
-
 const COLLECT_GOLD_VARIANT_OPTIONS = COLLECT_GOLD_VARIANTS.map((value) => ({
   value,
   label: convertTaskToReadableText(value),
 }));
-
-const COLLECT_GOLD_TASK_METADATA: Record<
-  (typeof COLLECT_GOLD_VARIANTS)[number],
-  |
-  { subType: "newVillagers"; count: number }
-  |
-  { subType: "moveVillagers"; count: number; from: string; to: string }
-> = {
-  collect10GoldWithNewVillager: { subType: "newVillagers", count: 1 },
-  collect40GoldWithTwoNewVillagers: { subType: "newVillagers", count: 2 },
-  collect30GoldWithNewVillager: { subType: "newVillagers", count: 1 },
-  collect10GoldAfterBarracksIsBuilt: {
-    subType: "moveVillagers",
-    count: 1,
-    from: "build",
-    to: "gold",
-  },
-};
 
 const NEW_VILLAGER_TASKS = [
   "boar",
@@ -478,9 +459,7 @@ function applyStepToResources(
       break;
     }
     case "collectGold": {
-      const metadata = COLLECT_GOLD_TASK_METADATA[
-        step.task as (typeof COLLECT_GOLD_VARIANTS)[number]
-      ];
+      const metadata = getCollectGoldTaskMetadata(step.task);
       if (metadata) {
         if (metadata.subType === "newVillagers") {
           const count = Math.max(0, metadata.count);
@@ -2973,9 +2952,7 @@ const StepEditor = React.memo(function StepEditor({
           <select
             value={typedStep.task || ""}
             onChange={(e) => {
-              const selectedTask = e.target.value as
-                | (typeof COLLECT_GOLD_VARIANTS)[number]
-                | "";
+              const selectedTask = e.target.value as CollectGoldVariant | "";
               const metadata = selectedTask
                 ? COLLECT_GOLD_TASK_METADATA[selectedTask]
                 : undefined;
