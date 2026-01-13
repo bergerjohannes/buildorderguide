@@ -135,6 +135,30 @@ const DEFAULT_NEW_VILLAGER_TASK = NEW_VILLAGER_TASKS.includes("sheep")
 const SORTED_NEW_VILLAGER_TASKS = [...NEW_VILLAGER_TASKS].sort((a, b) =>
   getTaskLabel(a).localeCompare(getTaskLabel(b))
 );
+const VILLAGER_TASK_ALIASES: Record<
+  string,
+  (typeof NEW_VILLAGER_TASKS)[number]
+> = {
+  farm: "farms",
+};
+
+function normalizeVillagerTaskValue(taskValue?: string): string {
+  const trimmed = (taskValue || "").trim();
+  if (!trimmed) {
+    return "";
+  }
+
+  const normalized = trimmed.toLowerCase();
+  const alias = VILLAGER_TASK_ALIASES[normalized];
+  if (alias) {
+    return alias;
+  }
+
+  const matched = NEW_VILLAGER_TASKS.find(
+    (value) => value.toLowerCase() === normalized
+  );
+  return matched ?? trimmed;
+}
 
 const EXCLUDED_UNIT_VALUES = new Set([
   "villager",
@@ -1607,13 +1631,21 @@ const StepEditor = React.memo(function StepEditor({
     }
 
     const typedStep = step as Extract<BuildOrderStep, { type: "newVillagers" }>;
-    const currentTask = typedStep.task || "";
+    const currentTask = normalizeVillagerTaskValue(typedStep.task);
     const isAllowedTask = NEW_VILLAGER_TASKS.includes(
       currentTask as (typeof NEW_VILLAGER_TASKS)[number]
     );
 
     let updatedStep = typedStep;
     let hasChanges = false;
+
+    if (currentTask && currentTask !== typedStep.task) {
+      updatedStep = {
+        ...updatedStep,
+        task: currentTask,
+      };
+      hasChanges = true;
+    }
 
     if (!isAllowedTask) {
       updatedStep = {
@@ -1761,6 +1793,10 @@ const StepEditor = React.memo(function StepEditor({
     }
 
     const typedStep = step as Extract<BuildOrderStep, { type: "moveVillagers" }>;
+    const normalizedFrom = normalizeVillagerTaskValue(typedStep.from);
+    const normalizedTo = normalizeVillagerTaskValue(typedStep.to);
+    const resolvedFrom = normalizedFrom || typedStep.from;
+    const resolvedTo = normalizedTo || typedStep.to;
     const currentBuildings = Array.isArray(typedStep.buildings)
       ? typedStep.buildings
       : [];
@@ -1777,6 +1813,8 @@ const StepEditor = React.memo(function StepEditor({
     });
 
     const needsUpdate =
+      resolvedFrom !== typedStep.from ||
+      resolvedTo !== typedStep.to ||
       normalizedBuildings.length !== currentBuildings.length ||
       normalizedBuildings.some((building, idx) => {
         const original = currentBuildings[idx];
@@ -1788,7 +1826,12 @@ const StepEditor = React.memo(function StepEditor({
       });
 
     if (needsUpdate) {
-      onUpdate(index, { ...typedStep, buildings: normalizedBuildings });
+      onUpdate(index, {
+        ...typedStep,
+        from: resolvedFrom,
+        to: resolvedTo,
+        buildings: normalizedBuildings,
+      });
     }
   }, [index, onUpdate, step]);
 
