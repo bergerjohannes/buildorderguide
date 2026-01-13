@@ -16,6 +16,7 @@ import { getAgeImagePath } from "@/lib/imageUtils";
 import { validateBuildOrder } from "@/lib/buildValidation";
 import ValidationWarnings from "@/components/ValidationWarnings";
 import { taskToResource } from "@/lib/taskUtils";
+import { getCollectGoldTaskMetadata } from "@/lib/collectGoldTasks";
 
 type ViewMode = "steps" | "checkpoints";
 
@@ -36,22 +37,6 @@ const resourceOrder = [
   "builders",
   "fishingShips",
 ] as const;
-
-const COLLECT_GOLD_TASK_METADATA: Record<
-  string,
-  | { subType: "newVillagers"; count: number }
-  | { subType: "moveVillagers"; count: number; from: string; to: string }
-> = {
-  collect10GoldWithNewVillager: { subType: "newVillagers", count: 1 },
-  collect40GoldWithTwoNewVillagers: { subType: "newVillagers", count: 2 },
-  collect30GoldWithNewVillager: { subType: "newVillagers", count: 1 },
-  collect10GoldAfterBarracksIsBuilt: {
-    subType: "moveVillagers",
-    count: 1,
-    from: "build",
-    to: "gold",
-  },
-};
 
 const createDefaultResources = (): Resources => ({
   food: 0,
@@ -86,7 +71,7 @@ function applyStepToResources(
       break;
     }
     case "collectGold": {
-      const metadata = COLLECT_GOLD_TASK_METADATA[step.task];
+      const metadata = getCollectGoldTaskMetadata(step.task);
       if (metadata) {
         if (metadata.subType === "newVillagers") {
           const count = Math.max(0, metadata.count);
