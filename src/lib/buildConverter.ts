@@ -458,6 +458,19 @@ function extractNotesFromStep(step: BuildOrderStep, stepIndex: number): Chronolo
     });
   }
 
+  // Process custom type steps
+  if (step.type === "custom") {
+    const text = typeof step.text === "string" ? step.text.trim() : "";
+    if (text) {
+      actions.push({
+        stepIndex,
+        type: 'note',
+        content: text,
+        optional: step.optional
+      });
+    }
+  }
+
   // Process trade type steps
   if (step.type === "trade") {
     const actionText = step.action === "sell" ? "Sell" : "Buy";
