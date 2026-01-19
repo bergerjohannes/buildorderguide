@@ -3096,6 +3096,9 @@ const StepEditor = React.memo(function StepEditor({
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
+      <span className="w-10 shrink-0 text-right text-xs font-semibold uppercase tracking-wide text-foreground/40">
+        #{index + 1}
+      </span>
       <div className="bg-muted rounded-default p-3 flex items-center gap-0 flex-1 min-h-16">
         {renderSentence()}
       </div>
