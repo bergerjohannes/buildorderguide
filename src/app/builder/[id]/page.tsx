@@ -100,8 +100,10 @@ interface StepEditorProps {
     options?: BuildUpdateOptions
   ) => void;
   onDelete: (index: number) => void;
-  onMoveUp: (index: number) => void;
-  onMoveDown: (index: number) => void;
+  onReorder: (fromIndex: number, toIndex: number) => void;
+  draggingIndex: number | null;
+  onDragStart: (index: number) => void;
+  onDragEnd: () => void;
   focusedDecisionIndex: number | null;
   onDecisionFocusChange: (index: number | null) => void;
 }
@@ -681,6 +683,7 @@ export default function BuilderEditorPage() {
   const [isChoosingStepType, setIsChoosingStepType] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [focusedDecisionIndex, setFocusedDecisionIndex] = useState<number | null>(null);
+  const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
   const [errorModal, setErrorModal] = useState<{ isOpen: boolean; message: string }>({
     isOpen: false,
     message: "",
@@ -689,10 +692,16 @@ export default function BuilderEditorPage() {
   const normalizedSelectedBuildStatus = selectedBuild
     ? normalizeBuildStatus(selectedBuild.status)
     : null;
+  const previousBuildIdRef = React.useRef<string | null>(null);
 
   useEffect(() => {
     setIsChoosingStepType(false);
     setFocusedDecisionIndex(null);
+    const nextBuildId = selectedBuild?.id ?? null;
+    if (previousBuildIdRef.current !== nextBuildId) {
+      setDraggingIndex(null);
+      previousBuildIdRef.current = nextBuildId;
+    }
   }, [selectedBuild]);
 
   const civilizations = civData.civilizations;
@@ -1134,57 +1143,59 @@ export default function BuilderEditorPage() {
     [applyBuildUpdate]
   );
 
-  const moveStepUp = useCallback(
-    (stepIndex: number) => {
-      if (!selectedBuild || !selectedBuild.build || stepIndex <= 0) return;
+  const moveStep = useCallback(
+    (fromIndex: number, toIndex: number): number | null => {
+      if (!selectedBuild || !selectedBuild.build) return null;
 
-      const steps = [...selectedBuild.build];
-      [steps[stepIndex - 1], steps[stepIndex]] = [
-        steps[stepIndex],
-        steps[stepIndex - 1],
-      ];
+      const steps = selectedBuild.build;
+      if (fromIndex < 0 || fromIndex >= steps.length) return null;
+
+      let targetIndex = Math.max(0, Math.min(toIndex, steps.length));
+      if (fromIndex < targetIndex) {
+        targetIndex -= 1;
+      }
+      if (targetIndex === fromIndex) return null;
+
+      const reorderedSteps = [...steps];
+      const [movedStep] = reorderedSteps.splice(fromIndex, 1);
+      reorderedSteps.splice(targetIndex, 0, movedStep);
 
       const updatedBuild = {
         ...selectedBuild,
-        build: steps,
+        build: reorderedSteps,
       };
 
       applyBuildUpdate(updatedBuild);
+      return targetIndex;
     },
     [selectedBuild, applyBuildUpdate]
   );
 
-  const moveStepDown = useCallback(
-    (stepIndex: number) => {
-      if (
-        !selectedBuild ||
-        !selectedBuild.build ||
-        stepIndex >= selectedBuild.build.length - 1
-      )
-        return;
+  const handleDragStart = useCallback((index: number) => {
+    setDraggingIndex(index);
+  }, []);
 
-      const steps = [...selectedBuild.build];
-      [steps[stepIndex], steps[stepIndex + 1]] = [
-        steps[stepIndex + 1],
-        steps[stepIndex],
-      ];
+  const handleDragEnd = useCallback(() => {
+    setDraggingIndex(null);
+  }, []);
 
-      const updatedBuild = {
-        ...selectedBuild,
-        build: steps,
-      };
-
-      applyBuildUpdate(updatedBuild);
+  const handleDragReorder = useCallback(
+    (fromIndex: number, toIndex: number) => {
+      const nextIndex = moveStep(fromIndex, toIndex);
+      if (nextIndex === null) return;
+      setDraggingIndex(nextIndex);
     },
-    [selectedBuild, applyBuildUpdate]
+    [moveStep]
   );
 
   const groupedStepElements = useGroupedStepElements(
     selectedBuild,
     updateStep,
     deleteStep,
-    moveStepUp,
-    moveStepDown,
+    handleDragReorder,
+    draggingIndex,
+    handleDragStart,
+    handleDragEnd,
     focusedDecisionIndex,
     handleDecisionFocusChange
   );
@@ -1570,8 +1581,10 @@ const StepEditor = React.memo(function StepEditor({
   civilization,
   onUpdate,
   onDelete,
-  onMoveUp,
-  onMoveDown,
+  onReorder,
+  draggingIndex,
+  onDragStart,
+  onDragEnd,
   focusedDecisionIndex,
   onDecisionFocusChange,
 }: StepEditorProps) {
@@ -3029,8 +3042,60 @@ const StepEditor = React.memo(function StepEditor({
     }
   };
 
+  const containerRef = React.useRef<HTMLDivElement | null>(null);
+  const isDragDisabled = totalSteps <= 1;
+  const isDragging = draggingIndex === index;
+
+  const handleDragStart = (event: React.DragEvent<HTMLButtonElement>) => {
+    if (isDragDisabled) return;
+    event.dataTransfer.effectAllowed = "move";
+    event.dataTransfer.setData("text/plain", "step");
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const offsetX = Math.min(
+        rect.width,
+        Math.max(0, event.clientX - rect.left)
+      );
+      const offsetY = Math.min(
+        rect.height,
+        Math.max(0, event.clientY - rect.top)
+      );
+      event.dataTransfer.setDragImage(containerRef.current, offsetX, offsetY);
+    }
+    onDragStart(index);
+  };
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "move";
+    if (draggingIndex === null || draggingIndex === index) return;
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    const isAfter = event.clientY > rect.top + rect.height / 2;
+    const targetIndex = isAfter ? index + 1 : index;
+    onReorder(draggingIndex, targetIndex);
+  };
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    if (draggingIndex === null) return;
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    const isAfter = event.clientY > rect.top + rect.height / 2;
+    const targetIndex = isAfter ? index + 1 : index;
+    onReorder(draggingIndex, targetIndex);
+    onDragEnd();
+  };
+
   return (
-    <div className="flex items-center gap-2">
+    <div
+      ref={containerRef}
+      className={`flex items-center gap-2 rounded-default transition-shadow ${
+        isDragging ? "opacity-60 shadow-hover" : ""
+      }`}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
+    >
       <div className="bg-muted rounded-default p-3 flex items-center gap-0 flex-1 min-h-16">
         {renderSentence()}
       </div>
@@ -3050,30 +3115,36 @@ const StepEditor = React.memo(function StepEditor({
       </label>
       <div className="flex flex-col gap-0">
         <button
-          onClick={() => onMoveUp(index)}
-          className="text-sm text-foreground hover:text-primary transition-colors cursor-pointer disabled:text-foreground/40 disabled:cursor-not-allowed"
+          className="inline-flex h-10 w-8 items-center justify-center rounded-default text-foreground/70 transition-colors hover:text-primary disabled:text-foreground/40 disabled:cursor-not-allowed cursor-grab active:cursor-grabbing"
           type="button"
-          aria-label="Move step up"
-          disabled={index === 0}
+          aria-label="Drag to reorder step"
+          title="Drag to reorder"
+          draggable={!isDragDisabled}
+          onDragStart={handleDragStart}
+          onDragEnd={onDragEnd}
+          disabled={isDragDisabled}
         >
-          ▲
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 20 20"
+            className="h-4 w-4 fill-current"
+          >
+            <circle cx="6" cy="4" r="1.5" />
+            <circle cx="14" cy="4" r="1.5" />
+            <circle cx="6" cy="10" r="1.5" />
+            <circle cx="14" cy="10" r="1.5" />
+            <circle cx="6" cy="16" r="1.5" />
+            <circle cx="14" cy="16" r="1.5" />
+          </svg>
         </button>
         <button
-          onClick={() => onDelete(index)}
+          type="button"
           className="text-sm text-cancel hover:text-cancel/80 transition-colors cursor-pointer"
+          onClick={() => onDelete(index)}
           type="button"
           aria-label="Delete step"
         >
           ✕
-        </button>
-        <button
-          onClick={() => onMoveDown(index)}
-          className="text-sm text-foreground hover:text-primary transition-colors cursor-pointer disabled:text-foreground/40 disabled:cursor-not-allowed"
-          type="button"
-          aria-label="Move step down"
-          disabled={index >= totalSteps - 1}
-        >
-          ▼
         </button>
       </div>
     </div>
@@ -3088,8 +3159,10 @@ const StepEditor = React.memo(function StepEditor({
     prevProps.focusedDecisionIndex === nextProps.focusedDecisionIndex &&
     prevProps.onUpdate === nextProps.onUpdate &&
     prevProps.onDelete === nextProps.onDelete &&
-    prevProps.onMoveUp === nextProps.onMoveUp &&
-    prevProps.onMoveDown === nextProps.onMoveDown &&
+    prevProps.onReorder === nextProps.onReorder &&
+    prevProps.draggingIndex === nextProps.draggingIndex &&
+    prevProps.onDragStart === nextProps.onDragStart &&
+    prevProps.onDragEnd === nextProps.onDragEnd &&
     prevProps.onDecisionFocusChange === nextProps.onDecisionFocusChange
   );
 });
@@ -3098,8 +3171,10 @@ function useGroupedStepElements(
   selectedBuild: Build | null,
   updateStep: (build: Build, stepIndex: number, step: BuildOrderStep, options?: BuildUpdateOptions) => void,
   deleteStep: (build: Build, stepIndex: number) => void,
-  moveStepUp: (stepIndex: number) => void,
-  moveStepDown: (stepIndex: number) => void,
+  moveStep: (fromIndex: number, toIndex: number) => void,
+  draggingIndex: number | null,
+  handleDragStart: (index: number) => void,
+  handleDragEnd: () => void,
   focusedDecisionIndex: number | null,
   handleDecisionFocusChange: (index: number | null) => void
 ) {
@@ -3150,8 +3225,10 @@ function useGroupedStepElements(
               civilization={selectedBuild.civilization}
               onUpdate={handleStepUpdate}
               onDelete={handleStepDelete}
-              onMoveUp={moveStepUp}
-              onMoveDown={moveStepDown}
+              onReorder={moveStep}
+              draggingIndex={draggingIndex}
+              onDragStart={handleDragStart}
+              onDragEnd={handleDragEnd}
               focusedDecisionIndex={focusedDecisionIndex}
               onDecisionFocusChange={handleDecisionFocusChange}
             />
@@ -3172,8 +3249,10 @@ function useGroupedStepElements(
                         civilization={selectedBuild.civilization}
                         onUpdate={handleStepUpdate}
                         onDelete={handleStepDelete}
-                        onMoveUp={moveStepUp}
-                        onMoveDown={moveStepDown}
+                        onReorder={moveStep}
+                        draggingIndex={draggingIndex}
+                        onDragStart={handleDragStart}
+                        onDragEnd={handleDragEnd}
                         focusedDecisionIndex={focusedDecisionIndex}
                         onDecisionFocusChange={handleDecisionFocusChange}
                       />
@@ -3196,8 +3275,10 @@ function useGroupedStepElements(
               civilization={selectedBuild.civilization}
               onUpdate={handleStepUpdate}
               onDelete={handleStepDelete}
-              onMoveUp={moveStepUp}
-              onMoveDown={moveStepDown}
+              onReorder={moveStep}
+              draggingIndex={draggingIndex}
+              onDragStart={handleDragStart}
+              onDragEnd={handleDragEnd}
               focusedDecisionIndex={focusedDecisionIndex}
               onDecisionFocusChange={handleDecisionFocusChange}
             />
@@ -3212,8 +3293,10 @@ function useGroupedStepElements(
     selectedBuild?.civilization,
     handleStepUpdate,
     handleStepDelete,
-    moveStepUp,
-    moveStepDown,
+    moveStep,
+    draggingIndex,
+    handleDragStart,
+    handleDragEnd,
     focusedDecisionIndex,
     handleDecisionFocusChange,
   ]);
