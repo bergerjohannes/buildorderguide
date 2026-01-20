@@ -291,6 +291,9 @@ const STEP_TYPE_OPTIONS: { value: StepType; label: string }[] = [
   { value: "decision", label: "Decision" },
 ];
 
+const AGE_ORDER = ["darkAge", "feudalAge", "castleAge", "imperialAge"] as const;
+const DEFAULT_AGE = AGE_ORDER[1] ?? "feudalAge";
+
 const MAX_NEW_VILLAGER_BUILDINGS = 2;
 
 const getDefaultBuildingType = () =>
@@ -374,6 +377,42 @@ const createDefaultResources = (): Resources => ({
   build: 0,
 });
 
+const withPreviousResources = (
+  step: BuildOrderStep,
+  previousResources?: Resources
+): BuildOrderStep =>
+  previousResources ? { ...step, resources: { ...previousResources } } : step;
+
+const getNextAgeForBuild = (steps: BuildOrderStep[] = []): string => {
+  let lastAge = AGE_ORDER[0];
+
+  for (let index = steps.length - 1; index >= 0; index -= 1) {
+    const step = steps[index];
+    if (step.type === "ageUp" || step.type === "newAge") {
+      lastAge = step.age || lastAge;
+      break;
+    }
+  }
+
+  const currentIndex = AGE_ORDER.findIndex((age) => age === lastAge);
+  if (currentIndex === -1) {
+    return DEFAULT_AGE;
+  }
+
+  return AGE_ORDER[Math.min(currentIndex + 1, AGE_ORDER.length - 1)];
+};
+
+const getLastResearchedAge = (steps: BuildOrderStep[] = []): string => {
+  for (let index = steps.length - 1; index >= 0; index -= 1) {
+    const step = steps[index];
+    if (step.type === "ageUp") {
+      return step.age || DEFAULT_AGE;
+    }
+  }
+
+  return DEFAULT_AGE;
+};
+
 const createDefaultStep = (type: StepType): BuildOrderStep => {
   const baseResources = createDefaultResources();
 
@@ -404,7 +443,7 @@ const createDefaultStep = (type: StepType): BuildOrderStep => {
     case "newAge":
       return {
         type,
-        age: "feudalAge",
+        age: DEFAULT_AGE,
         resources: baseResources,
       };
     case "build":
@@ -1103,12 +1142,58 @@ export default function BuilderEditorPage() {
     updateBuild(updatedBuild);
   };
 
+  const addAgeUpSteps = (build: Build) => {
+    const steps = build.build ? [...build.build] : [];
+    const previousResources = steps[steps.length - 1]?.resources;
+    const nextAge = getNextAgeForBuild(steps);
+
+    const ageUpStep = withPreviousResources(
+      { ...createDefaultStep("ageUp"), age: nextAge },
+      previousResources
+    );
+    const newAgeStep = withPreviousResources(
+      { ...createDefaultStep("newAge"), age: nextAge },
+      previousResources
+    );
+
+    const updatedBuild = {
+      ...build,
+      build: [...steps, ageUpStep, newAgeStep],
+    };
+
+    updateBuild(updatedBuild);
+  };
+
+  const addNewAgeStep = (build: Build) => {
+    const steps = build.build ? [...build.build] : [];
+    const previousResources = steps[steps.length - 1]?.resources;
+    const lastResearchedAge = getLastResearchedAge(steps);
+
+    const newAgeStep = withPreviousResources(
+      { ...createDefaultStep("newAge"), age: lastResearchedAge },
+      previousResources
+    );
+
+    const updatedBuild = {
+      ...build,
+      build: [...steps, newAgeStep],
+    };
+
+    updateBuild(updatedBuild);
+  };
+
   const handleStepTypeSelection = (type: StepType) => {
     if (!selectedBuild) {
       return;
     }
 
-    addStep(selectedBuild, type);
+    if (type === "ageUp") {
+      addAgeUpSteps(selectedBuild);
+    } else if (type === "newAge") {
+      addNewAgeStep(selectedBuild);
+    } else {
+      addStep(selectedBuild, type);
+    }
     setIsChoosingStepType(false);
   };
 
