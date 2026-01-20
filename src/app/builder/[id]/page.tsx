@@ -272,6 +272,9 @@ const COUNT_OPTIONS = Array.from({ length: 10 }, (_, index) =>
   String(index + 1)
 );
 const COUNT_OPTIONS_WITH_INFINITY = [...COUNT_OPTIONS, "∞"];
+const TRADE_COUNT_OPTIONS = Array.from({ length: 10 }, (_, index) =>
+  String((index + 1) * 100)
+);
 
 const STEP_TYPE_OPTIONS: { value: StepType; label: string }[] = [
   { value: "newVillagers", label: "New Villagers" },
@@ -2821,20 +2824,20 @@ const StepEditor = React.memo(function StepEditor({
             <StepToken>
               <select
                 value={
-                  COUNT_OPTIONS.includes(String(typedStep.count || 1))
-                    ? String(typedStep.count || 1)
-                    : "1"
+                  TRADE_COUNT_OPTIONS.includes(String(typedStep.count || 100))
+                    ? String(typedStep.count || 100)
+                    : "100"
                 }
                 onChange={(e) => {
                   const updatedStep: BuildOrderStep = {
                     ...typedStep,
-                    count: parseInt(e.target.value, 10) || 1,
+                    count: parseInt(e.target.value, 10) || 100,
                   };
                   onUpdate(index, updatedStep);
                 }}
-                className={`${sentenceInputClass} w-10`}
+                className={`${sentenceInputClass} w-16`}
               >
-                {COUNT_OPTIONS.map((option) => (
+                {TRADE_COUNT_OPTIONS.map((option) => (
                   <option key={option} value={option}>
                     {option}
                   </option>
