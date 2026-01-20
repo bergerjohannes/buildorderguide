@@ -1,5 +1,6 @@
 import { BuildOrderStep, Resources } from "@/types/buildFormat";
 import { getCollectGoldTaskMetadata } from "@/lib/collectGoldTasks";
+import { getTechnologyLabel } from "@/lib/gameConstants";
 import { taskToResource, createEmptyResourceSnapshot } from "@/lib/taskUtils";
 
 export interface BuildValidationError {
@@ -91,8 +92,9 @@ export function validateBuildOrder(
         for (const tech of step.tech) {
           if (researchedTechs.has(tech)) {
             const firstIndex = researchedTechs.get(tech)!;
+            const techName = getTechnologyLabel(tech);
             addError({
-              message: `Technology "${tech}" is researched multiple times in the same path (steps ${
+              message: `Technology "${techName}" is researched multiple times in the same path (steps ${
                 firstIndex + 1
               } and ${index + 1}). Each technology can only be researched once per path.`,
               stepIndex: index,
