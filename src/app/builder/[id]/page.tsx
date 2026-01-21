@@ -384,7 +384,7 @@ const withPreviousResources = (
   previousResources ? { ...step, resources: { ...previousResources } } : step;
 
 const getNextAgeForBuild = (steps: BuildOrderStep[] = []): string => {
-  let lastAge = AGE_ORDER[0];
+  let lastAge: string = AGE_ORDER[0];
 
   for (let index = steps.length - 1; index >= 0; index -= 1) {
     const step = steps[index];
