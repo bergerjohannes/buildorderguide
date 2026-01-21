@@ -163,7 +163,7 @@ export function validateBuildOrder(
         addError({
           message: `${ageName} reached (step ${
             newAgeIndex + 1
-          }) before or at the same time as researching it (step ${
+          }) before researching it (step ${
             ageUpIndex + 1
           }). The age must be researched before it can be reached.`,
           stepIndex: newAgeIndex,
@@ -188,7 +188,7 @@ export function validateBuildOrder(
         addError({
           message: `Castle Age is researched (step ${
             castleUpIndex + 1
-          }) before or at the same time as reaching Feudal Age (step ${
+          }) before reaching Feudal Age (step ${
             feudalReachedIndex + 1
           }). You must reach Feudal Age before researching Castle Age.`,
           stepIndex: castleUpIndex,
@@ -213,7 +213,7 @@ export function validateBuildOrder(
         addError({
           message: `Imperial Age is researched (step ${
             imperialUpIndex + 1
-          }) before or at the same time as reaching Castle Age (step ${
+          }) before reaching Castle Age (step ${
             castleReachedIndex + 1
           }). You must reach Castle Age before researching Imperial Age.`,
           stepIndex: imperialUpIndex,
