@@ -6,6 +6,7 @@ const FOOD_TASKS = new Set([
   "deer",
   "chicken",
   "berries",
+  "farm",
   "farms",
   "shorefish",
   "foodundertc",
