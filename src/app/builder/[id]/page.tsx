@@ -383,6 +383,20 @@ const withPreviousResources = (
 ): BuildOrderStep =>
   previousResources ? { ...step, resources: { ...previousResources } } : step;
 
+const createAgeStep = (
+  type: "ageUp" | "newAge",
+  age: string,
+  previousResources?: Resources
+): BuildOrderStep =>
+  withPreviousResources(
+    {
+      type,
+      age,
+      resources: createDefaultResources(),
+    },
+    previousResources
+  );
+
 const getNextAgeForBuild = (steps: BuildOrderStep[] = []): string => {
   let lastAge: string = AGE_ORDER[0];
 
@@ -1147,14 +1161,8 @@ export default function BuilderEditorPage() {
     const previousResources = steps[steps.length - 1]?.resources;
     const nextAge = getNextAgeForBuild(steps);
 
-    const ageUpStep = withPreviousResources(
-      { ...createDefaultStep("ageUp"), age: nextAge },
-      previousResources
-    );
-    const newAgeStep = withPreviousResources(
-      { ...createDefaultStep("newAge"), age: nextAge },
-      previousResources
-    );
+    const ageUpStep = createAgeStep("ageUp", nextAge, previousResources);
+    const newAgeStep = createAgeStep("newAge", nextAge, previousResources);
 
     const updatedBuild = {
       ...build,
@@ -1169,8 +1177,9 @@ export default function BuilderEditorPage() {
     const previousResources = steps[steps.length - 1]?.resources;
     const lastResearchedAge = getLastResearchedAge(steps);
 
-    const newAgeStep = withPreviousResources(
-      { ...createDefaultStep("newAge"), age: lastResearchedAge },
+    const newAgeStep = createAgeStep(
+      "newAge",
+      lastResearchedAge,
       previousResources
     );
 
@@ -3232,7 +3241,6 @@ const StepEditor = React.memo(function StepEditor({
           type="button"
           className="text-sm text-cancel hover:text-cancel/80 transition-colors cursor-pointer"
           onClick={() => onDelete(index)}
-          type="button"
           aria-label="Delete step"
         >
           ✕
