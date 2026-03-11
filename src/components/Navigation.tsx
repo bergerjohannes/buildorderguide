@@ -37,7 +37,7 @@ function MenuItem({
   const combinedClassName = `${getVariantClasses()} ${className}`.trim();
 
   return (
-    <Link href={href} className={combinedClassName} onClick={onClick}>
+    <Link href={href} className={combinedClassName} onClick={onClick} prefetch={false}>
       {children}
     </Link>
   );
@@ -64,7 +64,7 @@ function MobileAuthMenuItem({
   const combinedClassName = `${getVariantClasses()} ${className}`.trim();
 
   return (
-    <Link href={href} className={combinedClassName} onClick={onClick}>
+    <Link href={href} className={combinedClassName} onClick={onClick} prefetch={false}>
       {children}
     </Link>
   );
@@ -92,6 +92,7 @@ export default function Navigation() {
               <Link
                 href="/"
                 className="flex items-center space-x-2 text-xl font-bold text-foreground"
+                prefetch={false}
               >
                 <Image
                   src="/images/Other/Logo.png"
@@ -106,26 +107,26 @@ export default function Navigation() {
 
             {/* Desktop Menu - Right side */}
             <div className="hidden md:flex items-center space-x-3">
-              <Link href="/">
+              <Link href="/" prefetch={false}>
                 <Button>Builds</Button>
               </Link>
-              <Link href="/uptime">
+              <Link href="/uptime" prefetch={false}>
                 <Button>Uptime</Button>
               </Link>
-              <Link href="/builder">
+              <Link href="/builder" prefetch={false}>
                 <Button>Builder</Button>
               </Link>
-              <Link href="/about">
+              <Link href="/about" prefetch={false}>
                 <Button>About</Button>
               </Link>
 
               {/* Auth section */}
               {currentUser ? (
-                <Link href="/profile">
+                <Link href="/profile" prefetch={false}>
                   <Button>Profile</Button>
                 </Link>
               ) : (
-                <Link href="/login">
+                <Link href="/login" prefetch={false}>
                   <Button>Login</Button>
                 </Link>
               )}
@@ -176,26 +177,26 @@ export default function Navigation() {
         <div className="md:hidden fixed top-16 left-0 right-0 bottom-0 z-50 bg-background">
           {/* Mobile menu items */}
           <div className="flex flex-col items-center space-y-4 p-6">
-            <Link href="/" onClick={closeMobileMenu}>
+            <Link href="/" onClick={closeMobileMenu} prefetch={false}>
               <Button>Builds</Button>
             </Link>
-            <Link href="/builder" onClick={closeMobileMenu}>
+            <Link href="/builder" onClick={closeMobileMenu} prefetch={false}>
               <Button>Builder</Button>
             </Link>
-            <Link href="/uptime" onClick={closeMobileMenu}>
+            <Link href="/uptime" onClick={closeMobileMenu} prefetch={false}>
               <Button>Uptime</Button>
             </Link>
-            <Link href="/about" onClick={closeMobileMenu}>
+            <Link href="/about" onClick={closeMobileMenu} prefetch={false}>
               <Button>About</Button>
             </Link>
 
             {/* Auth section */}
             {currentUser ? (
-              <Link href="/profile" onClick={closeMobileMenu}>
+              <Link href="/profile" onClick={closeMobileMenu} prefetch={false}>
                 <Button>Profile</Button>
               </Link>
             ) : (
-              <Link href="/login" onClick={closeMobileMenu}>
+              <Link href="/login" onClick={closeMobileMenu} prefetch={false}>
                 <Button>Login</Button>
               </Link>
             )}

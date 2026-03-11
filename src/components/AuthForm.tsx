@@ -294,6 +294,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
           <Link
             href={switchLink}
             className="font-medium text-foreground hover:text-foreground"
+            prefetch={false}
           >
             {switchText}
           </Link>
