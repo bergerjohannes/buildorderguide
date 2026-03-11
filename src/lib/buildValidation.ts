@@ -278,8 +278,11 @@ export function validateBuildOrder(
     }
   }
 
-  // Check for civilization-specific building restrictions
-  if (civilization && civilization !== "Generic") {
+  // Check for civilization-specific building restrictions (skip for generic/meta civs)
+  const isGenericOrMetaCiv = ["Generic", "Meso", "South American"].includes(
+    civilization ?? ""
+  );
+  if (civilization && !isGenericOrMetaCiv) {
     for (let i = 0; i < steps.length; i++) {
       const step = steps[i];
       const buildings =

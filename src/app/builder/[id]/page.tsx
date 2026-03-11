@@ -763,6 +763,8 @@ export default function BuilderEditorPage() {
   const civilizations = civData.civilizations;
   const civOptions = [
     { value: "Generic", icon: "/images/Civs/generic.png" },
+    { value: "Meso", icon: "/images/Civs/meso.png" },
+    { value: "South American", icon: "/images/Civs/south american.png" },
     ...civilizations.map((civ: { name: string }) => ({
       value: civ.name,
       icon: `/images/Civs/${civ.name.toLowerCase()}.png`,

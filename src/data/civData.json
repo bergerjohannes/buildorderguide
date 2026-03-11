@@ -106,7 +106,7 @@
       "uniqueTechs": ["Marauders", "Atheism"]
     },
     {
-      "name": "Incas",
+      "name": "Inca",
       "uniqueUnits": ["Kamayuk", "Slinger"],
       "uniqueTechs": ["AndeanSling", "FabricShields"]
     },
@@ -156,12 +156,22 @@
       "uniqueTechs": ["Thalassocracy", "ForcedLevy"]
     },
     {
+      "name": "Mapuche",
+      "uniqueUnits": ["Kona", "BolasRider"],
+      "uniqueTechs": ["Malon", "Butalmapu"]
+    },
+    {
+      "name": "Muisca",
+      "uniqueUnits": ["GuechaWarrior", "TempleGuard"],
+      "uniqueTechs": ["Herbalism", "Huaracas"]
+    },
+    {
       "name": "Malians",
       "uniqueUnits": ["Gbeto"],
       "uniqueTechs": ["Tigui", "Farimba"]
     },
     {
-      "name": "Mayans",
+      "name": "Maya",
       "uniqueUnits": ["PlumedArcher"],
       "uniqueTechs": ["HulcheJavelineers", "ElDorado"]
     },
@@ -225,6 +235,11 @@
       "name": "Teutons",
       "uniqueUnits": ["TeutonicKnight"],
       "uniqueTechs": ["Ironclad", "Crenellations"]
+    },
+    {
+      "name": "Tupi",
+      "uniqueUnits": ["BlackwoodArcher", "IbirapemaWarrior"],
+      "uniqueTechs": ["Caciques", "Curare"]
     },
     {
       "name": "Turks",

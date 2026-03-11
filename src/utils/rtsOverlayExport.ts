@@ -650,7 +650,10 @@ export const exportForRTSOverlay = async (build: Build): Promise<void> => {
         jsonObj['civilization'] = 'Any';
     }
     else if (jsonObj['civilization'] === 'Meso') {
-        jsonObj['civilization'] = ['Aztecs', 'Incas', 'Mayans'];
+        jsonObj['civilization'] = ['Aztecs', 'Maya'];
+    }
+    else if (jsonObj['civilization'] === 'South American') {
+        jsonObj['civilization'] = ['Mapuche', 'Muisca', 'Tupi', 'Inca'];
     }
 
     // obtain the BO steps

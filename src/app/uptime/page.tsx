@@ -46,7 +46,7 @@ export default function UptimePage() {
       // Calculate villager creation time
       let effectivePop = popNumber - 4; // 3 starting villagers + scout
 
-      if (selectedCiv === "Mayans") effectivePop -= 1; // 1 additional starting villager
+      if (selectedCiv === "Maya") effectivePop -= 1; // 1 additional starting villager
       if (selectedCiv === "Chinese") effectivePop -= 2; // Chinese start with more villagers
 
       let totalFeudal = feudalTime + effectivePop * 25;
@@ -60,8 +60,8 @@ export default function UptimePage() {
         } else {
           totalFeudal += 25; // Normal Loom time
         }
-      } else if (selectedCiv === "Mayans") {
-        totalFeudal += 12.5; // Mayans housing penalty without Loom
+      } else if (selectedCiv === "Maya") {
+        totalFeudal += 12.5; // Maya housing penalty without Loom
       }
 
       // Castle Age calculation
@@ -92,6 +92,8 @@ export default function UptimePage() {
   // Create options for dropdowns
   const civOptions = [
     { value: "Generic", icon: "/images/Civs/generic.png" },
+    { value: "Meso", icon: "/images/Civs/meso.png" },
+    { value: "South American", icon: "/images/Civs/south american.png" },
     ...civilizations.map((civ) => ({
       value: civ.name,
       icon: `/images/Civs/${civ.name.toLowerCase()}.png`
