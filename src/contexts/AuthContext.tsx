@@ -5,6 +5,7 @@ import {
   User,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
@@ -14,6 +15,7 @@ interface AuthContextType {
   currentUser: User | null;
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string) => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
   logout: () => Promise<void>;
   loading: boolean;
   isLoggingOut: boolean;
@@ -82,6 +84,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  async function resetPassword(email: string) {
+    console.log('Attempting to send password reset email...');
+    setError(null);
+    try {
+      await sendPasswordResetEmail(auth, email);
+      console.log('Password reset email sent successfully');
+    } catch (error: unknown) {
+      console.error('Password reset failed:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Password reset failed';
+      setError(errorMessage);
+      throw error;
+    }
+  }
+
   useEffect(() => {
     console.log('Setting up auth state listener...');
     const timeoutId: NodeJS.Timeout = setTimeout(() => {
@@ -122,6 +138,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     currentUser,
     login,
     register,
+    resetPassword,
     logout,
     loading,
     isLoggingOut,

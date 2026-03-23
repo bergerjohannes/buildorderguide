@@ -35,13 +35,15 @@ function getAuthErrorMessage(errorCode: string): string {
       return 'This domain is not authorized for authentication.';
     case 'auth/invalid-api-key':
       return 'Authentication service configuration error.';
+    case 'auth/missing-email':
+      return 'Please enter your email address.';
     default:
       return 'An unexpected error occurred. Please try again.';
   }
 }
 
 interface AuthFormProps {
-  mode: "login" | "register";
+  mode: "login" | "register" | "reset";
 }
 
 type AuthState =
@@ -79,10 +81,12 @@ export default function AuthForm({ mode }: AuthFormProps) {
     password: "",
     confirmPassword: "",
   });
-  const { login, register, currentUser } = useAuth();
+  const { login, register, resetPassword, currentUser } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get('redirect') || '/profile';
+  const isLogin = mode === "login";
+  const isReset = mode === "reset";
 
   // Run diagnostics on component mount
   useEffect(() => {
@@ -98,7 +102,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
 
   // Handle automatic redirect after successful authentication
   useEffect(() => {
-    if (currentUser && (state.type === "success" || state.type === "loading")) {
+    if (!isReset && currentUser && (state.type === "success" || state.type === "loading")) {
       console.log('Authentication successful, redirecting to:', redirectUrl);
       // Small delay to show success message
       const redirectTimeout = setTimeout(() => {
@@ -107,21 +111,30 @@ export default function AuthForm({ mode }: AuthFormProps) {
 
       return () => clearTimeout(redirectTimeout);
     }
-  }, [currentUser, state.type, redirectUrl, router]);
+  }, [currentUser, state.type, isReset, redirectUrl, router]);
 
-  const isLogin = mode === "login";
-  const title = isLogin ? "Sign in to your account" : "Create your account";
-  const buttonText = isLogin ? "Sign in" : "Sign up";
-  const loadingText = isLogin ? "Signing in..." : "Creating account...";
-  const switchText = isLogin
-    ? "Don't have an account? Sign up"
-    : "Already have an account? Sign in";
-  const switchLink = isLogin ? "/register" : "/login";
+  const title = isReset
+    ? "Reset your password"
+    : isLogin
+      ? "Sign in to your account"
+      : "Create your account";
+  const buttonText = isReset ? "Send reset link" : isLogin ? "Sign in" : "Sign up";
+  const loadingText = isReset
+    ? "Sending reset link..."
+    : isLogin
+      ? "Signing in..."
+      : "Creating account...";
+  const switchText = isReset
+    ? "Back to sign in"
+    : isLogin
+      ? "Don't have an account? Sign up"
+      : "Already have an account? Sign in";
+  const switchLink = isReset ? "/login" : isLogin ? "/register" : "/login";
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    if (!isLogin) {
+    if (!isLogin && !isReset) {
       if (state.password !== state.confirmPassword) {
         setState((prevState) => ({
           ...prevState,
@@ -146,20 +159,25 @@ export default function AuthForm({ mode }: AuthFormProps) {
         type: "loading",
       }));
 
-      console.log(`Attempting ${isLogin ? 'login' : 'registration'} for email: ${state.email}`);
+      const action = isLogin ? 'login' : isReset ? 'password reset' : 'registration';
+      console.log(`Attempting ${action} for email: ${state.email}`);
 
       if (isLogin) {
         await login(state.email, state.password);
+      } else if (isReset) {
+        await resetPassword(state.email);
       } else {
         await register(state.email, state.password);
       }
 
-      console.log(`${isLogin ? 'Login' : 'Registration'} successful`);
+      console.log(`${action} successful`);
       
       // Set success state with message
-      const successMessage = isLogin 
-        ? "Login successful! Redirecting..." 
-        : "Account created successfully! Redirecting...";
+      const successMessage = isLogin
+        ? "Login successful! Redirecting..."
+        : isReset
+          ? "Password reset email sent. Please check your inbox."
+          : "Account created successfully! Redirecting...";
       
       setState((prevState) => ({
         ...prevState,
@@ -167,7 +185,8 @@ export default function AuthForm({ mode }: AuthFormProps) {
         message: successMessage,
       }));
     } catch (error: unknown) {
-      console.error(`${isLogin ? 'Login' : 'Registration'} error:`, error);
+      const action = isLogin ? 'Login' : isReset ? 'Password reset' : 'Registration';
+      console.error(`${action} error:`, error);
       
       let errorMessage = 'An unexpected error occurred. Please try again.';
       
@@ -205,8 +224,8 @@ export default function AuthForm({ mode }: AuthFormProps) {
               type="email"
               autoComplete="email"
               required
-              className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-foreground placeholder-foreground text-foreground focus:outline-none focus:ring-2 focus:ring-foreground ${
-                isLogin ? "rounded-t-default" : "rounded-t-default"
+              className={`appearance-none relative block w-full px-3 py-2 border border-foreground placeholder-foreground text-foreground focus:outline-none focus:ring-2 focus:ring-foreground ${
+                isReset ? "rounded-default" : "rounded-t-default"
               }`}
               placeholder="Email address"
               value={state.email}
@@ -218,30 +237,32 @@ export default function AuthForm({ mode }: AuthFormProps) {
               }
             />
           </div>
-          <div>
-            <label htmlFor="password" className="sr-only">
-              Password
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete={isLogin ? "current-password" : "new-password"}
-              required
-              className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-foreground placeholder-foreground text-foreground focus:outline-none focus:ring-2 focus:ring-foreground ${
-                isLogin ? "rounded-b-default" : ""
-              }`}
-              placeholder="Password"
-              value={state.password}
-              onChange={(e) =>
-                setState((prevState) => ({
-                  ...prevState,
-                  password: e.target.value,
-                }))
-              }
-            />
-          </div>
-          {!isLogin && (
+          {!isReset && (
+            <div>
+              <label htmlFor="password" className="sr-only">
+                Password
+              </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete={isLogin ? "current-password" : "new-password"}
+                required
+                className={`appearance-none relative block w-full px-3 py-2 border border-foreground placeholder-foreground text-foreground focus:outline-none focus:ring-2 focus:ring-foreground ${
+                  isLogin ? "rounded-b-default" : "rounded-none"
+                }`}
+                placeholder="Password"
+                value={state.password}
+                onChange={(e) =>
+                  setState((prevState) => ({
+                    ...prevState,
+                    password: e.target.value,
+                  }))
+                }
+              />
+            </div>
+          )}
+          {!isLogin && !isReset && (
             <div>
               <label htmlFor="confirm-password" className="sr-only">
                 Confirm Password
@@ -252,7 +273,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
                 type="password"
                 autoComplete="new-password"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-foreground placeholder-foreground text-foreground rounded-b-default focus:outline-none focus:ring-2 focus:ring-foreground"
+                className="appearance-none relative block w-full px-3 py-2 border border-foreground placeholder-foreground text-foreground rounded-b-default focus:outline-none focus:ring-2 focus:ring-foreground"
                 placeholder="Confirm password"
                 value={state.confirmPassword}
                 onChange={(e) =>
@@ -268,13 +289,13 @@ export default function AuthForm({ mode }: AuthFormProps) {
 
         {state.type === "error" && (
           <div className="rounded-default bg-cancel p-4">
-            <div className="text-sm text-cancel">{state.error}</div>
+            <div className="text-sm text-cancel text-pretty">{state.error}</div>
           </div>
         )}
 
         {state.type === "success" && (
           <div className="rounded-default bg-primary/10 border border-primary p-4">
-            <div className="text-sm text-primary flex items-center">
+            <div className="text-sm text-primary flex items-center text-pretty">
               <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>
@@ -283,22 +304,35 @@ export default function AuthForm({ mode }: AuthFormProps) {
           </div>
         )}
 
-        <div>
-          <Button type="submit" disabled={state.type === "loading" || state.type === "success"}>
-            {state.type === "loading" ? loadingText : 
-             state.type === "success" ? "Redirecting..." : buttonText}
-          </Button>
-        </div>
+        {!(isReset && state.type === "success") && (
+          <div>
+            <Button type="submit" disabled={state.type === "loading" || state.type === "success"}>
+              {state.type === "loading" ? loadingText : 
+               state.type === "success" ? "Redirecting..." : buttonText}
+            </Button>
+          </div>
+        )}
 
         <div className="text-center">
           <Link
             href={switchLink}
-            className="font-medium text-foreground hover:text-foreground"
+            className="font-medium text-foreground hover:text-foreground text-pretty"
             prefetch={false}
           >
             {switchText}
           </Link>
         </div>
+        {isLogin && (
+          <div className="text-center">
+            <Link
+              href="/forgot-password"
+              className="font-medium text-foreground hover:text-foreground text-pretty"
+              prefetch={false}
+            >
+              Forgot your password?
+            </Link>
+          </div>
+        )}
       </form>
     </div>
   );

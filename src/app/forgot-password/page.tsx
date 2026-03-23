@@ -1,0 +1,16 @@
+import { Suspense } from "react";
+import AuthForm from "@/components/AuthForm";
+import Navigation from "@/components/Navigation";
+
+export default function ForgotPasswordPage() {
+  return (
+    <div className="min-h-screen bg-background flex flex-col">
+      <Navigation />
+      <main className="flex flex-1 items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+        <Suspense fallback={<div>Loading...</div>}>
+          <AuthForm mode="reset" />
+        </Suspense>
+      </main>
+    </div>
+  );
+}
