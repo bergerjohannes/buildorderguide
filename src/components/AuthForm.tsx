@@ -301,6 +301,20 @@ export default function AuthForm({ mode }: AuthFormProps) {
               </svg>
               {state.message}
             </div>
+            {isReset && (
+              <p className="mt-3 text-sm text-primary text-pretty">
+                Didn&apos;t get it? Check your spam folder. Need additional support? Open our{" "}
+                <a
+                  href="https://discord.gg/JmfGYQcM3Z"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-medium underline"
+                >
+                  Discord server
+                </a>
+                .
+              </p>
+            )}
           </div>
         )}
 
