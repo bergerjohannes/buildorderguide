@@ -367,7 +367,9 @@ function getImagesDictionary(): Record<string, string> {
         'berserk': 'unique_unit/BerserkIcon-DE.png',
         'berserks': 'unique_unit/BerserkIcon-DE.png',
         'longboat': 'unique_unit/LongboatIcon-DE.png',
-        'longboats': 'unique_unit/LongboatIcon-DE.png'
+        'longboats': 'unique_unit/LongboatIcon-DE.png',
+        'longship': 'unique_unit/LongboatIcon-DE.png',
+        'longships': 'unique_unit/LongboatIcon-DE.png'
     };
 }
 

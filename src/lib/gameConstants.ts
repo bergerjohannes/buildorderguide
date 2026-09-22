@@ -42,6 +42,7 @@ export const GAME_CONSTANTS: GameConstants = {
 
 // Utility functions to get labels by value
 export function getTechnologyLabel(value: string): string {
+  if (value === "beardedAxe") return "Bearded Axe (retired)";
   const tech = GAME_CONSTANTS.technologies.find(t => t.value === value);
   return tech ? tech.label : value.charAt(0).toUpperCase() + value.slice(1);
 }

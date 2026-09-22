@@ -441,8 +441,8 @@
       "label": "Sappers"
     },
     {
-      "value": "beardedAxe",
-      "label": "Bearded Axe"
+      "value": "ordonnanceCompanies",
+      "label": "Ordonnance Companies"
     },
     {
       "value": "supremacy",
@@ -674,7 +674,7 @@
     },
     {
       "value": "mingGuangArmor",
-      "label": "Ming Guang Armor"
+      "label": "Ming-Kuang Armor"
     },
     {
       "value": "boltMagazine",
@@ -686,7 +686,7 @@
     },
     {
       "value": "redCliffsTactics",
-      "label": "Red Cliffs Tactics"
+      "label": "Red Cliff Tactics"
     },
     {
       "value": "sittingTiger",
@@ -962,7 +962,7 @@
     },
     {
       "value": "eliteLongboat",
-      "label": "Elite Longboat"
+      "label": "Elite Longship"
     },
     {
       "value": "eliteMangudai",
@@ -1111,6 +1111,122 @@
     {
       "value": "eliteRatha",
       "label": "Elite Ratha"
+    },
+    {
+      "value": "cranequins",
+      "label": "Cranequins"
+    },
+    {
+      "value": "hamask",
+      "label": "Hamask"
+    },
+    {
+      "value": "northmensFury",
+      "label": "Northmen's Fury"
+    },
+    {
+      "value": "clericalRecruitment",
+      "label": "Clerical Recruitment"
+    },
+    {
+      "value": "shieldWall",
+      "label": "Shield Wall"
+    },
+    {
+      "value": "vendelLegacy",
+      "label": "Vendel Legacy"
+    },
+    {
+      "value": "gothikon",
+      "label": "Gothikon"
+    },
+    {
+      "value": "heavyMountedCrossbowman",
+      "label": "Heavy Mounted Crossbowman"
+    },
+    {
+      "value": "eliteVarangianGuard",
+      "label": "Elite Varangian Guard"
+    },
+    {
+      "value": "eliteJomsviking",
+      "label": "Elite Jomsviking"
+    },
+    {
+      "value": "eliteHearthTroop",
+      "label": "Elite Hearth Troop"
+    },
+    {
+      "value": "eliteJarl",
+      "label": "Elite Jarl"
+    },
+    {
+      "value": "fishingLines",
+      "label": "Fishing Lines"
+    },
+    {
+      "value": "warships",
+      "label": "Warships"
+    },
+    {
+      "value": "heavyWarships",
+      "label": "Heavy Warships"
+    },
+    {
+      "value": "clinkerConstruction",
+      "label": "Clinker Construction"
+    },
+    {
+      "value": "siphons",
+      "label": "Siphons"
+    },
+    {
+      "value": "carvelHull",
+      "label": "Carvel Hull"
+    },
+    {
+      "value": "incendiaries",
+      "label": "Incendiaries"
+    },
+    {
+      "value": "circumnavigation",
+      "label": "Circumnavigation"
+    },
+    {
+      "value": "holcans",
+      "label": "Holcans"
+    },
+    {
+      "value": "caciques",
+      "label": "Caciques"
+    },
+    {
+      "value": "curare",
+      "label": "Curare"
+    },
+    {
+      "value": "malon",
+      "label": "Malon"
+    },
+    {
+      "value": "butalmapu",
+      "label": "Butalmapu"
+    },
+    {
+      "value": "herbalism",
+      "label": "Herbalism"
+    },
+    {
+      "value": "huaracas",
+      "label": "Huaracas"
+    },
+    {
+      "value": "techWarHulk",
+      "label": "War Hulk"
+    },
+    {
+      "value": "techDemolitionShip",
+      "label": "Demolition Ship"
     }
   ],
   "buildings": [
@@ -1682,7 +1798,7 @@
     },
     {
       "value": "longboat",
-      "label": "Longboat"
+      "label": "Longship"
     },
     {
       "value": "longbowman",
@@ -1966,7 +2082,7 @@
     },
     {
       "value": "eliteLongboat",
-      "label": "Elite Longboat"
+      "label": "Elite Longship"
     },
     {
       "value": "eliteMangudai",
@@ -2099,6 +2215,122 @@
     {
       "value": "eliteRatha",
       "label": "Elite Ratha"
+    },
+    {
+      "value": "mountedCrossbowman",
+      "label": "Mounted Crossbowman"
+    },
+    {
+      "value": "heavyMountedCrossbowman",
+      "label": "Heavy Mounted Crossbowman"
+    },
+    {
+      "value": "varangianGuard",
+      "label": "Varangian Guard"
+    },
+    {
+      "value": "eliteVarangianGuard",
+      "label": "Elite Varangian Guard"
+    },
+    {
+      "value": "jomsviking",
+      "label": "Jomsviking"
+    },
+    {
+      "value": "eliteJomsviking",
+      "label": "Elite Jomsviking"
+    },
+    {
+      "value": "hearthTroop",
+      "label": "Hearth Troop"
+    },
+    {
+      "value": "eliteHearthTroop",
+      "label": "Elite Hearth Troop"
+    },
+    {
+      "value": "jarl",
+      "label": "Jarl"
+    },
+    {
+      "value": "eliteJarl",
+      "label": "Elite Jarl"
+    },
+    {
+      "value": "hulk",
+      "label": "Hulk"
+    },
+    {
+      "value": "warHulk",
+      "label": "War Hulk"
+    },
+    {
+      "value": "catapultGalleon",
+      "label": "Catapult Galleon"
+    },
+    {
+      "value": "champiScout",
+      "label": "Champi Scout"
+    },
+    {
+      "value": "champiRunner",
+      "label": "Champi Runner"
+    },
+    {
+      "value": "champiWarrior",
+      "label": "Champi Warrior"
+    },
+    {
+      "value": "eliteChampiWarrior",
+      "label": "Elite Champi Warrior"
+    },
+    {
+      "value": "ibirapemaWarrior",
+      "label": "Ibirapema Warrior"
+    },
+    {
+      "value": "eliteIbirapemaWarrior",
+      "label": "Elite Ibirapema Warrior"
+    },
+    {
+      "value": "blackwoodArcher",
+      "label": "Blackwood Archer"
+    },
+    {
+      "value": "eliteBlackwoodArcher",
+      "label": "Elite Blackwood Archer"
+    },
+    {
+      "value": "bolasRider",
+      "label": "Bolas Rider"
+    },
+    {
+      "value": "eliteBolasRider",
+      "label": "Elite Bolas Rider"
+    },
+    {
+      "value": "kona",
+      "label": "Kona"
+    },
+    {
+      "value": "eliteKona",
+      "label": "Elite Kona"
+    },
+    {
+      "value": "templeGuard",
+      "label": "Temple Guard"
+    },
+    {
+      "value": "eliteTempleGuard",
+      "label": "Elite Temple Guard"
+    },
+    {
+      "value": "guechaWarrior",
+      "label": "Guecha Warrior"
+    },
+    {
+      "value": "eliteGuechaWarrior",
+      "label": "Elite Guecha Warrior"
     }
   ],
   "resources": [
@@ -2435,6 +2667,30 @@
     {
       "value": "khitans",
       "label": "Khitans"
+    },
+    {
+      "value": "danes",
+      "label": "Danes"
+    },
+    {
+      "value": "saxons",
+      "label": "Saxons"
+    },
+    {
+      "value": "varangians",
+      "label": "Varangians"
+    },
+    {
+      "value": "mapuche",
+      "label": "Mapuche"
+    },
+    {
+      "value": "muisca",
+      "label": "Muisca"
+    },
+    {
+      "value": "tupi",
+      "label": "Tupi"
     }
   ]
 }

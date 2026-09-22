@@ -47,7 +47,7 @@
     },
     {
       "name": "Byzantines",
-      "uniqueUnits": ["Cataphract"],
+      "uniqueUnits": ["Cataphract", "VarangianGuard"],
       "uniqueTechs": ["GreekFire", "Logistica"]
     },
     {
@@ -66,6 +66,11 @@
       "uniqueTechs": ["SteppeHusbandry", "CumanMercenaries"]
     },
     {
+      "name": "Danes",
+      "uniqueUnits": ["Jomsviking", "VarangianGuard", "MountedCrossbowman", "Longship"],
+      "uniqueTechs": ["Hamask", "NorthmensFury"]
+    },
+    {
       "name": "Dravidians",
       "uniqueUnits": ["UrumiSwordsman", "Thirisadai"],
       "uniqueTechs": ["MedicalCorps", "WootzSteel"]
@@ -78,7 +83,7 @@
     {
       "name": "Franks",
       "uniqueUnits": ["ThrowingAxeman"],
-      "uniqueTechs": ["Chivalry", "BeardedAxe"]
+      "uniqueTechs": ["OrdonnanceCompanies", "Chivalry"]
     },
     {
       "name": "Georgians",
@@ -113,7 +118,7 @@
     {
       "name": "Italians",
       "uniqueUnits": ["GenoeseCrossbowman", "Condottiero"],
-      "uniqueTechs": ["Pavise", "SilkRoad"]
+      "uniqueTechs": ["SilkRoad", "Pirotechnia"]
     },
     {
       "name": "Japanese",
@@ -138,7 +143,7 @@
     {
       "name": "Koreans",
       "uniqueUnits": ["WarWagon", "TurtleShip"],
-      "uniqueTechs": ["Panokseon", "Shinkichon"]
+      "uniqueTechs": ["Eupseong", "Shinkichon"]
     },
     {
       "name": "Lithuanians",
@@ -173,7 +178,7 @@
     {
       "name": "Maya",
       "uniqueUnits": ["PlumedArcher"],
-      "uniqueTechs": ["HulcheJavelineers", "ElDorado"]
+      "uniqueTechs": ["HulcheJavelineers", "Holcans"]
     },
     {
       "name": "Mongols",
@@ -183,7 +188,7 @@
     {
       "name": "Persians",
       "uniqueUnits": ["WarElephant"],
-      "uniqueTechs": ["Kamandaran", "Mahouts"]
+      "uniqueTechs": ["Kamandaran", "Citadels"]
     },
     {
       "name": "Poles",
@@ -193,7 +198,7 @@
     {
       "name": "Portuguese",
       "uniqueUnits": ["OrganGun", "Caravel"],
-      "uniqueTechs": ["Carrack", "Arquebus"]
+      "uniqueTechs": ["Circumnavigation", "Arquebus"]
     },
     {
       "name": "Romans",
@@ -201,9 +206,14 @@
       "uniqueTechs": ["Ballistas", "Comitatenses"]
     },
     {
+      "name": "Saxons",
+      "uniqueUnits": ["HearthTroop", "VarangianGuard", "MountedCrossbowman", "Longship"],
+      "uniqueTechs": ["ClericalRecruitment", "ShieldWall"]
+    },
+    {
       "name": "Saracens",
       "uniqueUnits": ["Mameluke"],
-      "uniqueTechs": ["Madrasah", "Zealotry"]
+      "uniqueTechs": ["Bimaristan", "Counterweights"]
     },
     {
       "name": "Shu",
@@ -219,7 +229,7 @@
     {
       "name": "Slavs",
       "uniqueUnits": ["Boyar"],
-      "uniqueTechs": ["Orthodoxy", "Druzhina"]
+      "uniqueTechs": ["Detinets", "Druzhina"]
     },
     {
       "name": "Spanish",
@@ -247,26 +257,31 @@
       "uniqueTechs": ["Sipahi", "Artillery"]
     },
     {
+      "name": "Varangians",
+      "uniqueUnits": ["Jarl", "VarangianGuard", "MountedCrossbowman", "Longship"],
+      "uniqueTechs": ["VendelLegacy", "Gothikon"]
+    },
+    {
       "name": "Vietnamese",
       "uniqueUnits": ["RattanArcher"],
       "uniqueTechs": ["Chatras", "PaperMoney"]
     },
     {
       "name": "Vikings",
-      "uniqueUnits": ["Berserk", "Longboat"],
-      "uniqueTechs": ["Chieftains", "Berserkergang"]
+      "uniqueUnits": ["Berserk", "VarangianGuard", "MountedCrossbowman", "Longship"],
+      "uniqueTechs": ["Chieftains", "Bogsveigar"]
     },
     {
       "name": "Wei",
       "uniqueUnits": ["Tiger Cavalry", "Xianbei Raider"],
       "hero": "Cao Cao",
-      "uniqueTechs": ["Tuntian", "Ming Guang Armor"]
+      "uniqueTechs": ["Tuntian", "Ming-Kuang Armor"]
     },
     {
       "name": "Wu",
       "uniqueUnits": ["Fire Archer", "Jian Swordsman"],
       "hero": "Sun Jian",
-      "uniqueTechs": ["Red Cliffs Tactics", "Sitting Tiger"]
+      "uniqueTechs": ["Red Cliff Tactics", "Sitting Tiger"]
     }
   ]
 }
